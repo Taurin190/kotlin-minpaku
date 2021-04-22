@@ -16,12 +16,16 @@ Serverside Kotlin練習用のプロジェクト。
 - これまでの月毎の売り上げ金額の確認
 
 ## Setup
-Update later
+```
+# Start DB and Redis
+$ docker-compose up -d
+
+```
 
 ## 技術情報
 - Java Open JDK 11.0.2
 - Kotlin 1.5.0-RC
 - Gradle wrapper 6.8.3
 - Springboot 2.5.0-SNAPSHOT
-- MySQL 5.7
+- MySQL 8.0
 - Redis
