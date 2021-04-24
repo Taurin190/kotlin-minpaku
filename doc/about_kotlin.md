@@ -79,4 +79,87 @@ Kotlinでは通常の変数はNULLを許容せずコンパイルエラーが発�
 NULL可能値を開発者に明示的に宣言させることで、
 NullPointerExceptionでのException発生と全てにNULLチェックを書くような苦痛を軽減してくれる。
 
+Kotlinでは何も宣言しなければnull許容しないので、
+以下のような記述ではコンパイルエラーになる。
+```Kotlin
+var a: String = "abc"
+a = null // compilation error
+```
+
+null許容にする場合には、`String?`のような書き方をする。
+```Kotlin
+var b: String? = "abc"
+b = null // ok
+```
+
+この例の`b`で以下のような記述をした場合にはエラーが発生する可能性がある。
+コンパイラがエラーを出す。
+```Kotlin
+val l = b.length // error: variable 'b' can be null
+```
+
+そのため、記述は以下のように行う。
+```Kotlin
+// パターン1
+val l = if (b != null) b.length else -1
+
+// パターン2
+if (b != null && b.length > 0)
+    print("String of length ${b.length}")
+else
+    print("Empty string")
+
+// パターン3
+b?.length // bがnullの場合はnullを返す
+```
+パターン3の場合は、このlengthを受け取る方もnull許容になる必要があり、
+null許容が連鎖してしまうため基本的にパターン１,２のように扱うのが良いかもしれない。
+
+#### Elvis Operator
+先ほどの例にあったように以下のような記述はエルビス演算子[^4]で次のように記述することができる。
+```Kotlin
+val l: Int = if (b != null) b.length else -1
+
+// With Elvis Operator
+val l = b?.length ?: -1
+```
+[^4]:"?:"がリーゼントヘアーのエルビスプレスリーに見えることから付けられた名前。三項演算子の二項目が無いものと同様。
+
+#### Exceptionを出すNULL非許容
+"!!"演算子を付けて宣言を行うことで、NullPointerExceptionを出す変数の宣言が行える。
+NPEをあえて使用したい場合には以下のように記述する。
+```Kotlin
+val l = b!!.length()
+```
+#### Safe Casts
+以下のように`as?`のように付けると型のキャストが行える。
+キャストに失敗した場合には、nullが返るため以下の例では`aInt`は`Int?`となる。
+```Kotlin
+val aInt: Int? = a as? Int
+```
+詳細に書かれたブログ: http://kotlindive.hatenablog.jp/entry/2018/02/01/192212
+
+### 型チェック
+型チェックには`is`を使う。チェック後は明示的に変数を使用できる。
+```Kotlin
+fun getStringLength(obj: Any): Int? {
+  if (obj is String) {
+    // `obj` はこのブランチ内では自動的に`String`へキャストされる
+    return obj.length
+  }
+
+  // `obj` は型チェックが行われたブランチ外では、まだ`Any`型である
+  return null
+}
+```
+
+### 範囲の指定
+`in`演算子を使う。範囲の指定は`..`で行う。
+```Kotlin
+if (x in 1..100)
+  print("OK")
+```
+
+### イディオム
+詳しいドキュメント: https://dogwood008.github.io/kotlin-web-site-ja/docs/reference/idioms.html
 
