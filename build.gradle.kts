@@ -25,6 +25,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-devtools")
+	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.8")
+	testImplementation("io.kotlintest:kotlintest-extensions-spring:3.1.8")
 }
 
 tasks.withType<KotlinCompile> {
