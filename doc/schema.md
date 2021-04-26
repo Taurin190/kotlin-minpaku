@@ -9,18 +9,18 @@ entity "User" as user {
   *user_id : number <<generated>>
   --
   name : text
-  *permission: number
+  *permission_id: number
 }
 
-entity "Admin" as admin {
-  *user_id : number <<generated>>
+entity "Permission" as per {
+  *permission_id : number <<generated>>
   --
   name : text
-  password: password
+  description : text
   email: text
 }
 
-entity "Visitor" as vis {
+entity "Profile" as pro {
   *user_id : number <<generated>>
   --
   name : text
@@ -30,8 +30,8 @@ entity "Visitor" as vis {
   phone_number: text
 }
 
-user |o..|{ admin
-user |o..|{ vis
+user |o..|{ per
+user |o..|{ pro
 
 entity "Reservation" as res {
   *reservation_id : number <<generated>>
