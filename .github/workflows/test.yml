@@ -44,5 +44,5 @@ jobs:
           distribution: 'adopt'
       # Runs a single command using the runners shell
       - name: Run Unit Tests
-        run: export SPRING_DATASOURCE_URL=db;./gradlew test
+        run: ./gradlew test
 
