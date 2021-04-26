@@ -17,7 +17,6 @@ entity "Permission" as per {
   --
   name : text
   description : text
-  email: text
 }
 
 entity "Profile" as pro {
