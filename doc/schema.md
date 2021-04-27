@@ -23,7 +23,6 @@ entity "Profile" as pro {
   *user_id : number <<generated>>
   --
   name : text
-  password: password
   email: text
   address: text
   phone_number: text

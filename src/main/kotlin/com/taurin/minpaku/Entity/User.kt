@@ -1,7 +1,6 @@
 package com.taurin.minpaku.Entity
 
 import lombok.Getter
-import org.springframework.context.annotation.Primary
 import javax.persistence.*
 
 @Entity
@@ -15,7 +14,7 @@ data class User (
     @Column(nullable = false)
     @Getter
     val password: String,
-    @Column(name = "permission_id", columnDefinition = "int default 0")
+        @Column(name = "permission_id", columnDefinition = "int default 0")
     @Getter
     var permissionId: Int = 0
 )
