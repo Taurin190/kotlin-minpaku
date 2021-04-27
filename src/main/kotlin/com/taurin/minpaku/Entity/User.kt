@@ -11,6 +11,8 @@ data class User (
     @Column(name = "user_id")
     @Getter
     val userId: Long,
+    @Column(name = "username", nullable = false)
+    val userName: String,
     @Column(nullable = false)
     @Getter
     val password: String,
