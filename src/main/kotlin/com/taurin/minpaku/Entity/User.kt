@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user")
-data class User (
+data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -16,7 +16,7 @@ data class User (
     @Column(nullable = false)
     @Getter
     val password: String,
-        @Column(name = "permission_id", columnDefinition = "int default 0")
+    @Column(name = "permission_id", columnDefinition = "int default 0")
     @Getter
     var permissionId: Int = 0
 )

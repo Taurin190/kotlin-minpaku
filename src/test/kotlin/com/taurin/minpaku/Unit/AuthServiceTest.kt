@@ -6,12 +6,11 @@ import com.taurin.minpaku.Repository.UserRepository
 import com.taurin.minpaku.Service.AuthService
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
@@ -26,9 +25,10 @@ class AuthServiceTest {
     @Test
     fun testLoadUserByUserName() {
         val testUser = User(1, "testuser", "password", 1)
-        every { userRepository.findByUserName() } returns testUser
+        every { userRepository.findByUserName("testuser") } returns testUser
         val authService = AuthService(userRepository)
         val actual = authService.loadUserByUserName("testuser")
-        assertTrue(actual is UserDetails)
+        assertThat( actual.username).isEqualTo("testuser")
+        assertThat( actual.password).isEqualTo("password")
     }
 }

@@ -29,14 +29,21 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-devtools")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	implementation("mysql:mysql-connector-java")
 
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "junit")
+		exclude(module = "mockito-core")
+	}
+	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("net.bytebuddy:byte-buddy:1.9.12")
+	testImplementation("com.ninja-squad:springmockk:3.0.1")
 	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.8")
 	testImplementation("io.kotlintest:kotlintest-extensions-spring:3.1.8")
 
