@@ -1,4 +1,4 @@
-package com.taurin.minpaku
+package com.taurin.minpaku.Unit
 
 import org.junit.jupiter.api.Test
 
