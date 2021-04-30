@@ -27,7 +27,7 @@ class AuthServiceTest {
         val testUser = User(1, "testuser", "password", 1)
         every { userRepository.findByUserName("testuser") } returns testUser
         val authService = AuthService(userRepository)
-        val actual = authService.loadUserByUserName("testuser")
+        val actual = authService.loadUserByUsername("testuser")
         assertThat( actual.username).isEqualTo("testuser")
         assertThat( actual.password).isEqualTo("password")
     }
