@@ -10,7 +10,7 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @Getter
-    val userId: Long,
+    val userId: Long?,
     @Column(name = "username", nullable = false)
     val userName: String,
     @Column(nullable = false)
