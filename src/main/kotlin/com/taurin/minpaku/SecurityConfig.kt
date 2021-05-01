@@ -1,7 +1,6 @@
 package com.taurin.minpaku
 
 import com.taurin.minpaku.Exception.AuthenticationFailureHandler
-import com.taurin.minpaku.Repository.UserRepository
 import com.taurin.minpaku.Service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
@@ -32,9 +31,9 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
         http.formLogin()
             .loginProcessingUrl("/login")   // 認証処理のパス
-            .loginPage("/")            // ログインフォームのパス
+            .loginPage("/login")            // ログインフォームのパス
             .failureHandler(AuthenticationFailureHandler())       // 認証失敗時に呼ばれるハンドラクラス
-            .defaultSuccessUrl("/login/success")     // 認証成功時の遷移先
+            .defaultSuccessUrl("/")     // 認証成功時の遷移先
             .usernameParameter("username").passwordParameter("password")  // ユーザー名、パスワードのパラメータ名
             .and()
 
