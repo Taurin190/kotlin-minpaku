@@ -1,6 +1,5 @@
 package com.taurin.minpaku.Entity
 
-import lombok.Getter
 import javax.persistence.*
 
 @Entity
@@ -9,14 +8,11 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    @Getter
-    val userId: Long?,
+    val userId: Long? = null,
     @Column(name = "username", nullable = false)
-    val userName: String,
+    val userName: String = "",
     @Column(nullable = false)
-    @Getter
-    val password: String,
+    val password: String = "",
     @Column(name = "permission_id", columnDefinition = "int default 0")
-    @Getter
     var permissionId: Int = 0
 )
