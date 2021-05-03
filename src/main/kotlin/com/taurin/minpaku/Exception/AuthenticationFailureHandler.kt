@@ -12,6 +12,6 @@ class AuthenticationFailureHandler: AuthenticationFailureHandler {
         exception: AuthenticationException?
     ) {
         // ログイン画面にリダイレクト
-        response.sendRedirect(request.contextPath + "/login")
+        response.sendRedirect(request.contextPath + "/login?error")
     }
 }
