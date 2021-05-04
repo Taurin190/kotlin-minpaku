@@ -7,12 +7,13 @@ import javax.persistence.*
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     val userId: Long? = null,
     @Column(name = "username", nullable = false)
     val userName: String = "",
     @Column(nullable = false)
     val password: String = "",
-    @Column(name = "permission_id", columnDefinition = "int default 0")
-    var permissionId: Int = 0
+    @Column(columnDefinition = "int default 0")
+    var permissionId: Int = 0,
+    @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var profile: Profile? = null
 )

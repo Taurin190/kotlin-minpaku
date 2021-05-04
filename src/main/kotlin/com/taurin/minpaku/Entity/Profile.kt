@@ -1,22 +1,22 @@
 package com.taurin.minpaku.Entity
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "profile")
 data class Profile(
     @Id
-    @Column(name = "user_id")
-    var userId: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+    @OneToOne(cascade = [CascadeType.REMOVE])
+    @JoinColumn(name = "user_id")
+    var user: User? = null,
     @Column(nullable = false)
-    var name: String,
+    var name: String = "",
     @Column(nullable = false)
-    var email: String,
+    var email: String = "",
     @Column(nullable = false)
-    var address: String,
+    var address: String = "",
     @Column(name = "phone_number", nullable = false)
-    var phoneNumber: String
+    var phoneNumber: String = ""
 )
