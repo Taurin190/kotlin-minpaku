@@ -1,5 +1,6 @@
 package com.taurin.minpaku.Service
 
+import com.taurin.minpaku.Enum.Permission
 import com.taurin.minpaku.Repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.User
@@ -23,7 +24,7 @@ class AuthService(@Autowired val userRepository: UserRepository) : UserDetailsSe
             null,
             userName,
             passwordEncoder.encode(password),
-            1
+            Permission.USER
         )
         userRepository.save(user)
     }
