@@ -49,8 +49,9 @@ class AuthController(@Autowired private val authService: AuthService) {
     }
 
     @PostMapping("/register")
-    fun register(@ModelAttribute form: LoginForm, mav: ModelAndView): ModelAndView {
+    fun register(@ModelAttribute form: RegisterForm, mav: ModelAndView): ModelAndView {
         mav.viewName = "register"
+        authService.register(form.username, form.password)
         return mav
     }
 

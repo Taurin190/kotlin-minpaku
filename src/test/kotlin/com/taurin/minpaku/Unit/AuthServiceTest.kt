@@ -2,6 +2,7 @@ package com.taurin.minpaku.Unit
 
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Entity.User
+import com.taurin.minpaku.Enum.Permission
 import com.taurin.minpaku.Repository.UserRepository
 import com.taurin.minpaku.Service.AuthService
 import io.mockk.MockKAnnotations
@@ -33,7 +34,7 @@ class AuthServiceTest {
 
     @Test
     fun testLoadUserByUserName() {
-        val testUser = User(1, "testuser", "password", 1)
+        val testUser = User(1, "testuser", "password", Permission.USER)
         every { userRepository.findByUserName("testuser") } returns testUser
         val actual = authService.loadUserByUsername("testuser")
         assertThat( actual.username).isEqualTo("testuser")
@@ -46,7 +47,7 @@ class AuthServiceTest {
             null,
             "testuser",
             "password",
-            1
+            Permission.USER
         )
         every { userRepository.save(any()) } returns testUser
         authService.register("testuser", "password")
