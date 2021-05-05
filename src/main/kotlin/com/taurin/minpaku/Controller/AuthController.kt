@@ -35,12 +35,6 @@ class AuthController(@Autowired private val authService: AuthService) {
         return mav
     }
 
-    @GetMapping("/logout")
-    fun logout(mav: ModelAndView): ModelAndView {
-        mav.viewName = "home"
-        return mav
-    }
-
     @GetMapping("/register")
     fun registerForm(mav: ModelAndView): ModelAndView {
         mav.viewName = "register"

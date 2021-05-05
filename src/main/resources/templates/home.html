@@ -7,7 +7,8 @@
 <body>
 <h1>
   Home
-  <strong sec:authorize="isAuthenticated()">認証済み</strong>
 </h1>
+<strong sec:authorize="isAuthenticated()">認証済み</strong>
+<strong sec:authorize="!isAuthenticated()">未認証</strong>
 </body>
 </html>

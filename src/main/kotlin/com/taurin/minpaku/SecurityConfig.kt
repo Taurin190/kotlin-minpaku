@@ -30,7 +30,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
-            .antMatchers("/", "/login", "/logout", "/register").permitAll()
+            .antMatchers("/", "/login", "/register").permitAll()
             .anyRequest().authenticated()
 
         http.formLogin()
@@ -44,7 +44,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         // ログアウト
         http.logout()
             .logoutRequestMatcher(AntPathRequestMatcher("/logout**"))
-            .logoutSuccessUrl("/")
+            .logoutSuccessUrl("/login")
+            .invalidateHttpSession(true)
     }
 
     @Configuration
