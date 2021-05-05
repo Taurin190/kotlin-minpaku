@@ -1,10 +1,13 @@
-<html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <title>Home</title>
 </head>
 <body>
 <h1>
   Home
+  <strong sec:authorize="isAuthenticated()">認証済み</strong>
 </h1>
 </body>
 </html>
