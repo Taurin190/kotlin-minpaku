@@ -1,4 +1,7 @@
 # Minpaku Reservation System
+![](https://github.com/Taurin190/kotlin-minpaku/workflows/App%20Test%20CI/badge.svg)
+[![codecov](https://codecov.io/gh/Taurin190/kotlin-minpaku/branch/main/graph/badge.svg?token=MONFN7U85C)](https://codecov.io/gh/Taurin190/kotlin-minpaku)
+
 Serverside Kotlin練習用のプロジェクト。
 ホテル（民泊）の予約管理システム。
 
