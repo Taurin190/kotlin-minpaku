@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
+import javax.servlet.http.HttpSession
 
 @Controller
 @RequestMapping("/")
 class AuthController(@Autowired private val authService: AuthService) {
+    @Autowired
+    private lateinit var session: HttpSession
+
     @GetMapping("/login")
     fun loginForm(mav: ModelAndView): ModelAndView {
+        val errorMessage: String? = session.getAttribute("error") as? String
+        if (errorMessage != null) {
+            mav.addObject("error", errorMessage)
+            session.removeAttribute("error")
+        }
         mav.viewName = "login"
         mav.addObject("loginForm", LoginForm())
         return mav
@@ -23,8 +32,6 @@ class AuthController(@Autowired private val authService: AuthService) {
 
     @PostMapping("/login")
     fun login(@ModelAttribute form: LoginForm, mav: ModelAndView): ModelAndView {
-        print(form.username)
-        print(form.password)
         mav.viewName = "login"
         return mav
     }
