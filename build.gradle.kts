@@ -5,6 +5,20 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.5.0-RC"
 	kotlin("plugin.spring") version "1.5.0-RC"
+	jacoco
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.isEnabled = true
+		csv.isEnabled = false
+		html.destination = layout.buildDirectory.dir("jacocoHtml").get().asFile
+	}
 }
 
 group = "com.taurin"
