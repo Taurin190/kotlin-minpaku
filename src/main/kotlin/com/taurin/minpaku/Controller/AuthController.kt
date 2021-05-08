@@ -30,18 +30,6 @@ class AuthController(@Autowired private val authService: AuthService) {
         return mav
     }
 
-    @PostMapping("/login")
-    fun login(@ModelAttribute form: LoginForm, mav: ModelAndView): ModelAndView {
-        mav.viewName = "login"
-        return mav
-    }
-
-    @GetMapping("/login/success")
-    fun loginSuccess(mav: ModelAndView): ModelAndView {
-        mav.viewName = "login"
-        return mav
-    }
-
     @GetMapping("/register")
     fun registerForm(mav: ModelAndView): ModelAndView {
         mav.viewName = "register"
