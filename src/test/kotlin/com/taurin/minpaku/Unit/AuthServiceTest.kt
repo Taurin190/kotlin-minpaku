@@ -19,7 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = ["application.runner.enabled=false"]
+)
 class AuthServiceTest {
     @MockkBean
     private lateinit var userRepository: UserRepository
@@ -53,4 +56,17 @@ class AuthServiceTest {
         authService.register("testuser", "password")
         verify { userRepository.save(any()) }
     }
+
+//    @Test
+//    fun testRegisterAdmin() {
+//        val testAdmin = User(
+//            null,
+//            "testuser",
+//            "password",
+//            Permission.ADMIN
+//        )
+//        every { userRepository.insertIgnore("testUser", "password", Permission.ADMIN) }
+//        authService.registerAdminUser(testAdmin)
+//        verify { userRepository.insertIgnore("testUser", "password", Permission.ADMIN) }
+//    }
 }

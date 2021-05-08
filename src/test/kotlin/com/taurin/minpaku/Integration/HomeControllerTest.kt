@@ -8,7 +8,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpStatus
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = ["application.runner.enabled=false"]
+)
 class HomeControllerTest(@Autowired val restTemplate: TestRestTemplate) {
     @Test
     fun testHome() {
