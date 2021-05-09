@@ -1,5 +1,6 @@
 package com.taurin.minpaku.Controller
 
+import com.taurin.minpaku.Exception.DBException
 import com.taurin.minpaku.Form.LoginForm
 import com.taurin.minpaku.Form.RegisterForm
 import com.taurin.minpaku.Service.AuthService
@@ -40,7 +41,11 @@ class AuthController(@Autowired private val authService: AuthService) {
     @PostMapping("/register")
     fun register(@ModelAttribute form: RegisterForm, mav: ModelAndView): ModelAndView {
         mav.viewName = "register"
-        authService.register(form.username, form.password)
+        try {
+            authService.register(form.username, form.password)
+        } catch (e: DBException) {
+            mav.addObject("error", e.message)
+        }
         return mav
     }
 
