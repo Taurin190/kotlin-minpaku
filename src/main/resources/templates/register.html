@@ -7,7 +7,7 @@
   新規登録
 </h1>
 <div>
-  <div th:if="${error}"><span th:text="${error}"></span></div>
+  <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
   <form method="post" th:action="@{/register}" th:object="${registerForm}">
     <div>
       <label>ユーザID</label>
