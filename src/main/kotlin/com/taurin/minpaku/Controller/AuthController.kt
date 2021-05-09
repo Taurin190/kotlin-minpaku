@@ -6,12 +6,14 @@ import com.taurin.minpaku.Form.RegisterForm
 import com.taurin.minpaku.Service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpSession
+import javax.validation.Valid
 
 @Controller
 @RequestMapping("/")
@@ -39,8 +41,14 @@ class AuthController(@Autowired private val authService: AuthService) {
     }
 
     @PostMapping("/register")
-    fun register(@ModelAttribute form: RegisterForm, mav: ModelAndView): ModelAndView {
+    fun register(
+        @Valid form: RegisterForm,
+        bindingResult: BindingResult,
+        @ModelAttribute mav: ModelAndView): ModelAndView {
         mav.viewName = "register"
+        if (bindingResult.hasErrors()) {
+            return mav
+        }
         try {
             authService.register(form.username, form.password)
         } catch (e: DBException) {

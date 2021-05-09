@@ -12,10 +12,12 @@
     <div>
       <label>ユーザID</label>
       <input type="text" th:field="*{username}" />
+      <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
     </div>
     <div>
       <lable>パスワード</lable>
       <input type="password" th:field="*{password}" />
+      <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
     </div>
     <input type="submit" value="登録" />
   </form>
