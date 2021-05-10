@@ -22,6 +22,4 @@ class RegisterForm {
     @Size(min = 5, max = 255)
     @Pattern(regexp = "[a-zA-Z0-9]*", message = "英数字のみ有効です。")
     var passwordMatch: String = ""
-    @Email
-    var email: String = ""
 }
