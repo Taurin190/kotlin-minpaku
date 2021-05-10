@@ -32,27 +32,31 @@ class ProfileServiceTest {
 
     @Test
     fun testRegister() {
-        val testUser = User(
-            10,
+
+        every {
+            profileRepository.saveWithUserName(
             "testtaro",
-            "password"
-        )
-        val testProfile = Profile(
-            null,
-            testUser,
             "Test Taro",
             "test@test.com",
             "test test 123",
             "123-456-789"
-        )
-        every { profileRepository.save(any()) } returns testProfile
+            )
+        } returns Unit
         profileService.register(
-            testUser,
+            "testtaro",
             "Test Taro",
             "test@test.com",
             "test test 123",
             "123-456-789"
         )
-        verify { profileRepository.save(any()) }
+        verify {
+            profileRepository.saveWithUserName(
+                "testtaro",
+                "Test Taro",
+                "test@test.com",
+                "test test 123",
+                "123-456-789"
+            )
+        }
     }
 }

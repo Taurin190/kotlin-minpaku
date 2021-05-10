@@ -4,7 +4,7 @@ import javax.persistence.*
 import com.taurin.minpaku.Enum.Permission
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", indexes = arrayOf(Index(name = "username_index", columnList = "username", unique = true)))
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
