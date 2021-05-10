@@ -30,8 +30,6 @@ class AuthServiceTest {
     @Autowired
     private lateinit var authService: AuthService
 
-    private val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
-
     @BeforeEach
     fun setUp() = MockKAnnotations.init(this)
 
@@ -57,16 +55,16 @@ class AuthServiceTest {
         verify { userRepository.save(any()) }
     }
 
-//    @Test
-//    fun testRegisterAdmin() {
-//        val testAdmin = User(
-//            null,
-//            "testuser",
-//            "password",
-//            Permission.ADMIN
-//        )
-//        every { userRepository.insertIgnore("testUser", "password", Permission.ADMIN) }
-//        authService.registerAdminUser(testAdmin)
-//        verify { userRepository.insertIgnore("testUser", "password", Permission.ADMIN) }
-//    }
+    @Test
+    fun testRegisterAdmin() {
+        val testAdmin = User(
+            null,
+            "testuser",
+            "password",
+            Permission.ADMIN
+        )
+        every { userRepository.insertIgnore("testuser", "password", 1) } returns Unit
+        authService.registerAdminUser(testAdmin)
+        verify { userRepository.insertIgnore("testuser", "password", 1) }
+    }
 }
