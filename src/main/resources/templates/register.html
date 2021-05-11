@@ -19,6 +19,11 @@
       <input type="password" th:field="*{password}" />
       <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
     </div>
+    <div>
+      <lable>パスワード（再確認）</lable>
+      <input type="password" th:field="*{password}" />
+      <td th:if="${#fields.hasErrors('passwordMatch')}" th:errors="*{passwordMatch}">Password Match Error</td>
+    </div>
     <input type="submit" value="登録" />
   </form>
 </div>

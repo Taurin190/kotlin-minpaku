@@ -7,6 +7,7 @@ import com.taurin.minpaku.Service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
+import org.springframework.validation.FieldError
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
@@ -46,6 +47,14 @@ class AuthController(@Autowired private val authService: AuthService) {
         bindingResult: BindingResult,
         @ModelAttribute mav: ModelAndView): ModelAndView {
         mav.viewName = "register"
+        if (!form.password.equals(form.passwordMatch)) {
+            val fieldError = FieldError(
+                bindingResult.objectName,
+                "password",
+                "パスワードが一致しません。"
+            )
+            bindingResult.addError(fieldError)
+        }
         if (bindingResult.hasErrors()) {
             return mav
         }

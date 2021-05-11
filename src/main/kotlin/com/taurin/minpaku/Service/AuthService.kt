@@ -39,7 +39,7 @@ class AuthService(@Autowired val userRepository: UserRepository) : UserDetailsSe
         val userDetails = AuthUser
             .withUsername(user.userName)
             .password(user.password)
-            .roles("USER")
+            .roles(user.permission.toString())
             .build()
         return userDetails
     }
