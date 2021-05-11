@@ -24,4 +24,10 @@ interface ProfileRepository : JpaRepository<Profile, Long> {
         @Param("address") address: String,
         @Param("phone") phone: String
     )
+
+    @Query(
+        value = "SELECT p FROM profile p WHERE p.user_id = (SELECT u.user_id FROM user u WHERE u.username = :username);",
+        nativeQuery = true
+    )
+    fun findByUsername(@Param("username") userName: String) : Profile
 }
