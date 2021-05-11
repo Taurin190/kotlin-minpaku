@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login</title>
+</head>
+<body>
+<h1>
+  プロフィール
+</h1>
+<div>
+  <div>
+    <label>氏名</label>
+    <span th:text="${profile.name}"></span>
+  </div>
+  <div>
+    <lable>メールアドレス</lable>
+    <span th:text="${profile.email}"></span>
+  </div>
+  <div>
+    <lable>住所</lable>
+    <span th:text="${profile.address}"></span>
+  </div>
+  <div>
+    <lable>電話番号</lable>
+    <span th:text="${profile.phoneNumber}"></span>
+  </div>
+</div>
+</body>
+</html>

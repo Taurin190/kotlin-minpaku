@@ -1,0 +1,13 @@
+<html
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+<h1 th:text="${error}"></h1>
+<div>
+  <p>ユーザ情報の登録はこちらから</p>
+  <a th:href="@{/profile/form}">ユーザ情報登録</a>
+</div>
+</body>
+</html>

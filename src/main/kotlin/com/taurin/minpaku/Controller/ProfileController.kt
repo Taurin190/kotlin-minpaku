@@ -1,10 +1,12 @@
 package com.taurin.minpaku.Controller
 
 import com.taurin.minpaku.Exception.DBException
+import com.taurin.minpaku.Exception.ProfileNotFound
 import com.taurin.minpaku.Form.ProfileForm
 import com.taurin.minpaku.Service.ProfileService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
@@ -23,6 +25,26 @@ class ProfileController {
     private lateinit var profileService: ProfileService
 
     private val logger = LoggerFactory.getLogger(ProfileController::class.java)
+
+    @GetMapping("")
+    fun profile(
+        mav: ModelAndView,
+        @AuthenticationPrincipal userDetail: UserDetails
+    ): ModelAndView {
+        mav.viewName = "profile"
+        try {
+            val profile = profileService.findByUsername(userDetail.username)
+            mav.addObject("profile", profile)
+        } catch(e: ProfileNotFound) {
+            logger.warn("User: ${userDetail.username} access profile without register")
+            mav.viewName = "not_found"
+            mav.addObject("error", e.message)
+            mav.status = HttpStatus.NOT_FOUND
+        } catch(e: Exception) {
+            logger.error("Unexpected Exception: ${e.message}")
+        }
+        return mav
+    }
 
     @GetMapping("/form")
     fun registerForm(mav: ModelAndView): ModelAndView {

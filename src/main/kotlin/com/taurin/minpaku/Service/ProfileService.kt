@@ -2,6 +2,7 @@ package com.taurin.minpaku.Service
 
 import com.taurin.minpaku.Entity.Profile
 import com.taurin.minpaku.Exception.DBException
+import com.taurin.minpaku.Exception.ProfileNotFound
 import com.taurin.minpaku.Repository.ProfileRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,6 +31,14 @@ class ProfileService {
     }
 
     fun findByUsername(username: String) : Profile {
-        return profileRepository.findByUsername(username)
+        try {
+            var profile = profileRepository.findByUsername(username)
+            if (profile != null) {
+                return profile
+            }
+        } catch (e: Exception) {
+            logger.error("findByUsername fail with Unexpected Exception: ${e.message}")
+        }
+        throw ProfileNotFound("ユーザ情報が設定されていません。")
     }
 }
