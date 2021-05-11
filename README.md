@@ -22,7 +22,7 @@ Serverside Kotlin練習用のプロジェクト。
 ```
 # Start DB and Redis
 $ docker-compose up -d
-
+$ ./gradlew bootRun
 ```
 
 ## 技術情報
