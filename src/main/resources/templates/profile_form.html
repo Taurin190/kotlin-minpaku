@@ -1,7 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Login</title>
-</head>
+<head th:replace="common/head::common_head"></head>
 <body>
 <h1>
   プロフィール登録
@@ -32,5 +30,6 @@
     <input type="submit" value="登録" />
   </form>
 </div>
+<div th:replace="common/scripts::scripts"></div>
 </body>
 </html>
