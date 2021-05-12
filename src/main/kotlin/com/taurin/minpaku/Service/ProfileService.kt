@@ -32,12 +32,13 @@ class ProfileService {
 
     fun findByUsername(username: String) : Profile {
         try {
-            var profile = profileRepository.findByUsername(username)
+            val profile = profileRepository.findByUsername(username)
             if (profile != null) {
                 return profile
             }
         } catch (e: Exception) {
             logger.error("findByUsername fail with Unexpected Exception: ${e.message}")
+            throw DBException("ユーザ情報を取得できませんでした。")
         }
         throw ProfileNotFound("ユーザ情報が設定されていません。")
     }
