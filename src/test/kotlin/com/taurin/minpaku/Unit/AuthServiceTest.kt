@@ -3,6 +3,7 @@ package com.taurin.minpaku.Unit
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Entity.User
 import com.taurin.minpaku.Enum.Permission
+import com.taurin.minpaku.Exception.DBException
 import com.taurin.minpaku.Repository.UserRepository
 import com.taurin.minpaku.Service.AuthService
 import io.mockk.MockKAnnotations
@@ -51,6 +52,16 @@ class AuthServiceTest {
         every { userRepository.save(any()) } returns testUser
         authService.register("testuser", "password")
         verify { userRepository.save(any()) }
+    }
+
+    @Test
+    fun testRegisterWithException() {
+        every { userRepository.save(any()) } throws Exception()
+        try {
+            authService.register("testuser", "password")
+        } catch(e: DBException) {
+            assertThat(e.message).isEqualTo("既にユーザ名が使用されています。")
+        }
     }
 
     @Test
