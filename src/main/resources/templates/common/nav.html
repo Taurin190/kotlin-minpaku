@@ -11,6 +11,25 @@
     <div class="container">
       <a class="navbar-brand" th:href="@{/}">みん泊システム</a>
     </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/}">ホーム</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/profile}">プロフィール</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/login}">ログイン</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/register}">新規登録</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+          <a class="nav-link" th:href="@{/logout}">ログアウト</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 </body>
