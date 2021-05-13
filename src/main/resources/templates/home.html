@@ -3,11 +3,14 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="common/head::common_head"></head>
 <body>
-<h1>
-  Home
-</h1>
-<strong sec:authorize="isAuthenticated()">認証済み</strong>
-<strong sec:authorize="!isAuthenticated()">未認証</strong>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <h1>
+    Home
+  </h1>
+  <strong sec:authorize="isAuthenticated()">認証済み</strong>
+  <strong sec:authorize="!isAuthenticated()">未認証</strong>
+</main>
 <div th:replace="common/scripts::scripts"></div>
 </body>
 </html>

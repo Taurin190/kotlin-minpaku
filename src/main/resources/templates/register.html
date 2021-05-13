@@ -1,30 +1,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/head::common_head"></head>
 <body>
-<h1>
-  新規登録
-</h1>
-<div>
-  <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
-  <form method="post" th:action="@{/register}" th:object="${registerForm}">
-    <div>
-      <label>ユーザID</label>
-      <input type="text" th:field="*{username}" />
-      <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
-    </div>
-    <div>
-      <lable>パスワード</lable>
-      <input type="password" th:field="*{password}" />
-      <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
-    </div>
-    <div>
-      <lable>パスワード（再確認）</lable>
-      <input type="password" th:field="*{password}" />
-      <td th:if="${#fields.hasErrors('passwordMatch')}" th:errors="*{passwordMatch}">Password Match Error</td>
-    </div>
-    <input type="submit" value="登録" />
-  </form>
-</div>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <h1>
+    新規登録
+  </h1>
+  <div>
+    <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
+    <form method="post" th:action="@{/register}" th:object="${registerForm}">
+      <div>
+        <label>ユーザID</label>
+        <input type="text" th:field="*{username}" />
+        <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</td>
+      </div>
+      <div>
+        <lable>パスワード</lable>
+        <input type="password" th:field="*{password}" />
+        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+      </div>
+      <div>
+        <lable>パスワード（再確認）</lable>
+        <input type="password" th:field="*{password}" />
+        <td th:if="${#fields.hasErrors('passwordMatch')}" th:errors="*{passwordMatch}">Password Match Error</td>
+      </div>
+      <input type="submit" value="登録" />
+    </form>
+  </div>
+</main>
 <div th:replace="common/scripts::scripts"></div>
 </body>
 </html>

@@ -1,27 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/head::common_head"></head>
 <body>
-<h1>
-  プロフィール
-</h1>
-<div>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <h1>
+    プロフィール
+  </h1>
   <div>
-    <label>氏名</label>
-    <span th:text="${profile.name}"></span>
+    <div>
+      <label>氏名</label>
+      <span th:text="${profile.name}"></span>
+    </div>
+    <div>
+      <lable>メールアドレス</lable>
+      <span th:text="${profile.email}"></span>
+    </div>
+    <div>
+      <lable>住所</lable>
+      <span th:text="${profile.address}"></span>
+    </div>
+    <div>
+      <lable>電話番号</lable>
+      <span th:text="${profile.phoneNumber}"></span>
+    </div>
   </div>
-  <div>
-    <lable>メールアドレス</lable>
-    <span th:text="${profile.email}"></span>
-  </div>
-  <div>
-    <lable>住所</lable>
-    <span th:text="${profile.address}"></span>
-  </div>
-  <div>
-    <lable>電話番号</lable>
-    <span th:text="${profile.phoneNumber}"></span>
-  </div>
-</div>
+</main>
 <div th:replace="common/scripts::scripts"></div>
 </body>
 </html>

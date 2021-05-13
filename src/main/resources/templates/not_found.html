@@ -4,10 +4,13 @@
   <title>Not Found</title>
 </head>
 <body>
-<h1 th:text="${error}"></h1>
-<div>
-  <p>ユーザ情報の登録はこちらから</p>
-  <a th:href="@{/profile/form}">ユーザ情報登録</a>
-</div>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <h1 th:text="${error}"></h1>
+  <div>
+    <p>ユーザ情報の登録はこちらから</p>
+    <a th:href="@{/profile/form}">ユーザ情報登録</a>
+  </div>
+</main>
 </body>
 </html>

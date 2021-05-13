@@ -1,35 +1,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common/head::common_head"></head>
 <body>
-<h1>
-  プロフィール登録
-</h1>
-<div>
-  <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
-  <form method="post" th:action="@{/profile/register}" th:object="${profileForm}">
-    <div>
-      <label>ユーザ氏名</label>
-      <input type="text" th:field="*{name}" />
-      <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
-    </div>
-    <div>
-      <lable>メールアドレス</lable>
-      <input type="email" th:field="*{email}" />
-      <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">EMail Error</td>
-    </div>
-    <div>
-      <lable>住所</lable>
-      <input type="text" th:field="*{address}" />
-      <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</td>
-    </div>
-    <div>
-      <lable>電話番号</lable>
-      <input type="tel" th:field="*{phone}" />
-      <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
-    </div>
-    <input type="submit" value="登録" />
-  </form>
-</div>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <h1>
+    プロフィール登録
+  </h1>
+  <div>
+    <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
+    <form method="post" th:action="@{/profile/register}" th:object="${profileForm}">
+      <div>
+        <label>ユーザ氏名</label>
+        <input type="text" th:field="*{name}" />
+        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+      </div>
+      <div>
+        <lable>メールアドレス</lable>
+        <input type="email" th:field="*{email}" />
+        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">EMail Error</td>
+      </div>
+      <div>
+        <lable>住所</lable>
+        <input type="text" th:field="*{address}" />
+        <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</td>
+      </div>
+      <div>
+        <lable>電話番号</lable>
+        <input type="tel" th:field="*{phone}" />
+        <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
+      </div>
+      <input type="submit" value="登録" />
+    </form>
+  </div>
+</main>
 <div th:replace="common/scripts::scripts"></div>
 </body>
 </html>
