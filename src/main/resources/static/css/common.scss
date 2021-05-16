@@ -1,3 +1,25 @@
 main.contents {
   margin-top: 80px
 }
+
+h1.sign-in-message {
+  font-size: 24px
+}
+
+div {
+  .auth-page {
+    background-color: rgba(88, 115, 254, 0.04);
+  }
+}
+
+.auth-form {
+  padding: 50px 50px;
+}
+.authentication-content {
+  background: #fff;
+  box-shadow: 0 0 35px 0 rgba(154, 161, 171, 0.15);
+  border-radius: 5px;
+}
+.new-account {
+  font-size: 14px;
+}

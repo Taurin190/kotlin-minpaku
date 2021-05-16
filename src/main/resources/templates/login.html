@@ -2,27 +2,32 @@
 <head th:replace="common/head::common_head"></head>
 <body>
 <header th:replace="common/nav::header"></header>
-<main class="contents container">
-  <div class="col-md-10 text-center mx-auto">
-    <h1>
-      Login
-    </h1>
-    <div>
-      <div th:if="${error}"><span th:text="${error}"></span></div>
-      <form method="post" th:action="@{/login}" th:object="${loginForm}">
-        <div class="form-group">
-          <label>ユーザID</label>
-          <input type="text" th:field="*{username}" />
+<main class="contents container-fluid auth-page">
+  <div class="row justify-content-center align-items-center mx-auto">
+    <div class="authentication-content col-md-6 mt-5">
+      <div class="auth-form">
+        <h1 class="text-center sign-in-message">
+          Sign in your account
+        </h1>
+        <div>
+          <div th:if="${error}"><span th:text="${error}"></span></div>
+          <form method="post" th:action="@{/login}" th:object="${loginForm}">
+            <div class="form-group py-2">
+              <label>ユーザID</label>
+              <input type="text" class="form-control" th:field="*{username}" />
+            </div>
+            <div class="form-group py-2">
+              <lable>パスワード</lable>
+              <input type="password" class="form-control" th:field="*{password}" />
+            </div>
+            <div class="text-center pt-5">
+              <input class="btn btn-primary btn-block" type="submit" value="ログイン" />
+            </div>
+          </form>
+          <div class="new-account pt-2">
+            <p>アカウントをお持ちでない方は<a th:href="@{/register}">こちら</a>から</p>
+          </div>
         </div>
-        <div class="form-group">
-          <lable>パスワード</lable>
-          <input type="password" th:field="*{password}" />
-        </div>
-        <input type="submit" value="ログイン" />
-      </form>
-      <div>
-        <p>アカウントをお持ちでない方はこちらから</p>
-        <a th:href="@{/register}">新規登録</a>
       </div>
     </div>
   </div>
