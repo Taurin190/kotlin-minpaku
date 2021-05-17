@@ -4,7 +4,7 @@
 <header th:replace="common/nav::header"></header>
 <main class="contents container-fluid auth-page">
   <div class="row justify-content-center align-items-center mx-auto">
-    <div class="authentication-content col-md-6 mt-5">
+    <div class="authentication-content col-lg-6 mt-5">
       <div class="auth-form">
         <div class="col-12">
           <h1 class="auth-message">
@@ -12,35 +12,35 @@
           </h1>
         </div>
         <div>
-          <div class="my-4">
-            <div class="col-3">
+          <div class="my-4 col-12">
+            <div>
               <label class="text-primary">氏名</label>
             </div>
-            <div class="col-9">
+            <div>
               <span th:text="${profile.name}"></span>
             </div>
           </div>
-          <div class="my-4">
-            <div class="col-3">
+          <div class="my-4 col-12">
+            <div>
               <label class="text-primary">メールアドレス</label>
             </div>
-            <div class="col-9">
+            <div>
               <span th:text="${profile.email}"></span>
             </div>
           </div>
-          <div class="my-4">
-            <div class="col-3">
+          <div class="my-4 col-12">
+            <div>
               <label class="text-primary">住所</label>
             </div>
-            <div class="col-9">
+            <div>
               <span th:text="${profile.address}"></span>
             </div>
           </div>
-          <div class="my-4">
-            <div class="col-3">
+          <div class="my-4 col-12">
+            <div>
               <label class="text-primary">電話番号</label>
             </div>
-            <div class="col-9">
+            <div>
               <span th:text="${profile.phoneNumber}"></span>
             </div>
           </div>
