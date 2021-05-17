@@ -26,3 +26,11 @@ hs_err_pid*
 .gradle/*
 build/*
 !gradle-wrapper.jar
+
+node_modules/
+
+*.com
+*.dll
+*.exe
+*.o
+*.so
