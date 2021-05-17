@@ -2,26 +2,50 @@
 <head th:replace="common/head::common_head"></head>
 <body>
 <header th:replace="common/nav::header"></header>
-<main class="contents container">
-  <h1>
-    プロフィール
-  </h1>
-  <div>
-    <div>
-      <label>氏名</label>
-      <span th:text="${profile.name}"></span>
-    </div>
-    <div>
-      <lable>メールアドレス</lable>
-      <span th:text="${profile.email}"></span>
-    </div>
-    <div>
-      <lable>住所</lable>
-      <span th:text="${profile.address}"></span>
-    </div>
-    <div>
-      <lable>電話番号</lable>
-      <span th:text="${profile.phoneNumber}"></span>
+<main class="contents container-fluid auth-page">
+  <div class="row justify-content-center align-items-center mx-auto">
+    <div class="authentication-content col-md-6 mt-5">
+      <div class="auth-form">
+        <div class="col-12">
+          <h1 class="auth-message">
+            プロフィール
+          </h1>
+        </div>
+        <div>
+          <div class="my-4">
+            <div class="col-3">
+              <label class="text-primary">氏名</label>
+            </div>
+            <div class="col-9">
+              <span th:text="${profile.name}"></span>
+            </div>
+          </div>
+          <div class="my-4">
+            <div class="col-3">
+              <label class="text-primary">メールアドレス</label>
+            </div>
+            <div class="col-9">
+              <span th:text="${profile.email}"></span>
+            </div>
+          </div>
+          <div class="my-4">
+            <div class="col-3">
+              <label class="text-primary">住所</label>
+            </div>
+            <div class="col-9">
+              <span th:text="${profile.address}"></span>
+            </div>
+          </div>
+          <div class="my-4">
+            <div class="col-3">
+              <label class="text-primary">電話番号</label>
+            </div>
+            <div class="col-9">
+              <span th:text="${profile.phoneNumber}"></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>
