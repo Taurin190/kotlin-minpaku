@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "strict": true,
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "tsc"
+  },
+  "include": [
+    "src/main/scripts/calendar.ts",
+    "src/main/scripts/calendar.css"
+  ]
+}
