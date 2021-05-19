@@ -1,5 +1,6 @@
 package com.taurin.minpaku.Entity
 
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -18,5 +19,7 @@ data class Profile(
     @Column(nullable = false)
     var address: String = "",
     @Column(name = "phone_number", nullable = false)
-    var phoneNumber: String = ""
+    var phoneNumber: String = "",
+    var createdDatetime: Date? = null,
+    var updatedDatetime: Date? = null
 )

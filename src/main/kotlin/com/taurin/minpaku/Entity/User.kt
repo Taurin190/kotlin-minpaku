@@ -2,6 +2,7 @@ package com.taurin.minpaku.Entity
 
 import javax.persistence.*
 import com.taurin.minpaku.Enum.Permission
+import java.util.*
 
 @Entity
 @Table(name = "user", indexes = arrayOf(Index(name = "username_index", columnList = "username", unique = true)))
@@ -16,5 +17,9 @@ data class User(
     @Column(columnDefinition = "int default 0")
     var permission: Permission = Permission.USER,
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var profile: Profile? = null
+    var profile: Profile? = null,
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var reservations: List<Reservation>? = null,
+    var createdDatetime: Date? = null,
+    var updatedDatetime: Date? = null
 )
