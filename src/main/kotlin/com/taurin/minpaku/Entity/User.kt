@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 @Table(name = "user", indexes = arrayOf(Index(name = "username_index", columnList = "username", unique = true)))
-data class User(
+data class User (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val userId: Long? = null,
@@ -19,7 +19,5 @@ data class User(
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var profile: Profile? = null,
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var reservations: List<Reservation>? = null,
-    var createdDatetime: Date? = null,
-    var updatedDatetime: Date? = null
-)
+    var reservations: List<Reservation>? = null
+) : Base()

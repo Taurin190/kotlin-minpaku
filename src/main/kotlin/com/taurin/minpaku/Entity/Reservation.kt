@@ -13,7 +13,5 @@ class Reservation (
     @JoinColumn(name = "user_id", nullable = false)
     var user: User? = null,
     @OneToMany(mappedBy = "reservation", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var books: List<Book>? = null,
-    var createdDatetime: Date? = null,
-    var updatedDatetime: Date? = null
-)
+    var books: List<Book>? = null
+) : Base()

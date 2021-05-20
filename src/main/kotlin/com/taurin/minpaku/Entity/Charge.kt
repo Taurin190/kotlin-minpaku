@@ -13,6 +13,5 @@ class Charge (
     @JoinColumn(name = "book_id")
     var book: Book? = null,
     @Column(columnDefinition = "int default 2000")
-    var fee: Int = 0,
-    var createdDatetime: Date? = null
-)
+    var fee: Int = 0
+) : Base()

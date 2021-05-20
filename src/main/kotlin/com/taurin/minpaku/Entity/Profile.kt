@@ -19,7 +19,5 @@ data class Profile(
     @Column(nullable = false)
     var address: String = "",
     @Column(name = "phone_number", nullable = false)
-    var phoneNumber: String = "",
-    var createdDatetime: Date? = null,
-    var updatedDatetime: Date? = null
-)
+    var phoneNumber: String = ""
+) : Base()
