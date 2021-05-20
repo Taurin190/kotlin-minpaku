@@ -24,7 +24,7 @@
             </div>
             <div class="form-group py-2">
               <lable>パスワード（再確認）</lable>
-              <input type="password" class="form-control" th:field="*{password}" />
+              <input type="password" class="form-control" th:field="*{passwordMatch}" />
               <td th:if="${#fields.hasErrors('passwordMatch')}" th:errors="*{passwordMatch}">Password Match Error</td>
             </div>
             <div>
