@@ -1,15 +1,20 @@
 <html
     xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Not Found</title>
-</head>
+<head th:replace="common/head::common_head('Not Found - みん泊予約', '')"></head>
 <body>
 <header th:replace="common/nav::header"></header>
-<main class="contents container">
-  <h1 th:text="${error}"></h1>
-  <div>
-    <p>ユーザ情報の登録はこちらから</p>
-    <a th:href="@{/profile/form}">ユーザ情報登録</a>
+<main class="contents container-fluid auth-page">
+  <div class="row justify-content-center align-items-center mx-auto">
+    <div class="authentication-content col-lg-6 mt-5">
+      <div class="auth-form">
+        <div class="col-12">
+          <h1 th:text="${error}" class="auth-message"></h1>
+          <div class="new-account pt-2">
+            <p>ユーザ情報の登録は<a th:href="@{/profile/form}">こちら</a>から</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 </body>
