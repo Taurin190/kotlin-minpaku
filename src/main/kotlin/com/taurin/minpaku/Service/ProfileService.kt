@@ -13,7 +13,7 @@ class ProfileService {
     @Autowired
     private lateinit var profileRepository: ProfileRepository
 
-    private val logger = LoggerFactory.getLogger(AuthService::class.java)
+    private val logger = LoggerFactory.getLogger(ProfileService::class.java)
 
     fun register(username: String, name: String, email: String, address: String, phone: String) {
         try {
