@@ -14,5 +14,6 @@ class Book (
     var reservation: Reservation? = null,
     @Column(columnDefinition = "int default 1")
     var guestNum: Int = 1,
+    @Column(nullable = false, unique = true)
     var stayDate: Date? = null
 ) : Base()
