@@ -22,10 +22,12 @@ class ReserveService {
         cal.set(year, month + 1, 1)
         cal.add(Calendar.DATE, -1)
         val lastDayOfMonth = cal.get(Calendar.DATE)
+        val padMonth = "$month".padStart(2, '0')
+        logger.info("Get Data of $year-$padMonth")
         return reserveRepository
             .findAllByDuration(
-                Date.valueOf("$year-$month-1"),
-                Date.valueOf("$year-$month-$lastDayOfMonth")
+                Date.valueOf("$year-$padMonth-1"),
+                Date.valueOf("$year-$padMonth-$lastDayOfMonth")
             )
     }
 

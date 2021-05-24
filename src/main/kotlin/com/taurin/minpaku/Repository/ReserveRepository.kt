@@ -14,9 +14,9 @@ interface ReserveRepository : JpaRepository<Reservation, Long> {
     @Query(
         value = "SELECT * FROM reservation r " +
                 "JOIN book b ON r.reservation_id = b.reservation_id " +
-                "WHERE b.stay_date BETWEEN :start AND :end;", nativeQuery = true)
+                "WHERE b.stay_date BETWEEN :start_date AND :end_date ;", nativeQuery = true)
     fun findAllByDuration(
-        @Param("start") start: Date,
-        @Param("end") end: Date
+        @Param("start_date") startDate: Date,
+        @Param("end_date") endDate: Date
     ): List<Reservation>
 }

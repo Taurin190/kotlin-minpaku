@@ -40,16 +40,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5")
-//	implementation("org.springframework.boot:spring-boot-starter-data-redis")
-//	implementation("org.springframework.session:spring-session-data-redis")
 
 	implementation("org.springframework.boot:spring-boot-devtools")
-
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	implementation("mysql:mysql-connector-java")
+
+	implementation("com.google.code.gson:gson:2.8.6")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
