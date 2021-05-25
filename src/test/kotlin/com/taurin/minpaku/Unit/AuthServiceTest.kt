@@ -1,10 +1,10 @@
 package com.taurin.minpaku.Unit
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.Entity.User
+import com.taurin.minpaku.Data.Entity.User
 import com.taurin.minpaku.Enum.Permission
 import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Repository.UserRepository
+import com.taurin.minpaku.Data.Repository.UserRepository
 import com.taurin.minpaku.Service.AuthService
 import io.mockk.MockKAnnotations
 import io.mockk.every

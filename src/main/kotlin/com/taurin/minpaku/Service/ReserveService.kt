@@ -1,8 +1,8 @@
 package com.taurin.minpaku.Service
 
-import com.taurin.minpaku.Entity.Reservation
+import com.taurin.minpaku.Data.Entity.Reservation
 import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Repository.ReserveRepository
+import com.taurin.minpaku.Data.Repository.ReserveRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

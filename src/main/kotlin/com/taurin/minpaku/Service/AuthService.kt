@@ -1,9 +1,9 @@
 package com.taurin.minpaku.Service
 
-import com.taurin.minpaku.Entity.User
+import com.taurin.minpaku.Data.Entity.User
 import com.taurin.minpaku.Enum.Permission
 import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Repository.UserRepository
+import com.taurin.minpaku.Data.Repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails

@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Form
+package com.taurin.minpaku.Presentation.Form
 
 import lombok.Data
 import javax.validation.constraints.NotBlank

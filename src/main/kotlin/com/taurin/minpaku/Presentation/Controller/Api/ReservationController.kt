@@ -1,17 +1,17 @@
-package com.taurin.minpaku.Controller
+package com.taurin.minpaku.Presentation.Controller.Api
 
-import com.taurin.minpaku.Entity.Reservation
+import com.taurin.minpaku.Data.Entity.Reservation
+import com.taurin.minpaku.Presentation.Response.ApiResponse
 import com.taurin.minpaku.Service.ReserveService
 import com.taurin.minpaku.Util.DateUtil
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
+import java.time.ZonedDateTime
 
 @RestController
 @RequestMapping("/api/reservation")
-class ReservationApiController {
+class ReservationController {
     @Autowired
     private lateinit var reserveService: ReserveService
 
@@ -23,5 +23,14 @@ class ReservationApiController {
         val year = DateUtil.getValidYear(yearStr)
         val month = DateUtil.getValidMonth(monthStr)
         return reserveService.getReservationsByDuration(year, month)
+    }
+
+    @PostMapping("/add")
+    fun register() : ApiResponse {
+        return ApiResponse(
+            ZonedDateTime.now(),
+            HttpStatus.CREATED,
+            "正常に登録できました。"
+        )
     }
 }

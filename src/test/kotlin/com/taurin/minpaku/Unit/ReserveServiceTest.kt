@@ -1,9 +1,9 @@
 package com.taurin.minpaku.Unit
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.Entity.Reservation
+import com.taurin.minpaku.Data.Entity.Reservation
 import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Repository.ReserveRepository
+import com.taurin.minpaku.Data.Repository.ReserveRepository
 import com.taurin.minpaku.Service.ReserveService
 import io.mockk.MockKAnnotations
 import io.mockk.every

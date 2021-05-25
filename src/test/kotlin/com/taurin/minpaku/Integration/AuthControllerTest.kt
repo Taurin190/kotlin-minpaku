@@ -1,7 +1,7 @@
 package com.taurin.minpaku.Integration
 
-import com.taurin.minpaku.Form.LoginForm
-import com.taurin.minpaku.Form.RegisterForm
+import com.taurin.minpaku.Presentation.Form.LoginForm
+import com.taurin.minpaku.Presentation.Form.RegisterForm
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

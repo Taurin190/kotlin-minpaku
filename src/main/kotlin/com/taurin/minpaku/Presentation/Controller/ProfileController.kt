@@ -1,8 +1,8 @@
-package com.taurin.minpaku.Controller
+package com.taurin.minpaku.Presentation.Controller
 
 import com.taurin.minpaku.Exception.DBException
 import com.taurin.minpaku.Exception.ProfileNotFound
-import com.taurin.minpaku.Form.ProfileForm
+import com.taurin.minpaku.Presentation.Form.ProfileForm
 import com.taurin.minpaku.Service.ProfileService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

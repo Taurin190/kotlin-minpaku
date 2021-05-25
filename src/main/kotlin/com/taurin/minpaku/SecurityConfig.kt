@@ -1,10 +1,12 @@
 package com.taurin.minpaku
 
 import com.taurin.minpaku.Exception.AuthenticationFailureHandler
+import com.taurin.minpaku.Presentation.Request.CsrfRequestMatcher
 import com.taurin.minpaku.Service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -29,8 +31,12 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     override fun configure(http: HttpSecurity) {
+        // GETとAPIへのリクエストにはCSRFチェックを実施しない。
+        http.csrf().requireCsrfProtectionMatcher(CsrfRequestMatcher())
+
         http.authorizeRequests()
-            .antMatchers("/", "/login", "/register").permitAll()
+            .antMatchers("/", "/login", "/register", "/api/reservation/list").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/reservation/add").permitAll()
             .anyRequest().authenticated()
 
         http.formLogin()

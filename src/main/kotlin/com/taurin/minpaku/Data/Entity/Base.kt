@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Entity
+package com.taurin.minpaku.Data.Entity
 
 import java.util.*
 import javax.persistence.MappedSuperclass

@@ -1,6 +1,6 @@
-package com.taurin.minpaku.Repository
+package com.taurin.minpaku.Data.Repository
 
-import com.taurin.minpaku.Entity.User
+import com.taurin.minpaku.Data.Entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query

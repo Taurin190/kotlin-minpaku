@@ -1,8 +1,8 @@
-package com.taurin.minpaku.Controller
+package com.taurin.minpaku.Presentation.Controller
 
 import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Form.LoginForm
-import com.taurin.minpaku.Form.RegisterForm
+import com.taurin.minpaku.Presentation.Form.LoginForm
+import com.taurin.minpaku.Presentation.Form.RegisterForm
 import com.taurin.minpaku.Service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
