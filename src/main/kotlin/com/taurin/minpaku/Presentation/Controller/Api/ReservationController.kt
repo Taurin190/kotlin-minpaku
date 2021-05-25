@@ -26,6 +26,7 @@ class ReservationController {
     }
 
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     fun register() : ApiResponse {
         return ApiResponse(
             ZonedDateTime.now(),
