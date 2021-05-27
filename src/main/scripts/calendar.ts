@@ -4,6 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import './calendar.css';
+import * as dayjs from "dayjs";
+import 'dayjs/locale/ja';
 
 document.addEventListener('DOMContentLoaded', function() {
     let calendarEl: HTMLElement = document.getElementById('calendar')!;
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return createElement('div', {}, this.props.text)
         }
     }
+    const this_month = dayjs(new Date()).locale('ja').format('YYYY-MM');
 
     let calendar = new Calendar(calendarEl, {
         plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        initialDate: '2018-01-12',
+        initialDate: this_month + '-01',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         dayMaxEvents: true, // allow "more" link when too many events
