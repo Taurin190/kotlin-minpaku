@@ -48,8 +48,6 @@ dependencies {
 
 	implementation("mysql:mysql-connector-java")
 
-	implementation("com.google.code.gson:gson:2.8.6")
-
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
