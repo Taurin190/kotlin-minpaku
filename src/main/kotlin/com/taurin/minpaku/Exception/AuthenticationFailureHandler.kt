@@ -14,7 +14,7 @@ class AuthenticationFailureHandler: AuthenticationFailureHandler {
         exception: AuthenticationException?
     ) {
         request.session.setAttribute("error", "ユーザ名またはパスワードが正しくありません")
-        var username = request.getParameter("username")
+        val username = request.getParameter("username")
         logger.warn("$username : ログイン失敗")
         // ログイン画面にリダイレクト
         response.sendRedirect(request.contextPath + "/login")
