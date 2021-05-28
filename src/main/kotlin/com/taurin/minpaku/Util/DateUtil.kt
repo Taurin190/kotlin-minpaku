@@ -1,6 +1,8 @@
 package com.taurin.minpaku.Util
 
 import org.slf4j.LoggerFactory
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DateUtil {
@@ -38,6 +40,32 @@ class DateUtil {
             // 値が設定されていない、不正な値の場合は現在の月を返す
             val cal = Calendar.getInstance()
             return cal.get(Calendar.YEAR)
+        }
+
+        fun getDateFromStr(dateStr: String?): Date {
+            if (dateStr == null) {
+                return Date()
+            }
+            val sdFormat = SimpleDateFormat("yyyy-MM-dd")
+            return sdFormat.let {
+                try {
+                    it.parse(dateStr)
+                } catch (e: ParseException) {
+                    Date()
+                }
+            }
+        }
+
+        fun getNextDate(targetDate: Date): Date {
+            val cal = Calendar.getInstance()
+            cal.time = targetDate
+            cal.add(Calendar.DATE, 1)
+            return cal.time
+        }
+
+        fun getDateStr(date: Date): String {
+            val df = SimpleDateFormat("yyyy-MM-dd")
+            return df.format(date)
         }
     }
 }
