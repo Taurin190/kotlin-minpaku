@@ -7,35 +7,32 @@
     <div class="authentication-content col-md-6 mt-5">
       <div class="auth-form">
         <h1 class="text-center auth-message">
-          宿泊予約
+          宿泊予約確認
         </h1>
-        <div>
-<!--          <div class="error" th:if="${error}"><span th:text="${error}"></span></div>-->
-          <form method="post" th:action="@{/reservation/confirm}" th:object="${reservationForm}">
+        <form method="post" th:action="@{/reservation/complete}">
+          <div>
+            <p class="font-weight-bold">以下で予約を行ってよろしいですか？</p>
             <div class="form-group py-2">
               <label>宿泊者名</label>
               <p class="font-weight-bold" th:text="${name}" ></p>
             </div>
             <div class="form-group py-2">
               <label>チェックイン日</label>
-              <input type="text"  class="form-control" th:field="*{checkInDate}" />
-              <td th:if="${#fields.hasErrors('checkInDate')}" th:errors="*{checkInDate}">checkInDate Error</td>
+              <p class="font-weight-bold" th:text="${reservation.checkInDate}" ></p>
             </div>
             <div class="form-group py-2">
               <lable>チェックアウト日</lable>
-              <input type="text" class="form-control" th:field="*{checkOutDate}" />
-              <td th:if="${#fields.hasErrors('checkOutDate')}" th:errors="*{checkOutDate}">checkOutDate Error</td>
+              <p class="font-weight-bold" th:text="${reservation.checkOutDate}" ></p>
             </div>
             <div class="form-group py-2">
               <lable>宿泊人数</lable>
-              <input type="text" class="form-control" th:field="*{guestNum}" />
-              <td th:if="${#fields.hasErrors('guestNum')}" th:errors="*{guestNum}">guestNum Error</td>
+              <p class="font-weight-bold" th:text="${reservation.guestNum}" ></p>
             </div>
             <div>
-              <input class="btn btn-primary btn-block" type="submit" value="予約確認" />
+              <input class="btn btn-primary btn-block" type="submit" value="予約確定" />
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

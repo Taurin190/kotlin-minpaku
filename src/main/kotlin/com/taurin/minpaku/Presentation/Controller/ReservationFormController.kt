@@ -11,19 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.validation.BindingResult
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
+import javax.servlet.http.HttpSession
+import javax.validation.Valid
+
 
 @Controller
 @RequestMapping("/reservation")
+@SessionAttributes(types = [ReservationForm::class])
 class ReservationFormController {
     @Autowired
     private lateinit var reserveService: ReserveService
 
     @Autowired
     private lateinit var profileService: ProfileService
+
+    @Autowired
+    private lateinit var session: HttpSession
 
     private val logger = LoggerFactory.getLogger(ReservationFormController::class.java)
 
@@ -36,6 +42,8 @@ class ReservationFormController {
         lateinit var profile: Profile
         try {
             profile = profileService.findByUsername(userDetail.username)
+            session.setAttribute("name", profile.name)
+            session.setAttribute("userId", profile.user?.userId)
         } catch(e: ProfileNotFound) {
             mav.viewName = "not_found"
             mav.addObject("error", e.message)
@@ -57,6 +65,23 @@ class ReservationFormController {
         mav.viewName = "reservation_form"
         mav.addObject("name", profile.name)
         mav.addObject("reservationForm", form)
+        return mav
+    }
+
+    @PostMapping("/confirm")
+    fun confirm(
+        @Valid form: ReservationForm,
+        bindingResult: BindingResult,
+        @ModelAttribute mav: ModelAndView,
+        @AuthenticationPrincipal userDetail: UserDetails
+    ): ModelAndView {
+        if (bindingResult.hasErrors()) {
+            mav.viewName = "reservation_form"
+            return mav
+        }
+        mav.viewName = "reservation_confirm"
+        mav.addObject("reservation", form)
+        mav.addObject("name", session.getAttribute("name"))
         return mav
     }
 }
