@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpSession
@@ -70,11 +71,11 @@ class ReservationFormController {
 
     @PostMapping("/confirm")
     fun confirm(
-        @Valid form: ReservationForm,
+        @Validated form: ReservationForm,
         bindingResult: BindingResult,
-        @ModelAttribute mav: ModelAndView,
-        @AuthenticationPrincipal userDetail: UserDetails
+        @ModelAttribute mav: ModelAndView
     ): ModelAndView {
+        logger.warn(bindingResult.allErrors.toString())
         if (bindingResult.hasErrors()) {
             mav.viewName = "reservation_form"
             return mav
