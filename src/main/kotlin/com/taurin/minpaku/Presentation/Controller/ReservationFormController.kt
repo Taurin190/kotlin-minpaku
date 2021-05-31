@@ -1,6 +1,8 @@
 package com.taurin.minpaku.Presentation.Controller
 
 import com.taurin.minpaku.Data.Entity.Profile
+import com.taurin.minpaku.Data.Entity.Reservation
+import com.taurin.minpaku.Data.Entity.User
 import com.taurin.minpaku.Exception.ProfileNotFound
 import com.taurin.minpaku.Presentation.Form.ReservationForm
 import com.taurin.minpaku.Service.ProfileService
@@ -16,7 +18,6 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpSession
-import javax.validation.Valid
 
 
 @Controller
@@ -44,7 +45,7 @@ class ReservationFormController {
         try {
             profile = profileService.findByUsername(userDetail.username)
             session.setAttribute("name", profile.name)
-            session.setAttribute("userId", profile.user?.userId)
+            session.setAttribute("user", profile.user)
         } catch(e: ProfileNotFound) {
             mav.viewName = "not_found"
             mav.addObject("error", e.message)
@@ -63,7 +64,7 @@ class ReservationFormController {
         form.checkInDate = DateUtil.getDateStr(checkInDate)
         form.checkOutDate = DateUtil.getDateStr(checkOutDate)
 
-        mav.viewName = "reservation_form"
+        mav.viewName = "reservation/form"
         mav.addObject("name", profile.name)
         mav.addObject("reservationForm", form)
         return mav
@@ -75,14 +76,34 @@ class ReservationFormController {
         bindingResult: BindingResult,
         @ModelAttribute mav: ModelAndView
     ): ModelAndView {
-        logger.warn(bindingResult.allErrors.toString())
         if (bindingResult.hasErrors()) {
-            mav.viewName = "reservation_form"
+            mav.viewName = "reservation/form"
             return mav
         }
-        mav.viewName = "reservation_confirm"
+        mav.viewName = "reservation/confirm"
         mav.addObject("reservation", form)
         mav.addObject("name", session.getAttribute("name"))
+        return mav
+    }
+
+    @PostMapping("/complete")
+    fun complete(
+        @ModelAttribute form: ReservationForm,
+        @ModelAttribute mav: ModelAndView
+    ): ModelAndView {
+        val reservation = Reservation(
+            null,
+            session.getAttribute("user") as User
+        )
+        val dateList = DateUtil.getDateListFromDuration(form.checkInDate, form.checkOutDate)
+        reservation.addBookFromCheckInOut(dateList, form.guestNum)
+
+        try {
+            reserveService.reserve(reservation)
+        } catch (e: Exception) {
+            logger.warn(e.message)
+        }
+        mav.viewName = "reservation/complete"
         return mav
     }
 }

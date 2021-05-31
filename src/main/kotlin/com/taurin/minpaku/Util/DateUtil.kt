@@ -56,6 +56,24 @@ class DateUtil {
             }
         }
 
+        /**
+         * 指定された日付の間のDateをListで返す。
+         * endDateStrで指定された日付は含まない。
+         */
+        fun getDateListFromDuration(startDateStr: String, endDateStr: String): List<Date> {
+            val startDate = this.getDateFromStr(startDateStr)
+            val endDate = this.getDateFromStr(endDateStr)
+            val cal = Calendar.getInstance()
+            cal.time = startDate
+            var dateList = mutableListOf<Date>()
+            while(cal.time.before(endDate)) {
+                dateList.add(cal.time)
+                cal.add(Calendar.DATE, 1)
+            }
+
+            return dateList
+        }
+
         fun getNextDate(targetDate: Date): Date {
             val cal = Calendar.getInstance()
             cal.time = targetDate
