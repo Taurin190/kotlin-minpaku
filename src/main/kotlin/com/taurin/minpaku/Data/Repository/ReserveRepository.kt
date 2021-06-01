@@ -12,7 +12,7 @@ import java.sql.Date
 interface ReserveRepository : JpaRepository<Reservation, Long> {
     @Modifying
     @Query(
-        value = "SELECT * FROM reservation r " +
+        value = "SELECT r.reservation_id, b.book_id, b.guest_num, b.stay_date, r.created_datetime, r.updated_datetime, r.user_id FROM reservation r " +
                 "JOIN book b ON r.reservation_id = b.reservation_id " +
                 "WHERE b.stay_date BETWEEN :start_date AND :end_date ;", nativeQuery = true)
     fun findAllByDuration(
