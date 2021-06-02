@@ -3,6 +3,7 @@ package com.taurin.minpaku.Presentation.Controller
 import com.taurin.minpaku.Data.Entity.Profile
 import com.taurin.minpaku.Data.Entity.Reservation
 import com.taurin.minpaku.Data.Entity.User
+import com.taurin.minpaku.Exception.DBException
 import com.taurin.minpaku.Exception.ProfileNotFound
 import com.taurin.minpaku.Presentation.Form.ReservationForm
 import com.taurin.minpaku.Service.ProfileService
@@ -10,6 +11,7 @@ import com.taurin.minpaku.Service.ReserveService
 import com.taurin.minpaku.Util.DateUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
@@ -100,10 +102,16 @@ class ReservationFormController {
 
         try {
             reserveService.reserve(reservation)
-        } catch (e: Exception) {
+            mav.viewName = "reservation/complete"
+        } catch (e: DBException) {
             logger.warn(e.message)
+            mav.status = HttpStatus.CONFLICT
+            mav.viewName = "reservation/error"
+        } catch (e: Exception) {
+            logger.error("Unexpected Reservation Error: $e.message")
+            mav.status = HttpStatus.CONFLICT
+            mav.viewName = "reservation/error"
         }
-        mav.viewName = "reservation/complete"
         return mav
     }
 }

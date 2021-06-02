@@ -36,7 +36,7 @@ class ReserveService {
         try {
             reserveRepository.save(reservation)
         } catch (e: Exception) {
-            logger.warn("Reserve fail with Unexpected Exception: ${e.message}")
+            logger.warn("Reserve fail with Exception: ${e.message}")
             throw DBException("登録出来ませんでした。")
         }
     }
