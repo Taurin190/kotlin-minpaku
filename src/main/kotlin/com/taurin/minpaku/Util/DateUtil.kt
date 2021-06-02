@@ -65,7 +65,7 @@ class DateUtil {
             val endDate = this.getDateFromStr(endDateStr)
             val cal = Calendar.getInstance()
             cal.time = startDate
-            var dateList = mutableListOf<Date>()
+            val dateList = mutableListOf<Date>()
             while(cal.time.before(endDate)) {
                 dateList.add(cal.time)
                 cal.add(Calendar.DATE, 1)

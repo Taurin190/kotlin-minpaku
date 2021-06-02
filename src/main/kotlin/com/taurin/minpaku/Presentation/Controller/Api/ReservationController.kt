@@ -42,14 +42,4 @@ class ReservationController {
         }
         return responseList
     }
-
-    @PostMapping("/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    fun register() : ApiResponse {
-        return ApiResponse(
-            ZonedDateTime.now(),
-            HttpStatus.CREATED,
-            "正常に登録できました。"
-        )
-    }
 }
