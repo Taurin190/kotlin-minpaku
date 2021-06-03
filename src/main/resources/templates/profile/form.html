@@ -11,7 +11,7 @@
         </h1>
         <div>
           <div class="error" th:if="${error}"><span th:text="${error}"></span></div>
-          <form method="post" th:action="@{/profile/register}" th:object="${profileForm}">
+          <form method="post" th:action="@{/profile/confirm}" th:object="${profileForm}">
             <div class="form-group py-2">
               <label>ユーザ氏名</label>
               <input type="text"  class="form-control" th:field="*{name}" />

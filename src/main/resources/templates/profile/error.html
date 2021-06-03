@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head::common_head('エラー プロフィール登録失敗 - みん泊予約', '')"></head>
+<body>
+<header th:replace="common/nav::header"></header>
+<main class="contents container-fluid auth-page">
+  <div class="row justify-content-center align-items-center mx-auto">
+    <div class="authentication-content col-md-6 mt-5">
+      <div class="auth-form">
+        <h1 class="text-center auth-message">
+          エラー プロフィール登録失敗
+        </h1>
+        <div>
+          <div class="form-group py-2">
+            <p>登録出来ませんでした。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<div th:replace="common/scripts::scripts"></div>
+</body>
+</html>

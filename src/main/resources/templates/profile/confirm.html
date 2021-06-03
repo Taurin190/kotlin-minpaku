@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/head::common_head('プロフィール登録確認 - みん泊予約', '')"></head>
+<body>
+<header th:replace="common/nav::header"></header>
+<main class="contents container-fluid auth-page">
+  <div class="row justify-content-center align-items-center mx-auto">
+    <div class="authentication-content col-md-6 mt-5">
+      <div class="auth-form">
+        <h1 class="text-center auth-message">
+          プロフィール登録
+        </h1>
+        <form method="post" th:action="@{/profile/complete}">
+          <div>
+            <p class="font-weight-bold">以下で登録を行ってよろしいですか？</p>
+            <div class="form-group py-2">
+              <label>ユーザ氏名</label>
+              <p class="font-weight-bold" th:text="${profile.name}" ></p>
+            </div>
+            <div class="form-group py-2">
+              <lable>メールアドレス</lable>
+              <p class="font-weight-bold" th:text="${profile.email}" ></p>
+            </div>
+            <div class="form-group py-2">
+              <lable>住所</lable>
+              <p class="font-weight-bold" th:text="${profile.address}" ></p>
+            </div>
+            <div class="form-group py-2">
+              <lable>電話番号</lable>
+              <p class="font-weight-bold" th:text="${profile.phone}" ></p>
+            </div>
+            <div>
+              <input class="btn btn-primary btn-block" type="submit" value="登録確定" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<div th:replace="common/scripts::scripts"></div>
+</body>
+</html>

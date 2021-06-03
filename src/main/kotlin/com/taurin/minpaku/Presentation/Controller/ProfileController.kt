@@ -11,15 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import javax.validation.Valid
 
 @Controller
 @RequestMapping("/profile")
+@SessionAttributes(types = [ProfileForm::class])
 class ProfileController {
     @Autowired
     private lateinit var profileService: ProfileService
@@ -48,22 +46,33 @@ class ProfileController {
 
     @GetMapping("/form")
     fun registerForm(mav: ModelAndView): ModelAndView {
-        mav.viewName = "profile_form"
+        mav.viewName = "profile/form"
         mav.addObject("profileForm", ProfileForm())
         return mav
     }
 
-    @PostMapping("/register")
-    fun register(
+    @PostMapping("/confirm")
+    fun confirm(
+        @ModelAttribute form: ProfileForm,
+        bindingResult: BindingResult,
+        @ModelAttribute mav: ModelAndView
+    ): ModelAndView {
+        if (bindingResult.hasErrors()) {
+            mav.viewName = "profile/form"
+            return mav
+        }
+        mav.viewName = "profile/confirm"
+        mav.addObject("profile", form)
+        return mav
+    }
+
+    @PostMapping("/complete")
+    fun complete(
         @Valid form: ProfileForm,
         bindingResult: BindingResult,
         @ModelAttribute mav: ModelAndView,
         @AuthenticationPrincipal userDetail: UserDetails
     ): ModelAndView {
-        mav.viewName = "profile_form"
-        if (bindingResult.hasErrors()) {
-            return mav
-        }
         try {
             logger.info("User: ${userDetail.username} register profile")
             profileService.register(
@@ -74,9 +83,10 @@ class ProfileController {
                 form.phone
             )
         } catch (e: DBException) {
-            mav.viewName = "profile_form"
+            mav.viewName = "profile/error"
             mav.addObject("error", e.message)
         }
+        mav.viewName = "profile/complete"
         return mav
     }
 }
