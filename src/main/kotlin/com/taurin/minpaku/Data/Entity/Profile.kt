@@ -9,7 +9,7 @@ data class Profile(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     @OneToOne(cascade = [CascadeType.REMOVE])
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true)
     var user: User? = null,
     @Column(nullable = false)
     var name: String = "",
