@@ -45,7 +45,17 @@ class ProfileController {
     }
 
     @GetMapping("/form")
-    fun registerForm(mav: ModelAndView): ModelAndView {
+    fun registerForm(
+        mav: ModelAndView,
+        @AuthenticationPrincipal userDetail: UserDetails
+    ): ModelAndView {
+        try {
+            profileService.findByUsername(userDetail.username)
+            mav.viewName = "redirect:/profile"
+            return mav
+        } catch (e: ProfileNotFound) {
+            logger.info("Profile Not Found: ${e.message}")
+        }
         mav.viewName = "profile/form"
         mav.addObject("profileForm", ProfileForm())
         return mav
