@@ -82,11 +82,11 @@ class ProfileController {
                 form.address,
                 form.phone
             )
+            mav.viewName = "profile/complete"
         } catch (e: DBException) {
             mav.viewName = "profile/error"
             mav.addObject("error", e.message)
         }
-        mav.viewName = "profile/complete"
         return mav
     }
 }
