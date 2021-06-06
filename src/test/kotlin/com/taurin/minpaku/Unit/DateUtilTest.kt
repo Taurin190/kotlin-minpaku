@@ -77,4 +77,24 @@ class DateUtilTest {
         val currentYear = cal.get(Calendar.YEAR)
         assertThat(actual).isEqualTo(currentYear)
     }
+
+    @Test
+    fun testGetDateFromStr() {
+        val actual = DateUtil.getDateFromStr("2020-01-01")
+        assertThat(actual.toString()).isEqualTo("Wed Jan 01 00:00:00 JST 2020")
+    }
+
+    @Test
+    fun testGetDateFromStrWithInvalidFormat() {
+        val actual = DateUtil.getDateFromStr("AAAABBBBCC")
+        val cal = Calendar.getInstance()
+        val currentYear = cal.get(Calendar.YEAR)
+        val currentMonth = cal.get(Calendar.MONTH)
+        val currentDate = cal.get(Calendar.DATE)
+
+        cal.time = actual
+        assertThat(cal.get(Calendar.YEAR)).isEqualTo(currentYear)
+        assertThat(cal.get(Calendar.MONTH)).isEqualTo(currentMonth)
+        assertThat(cal.get(Calendar.DATE)).isEqualTo(currentDate)
+    }
 }
