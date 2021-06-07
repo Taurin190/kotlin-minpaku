@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit.jupiter.SpringExtension
+import java.text.SimpleDateFormat
 import java.util.*
 
 @ExtendWith(SpringExtension::class)
@@ -81,7 +82,8 @@ class DateUtilTest {
     @Test
     fun testGetDateFromStr() {
         val actual = DateUtil.getDateFromStr("2020-01-01")
-        assertThat(actual.toString()).isEqualTo("Wed Jan 01 00:00:00 JST 2020")
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        assertThat(sdf.format(actual)).isEqualTo("2020/01/01")
     }
 
     @Test
