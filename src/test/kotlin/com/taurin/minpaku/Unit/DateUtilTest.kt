@@ -99,4 +99,35 @@ class DateUtilTest {
         assertThat(cal.get(Calendar.MONTH)).isEqualTo(currentMonth)
         assertThat(cal.get(Calendar.DATE)).isEqualTo(currentDate)
     }
+
+    @Test
+    fun testGetDateFromStrWithoutStr() {
+        val cal = Calendar.getInstance()
+        val actual = DateUtil.getDateFromStr(null)
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        val currentYear = cal.get(Calendar.YEAR)
+        val currentMonth = cal.get(Calendar.MONTH) + 1
+        val currentDate = cal.get(Calendar.DATE)
+        val currentMonthStr = "$currentMonth".padStart(2, '0')
+        val currentDateStr = "$currentDate".padStart(2, '0')
+
+        assertThat(sdf.format(actual)).isEqualTo("$currentYear/$currentMonthStr/$currentDateStr")
+    }
+
+    @Test
+    fun testGetNextDate() {
+        val cal = Calendar.getInstance()
+        cal.set(2021, 0, 1)
+        val actual = DateUtil.getNextDate(cal.time)
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        assertThat(sdf.format(actual)).isEqualTo("2021/01/02")
+    }
+
+    @Test
+    fun testGetDateStr() {
+        val cal = Calendar.getInstance()
+        cal.set(2021, 2, 1)
+        val actual = DateUtil.getDateStr(cal.time)
+        assertThat(actual).isEqualTo("2021-03-01")
+    }
 }
