@@ -130,4 +130,25 @@ class DateUtilTest {
         val actual = DateUtil.getDateStr(cal.time)
         assertThat(actual).isEqualTo("2021-03-01")
     }
+
+    @Test
+    fun testGetDateListFromDuration() {
+        val actual = DateUtil.getDateListFromDuration("2021-01-01", "2021-01-10")
+        assertThat(actual.size).isEqualTo(9)
+        val sdf = SimpleDateFormat("yyyy/MM/dd")
+        assertThat(sdf.format(actual[0])).isEqualTo("2021/01/01")
+        assertThat(sdf.format(actual.last())).isEqualTo("2021/01/09")
+    }
+
+    @Test
+    fun testGetDateListFromDurationWithoutDuration() {
+        val actual = DateUtil.getDateListFromDuration("2021-01-01", "2021-01-01")
+        assertThat(actual.size).isEqualTo(0)
+    }
+
+    @Test
+    fun testGetDateListFromDurationWithInvalidDuration() {
+        val actual = DateUtil.getDateListFromDuration("2021-02-01", "2021-01-01")
+        assertThat(actual.size).isEqualTo(0)
+    }
 }
