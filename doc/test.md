@@ -25,3 +25,7 @@ class IntegrationTests(@Autowired val restTemplate: TestRestTemplate) {
 }
 ```
 
+## ユーザ認証について
+E2Eテストでなくユーザ認証のテストと認可された状態のユーザのテストを行いたい。
+以下の記事で詳しくまとめられているので参考にする。
+https://qiita.com/a-pompom/items/c51869f80d55c4fe4e9c

@@ -1,53 +1,69 @@
 package com.taurin.minpaku.Integration
 
-import com.taurin.minpaku.Presentation.Form.LoginForm
-import com.taurin.minpaku.Presentation.Form.RegisterForm
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.boot.test.web.client.getForEntity
-import org.springframework.http.HttpStatus
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = ["application.runner.enabled=true"]
 )
-class AuthControllerTest(@Autowired val restTemplate: TestRestTemplate) {
+@AutoConfigureMockMvc
+class AuthControllerTest {
+    @Autowired
+    private lateinit var mockMvc: MockMvc
+
     @Test
     fun testLogin() {
-        val entity = restTemplate.getForEntity<String>("/login")
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
+            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
     }
 
     @Test
     fun testLogout() {
-        val entity = restTemplate.getForEntity<String>("/logout")
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        mockMvc.perform(MockMvcRequestBuilders.get("/logout"))
+            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
     }
 
     @Test
     fun testShowRegisterPage() {
-        val entity = restTemplate.getForEntity<String>("/register")
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        mockMvc.perform(MockMvcRequestBuilders.get("/register"))
+            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
     }
 
     @Test
     fun testLoginWithAdminUser() {
-        var form = LoginForm()
-        form.username = "admin"
-        form.password = "password"
-        val entity = restTemplate.postForEntity("/login", form, String::class.java)
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.FOUND)
+        mockMvc.perform(
+            formLogin("/login")
+                .user("admin")
+                .password("password"))
+            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
+            .andExpect(redirectedUrl("/"))
     }
 
     @Test
-    fun testRegisterWithDuplicated() {
-        var form = RegisterForm()
-        form.username = "admin"
-        form.password = "admin"
-        val entity = restTemplate.postForEntity("/register", form, String::class.java)
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.FOUND)
+    fun testLoginWithAdminUserWithWrongPassword() {
+        mockMvc.perform(
+            formLogin("/login")
+                .user("admin")
+                .password("wrongpassword"))
+            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
+            .andExpect(redirectedUrl("/login"))
+    }
+
+    @Test
+    fun testRegisterWithInvalidParams() {
+        mockMvc.perform(
+            post("/register")
+                .param("username", "admin")
+                .param("password", "admin"))
+            .andExpect(MockMvcResultMatchers.status().is4xxClientError)
     }
 }
