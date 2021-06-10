@@ -29,7 +29,8 @@ class AuthControllerTest {
     @Test
     fun testLogout() {
         mockMvc.perform(MockMvcRequestBuilders.get("/logout"))
-            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
+            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
+            .andExpect(redirectedUrl("/login"))
     }
 
     @Test
