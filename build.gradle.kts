@@ -54,6 +54,7 @@ dependencies {
 		exclude(module = "mockito-core")
 	}
 	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
+	testImplementation("org.dbunit:dbunit:2.6.0")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
