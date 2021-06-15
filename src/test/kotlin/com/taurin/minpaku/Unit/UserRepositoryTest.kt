@@ -54,4 +54,13 @@ class UserRepositoryTest {
             assertThat(e.message).isEqualTo("Result must not be null!")
         }
     }
+
+    @Test
+    @DatabaseSetup("/dbunit/auth1.xml")
+    fun testInsertAndFind() {
+        userRepository.insertIgnore("newuser", "newuser", 0)
+
+        var actual = userRepository.findByUserName("newuser")
+        assertThat(actual.permission).isEqualTo(Permission.USER)
+    }
 }
