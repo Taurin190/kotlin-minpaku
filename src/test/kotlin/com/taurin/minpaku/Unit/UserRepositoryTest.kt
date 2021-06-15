@@ -60,7 +60,7 @@ class UserRepositoryTest {
     fun testInsertAndFind() {
         userRepository.insertIgnore("newuser", "newuser", 0)
 
-        var actual = userRepository.findByUserName("newuser")
+        val actual = userRepository.findByUserName("newuser")
         assertThat(actual.permission).isEqualTo(Permission.USER)
     }
 }
