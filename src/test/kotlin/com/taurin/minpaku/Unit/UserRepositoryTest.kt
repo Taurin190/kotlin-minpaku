@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup
 import com.taurin.minpaku.Data.Repository.UserRepository
 import com.taurin.minpaku.Enum.Permission
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.fail
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.runner.RunWith
@@ -41,5 +42,16 @@ class UserRepositoryTest {
         actual = userRepository.findByUserName("user1")
         assertThat(actual.userId).isEqualTo(2)
         assertThat(actual.permission).isEqualTo(Permission.USER)
+    }
+
+    @Test
+    @DatabaseSetup("/dbunit/auth1.xml")
+    fun testFindByUserNameNotFound() {
+        try {
+            userRepository.findByUserName("invalid")
+            fail<java.lang.AssertionError>("Didn't throw exception without data")
+        } catch (e: Exception) {
+            assertThat(e.message).isEqualTo("Result must not be null!")
+        }
     }
 }
