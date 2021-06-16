@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user user_id="1" username="admin" password="aaaaaa" permission="1" />
+    <profile />
+    <user user_id="2" username="user1" password="bbbb" permission="0" />
+</dataset>
