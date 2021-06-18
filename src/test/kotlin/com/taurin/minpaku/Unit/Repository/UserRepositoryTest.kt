@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit
+package com.taurin.minpaku.Unit.Repository
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener
 import com.github.springtestdbunit.annotation.DatabaseSetup
