@@ -30,20 +30,20 @@ class ProfileRepositoryTest {
     @Autowired
     private lateinit var profileRepository: ProfileRepository
 
-    @Test
-    @DatabaseSetup("/dbunit/profile1.xml")
-    fun testFindByUserName() {
-        profileRepository.saveWithUserName(
-            "admin",
-            "アドミン",
-            "admin@example.com",
-            "address",
-            "0123456789"
-        )
-
-        val actual = profileRepository.findByUsername("admin")
-        assertThat(actual?.name).isEqualTo("アドミン")
-        assertThat(actual?.email).isEqualTo("admin@example.com")
-        assertThat(actual?.address).isEqualTo("address")
-    }
+//    @Test
+//    @DatabaseSetup("/dbunit/profile1.xml")
+//    fun testFindByUserName() {
+//        profileRepository.saveWithUserName(
+//            "admin",
+//            "アドミン",
+//            "admin@example.com",
+//            "address",
+//            "0123456789"
+//        )
+//
+//        val actual = profileRepository.findByUsername("admin")
+//        assertThat(actual?.name).isEqualTo("アドミン")
+//        assertThat(actual?.email).isEqualTo("admin@example.com")
+//        assertThat(actual?.address).isEqualTo("address")
+//    }
 }
