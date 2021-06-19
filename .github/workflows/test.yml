@@ -24,7 +24,7 @@ jobs:
       db:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: minpaku
+          MYSQL_DATABASE: test_minpaku
           MYSQL_ROOT_PASSWORD: password
         ports:
           - 3306:3306
@@ -46,7 +46,7 @@ jobs:
           distribution: 'adopt'
       # Runs a single command using the runners shell
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: ./gradlew test --tests com.taurin.minpaku.Unit.\*Test
       - name: Create Coverage Report
         run: ./gradlew jacocoTestReport
       - name: Upload coverage report
