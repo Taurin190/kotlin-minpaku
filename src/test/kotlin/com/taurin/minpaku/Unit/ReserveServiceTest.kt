@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit.Service
+package com.taurin.minpaku.Unit
 
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Data.Entity.Reservation
