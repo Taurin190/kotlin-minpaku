@@ -35,3 +35,16 @@ https://qiita.com/kurukuruz/items/a3c09f818ae41e59f1b5
 ## MockMVCについて
 以下ドキュメントで勉強する。
 https://terasolunaorg.github.io/guideline/5.4.1.RELEASE/ja/UnitTest/ImplementsOfUnitTest/UsageOfLibraryForTest.html#usageoflibraryfortestmockmvcoverview
+
+## Testのアノテーションについて
+`@RunWith`について
+https://qiita.com/key_sleep/items/7ff4a5ca036ec7adb3a5
+SpringBootのテストを行う時にRunnerクラスの指定を行う事ができる。
+`SpringRunner.class`はDIを行う時に使う。`@MockBean`で書いたものを勝手にDIで置き換えてくれる。
+基本的なクラスに関してはこれを使うので良いのかなと思う。
+
+`MockitoJUnitRunner.class`は`@Mock`でモックして手動で入れるのかな？
+
+`@TestExecutionListeners`これもDBMockの時に使っていた。
+
+
