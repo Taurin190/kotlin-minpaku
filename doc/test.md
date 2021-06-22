@@ -65,3 +65,9 @@ assertThatはSpringbootのマニュアルでも記載されているので使え
 
 以下、より詳しいドキュメント
 https://spring.pleiades.io/spring-framework/docs/current/reference/html/testing.html#testing-introduction
+
+WebFluxは、リアクティブ、ノンブロッキング型のフレームワーク。
+Nettyを含めた実装になっている。
+https://qiita.com/yut_arrows/items/5c56c81b89b1e8ae4bf4
+そのようなWebFluxを使用するときは、`org.springframework.mock.http.server.reactive`を使用する。
+
