@@ -63,6 +63,7 @@ class AuthController(@Autowired private val authService: AuthService) {
         } catch (e: DBException) {
             mav.addObject("error", e.message)
         }
+        mav.viewName = "register/complete"
         return mav
     }
 
