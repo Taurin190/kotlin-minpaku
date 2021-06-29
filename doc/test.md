@@ -71,3 +71,31 @@ Nettyを含めた実装になっている。
 https://qiita.com/yut_arrows/items/5c56c81b89b1e8ae4bf4
 そのようなWebFluxを使用するときは、`org.springframework.mock.http.server.reactive`を使用する。
 
+## Controllerのテストについて
+以下のリポジトリに詳しくまとめられていた。
+https://github.com/mechero/spring-boot-testing-strategies
+
+Controllerのテストはスコープによって4つに分けられる。
+`MockitoJUnitRunner`で走らせるテストはRepositoryなど外部との接続をMockに置き換え比較的狭いスコープで実行される。
+
+HTTP Filter, Controller AdviceなどはTestによって作られる。
+filterはリクエスト毎に呼び出されてレスポンスでヘッダーに特定の値をいれるなどで使えそう。
+AdviceはExceptionを吐いた時に処理を書いていくもの。
+
+次のようにセットアップして、
+`MockMvcBuilders.standaloneSetup(superHeroController)`
+`superHeroController`が`@InjectMocks`でMockを入れる対象としてアノテーションで宣言されている。
+
+２つ目は`@SpringBootTest`を用いてmockMvcでテストする方法で、
+クラスに付けている`@WebMvcTest(SuperHeroController.class)`でターゲットを宣言している。
+SpringBootでContext等を用意させているので、１つ目の方法のようにsetupでビルドするステップはなく、
+Autowiredで組み立てられている。
+WebMvcTestで指定しているため直接的にControllerが呼び出されているっぽく、
+これが次の３つ目のケースとの違いになるのかと思う。
+
+３つ目のケースでは、`@WebMvcTest`のアノテーションが無く、
+変わりに、`@SpringBootTest`と`@AutoConfigureMockMvc`が付けられている。
+図表の説明によると、これによりWebServerのSpringBeanコンポーネントを介してControllerが呼び出されているようだ。
+
+４つ目のケースでは、`@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)`というように、
+ランダムのPORTを起動して、restTemplateでのテストを行う。
