@@ -51,7 +51,6 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
-		exclude(module = "mockito-core")
 	}
 	testImplementation("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
 	testImplementation("org.dbunit:dbunit:2.6.0")
