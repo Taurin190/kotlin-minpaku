@@ -1,32 +1,24 @@
 package com.taurin.minpaku.Unit
 
-import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Data.Entity.Reservation
 import com.taurin.minpaku.Exception.DBException
 import com.taurin.minpaku.Data.Repository.ReserveRepository
 import com.taurin.minpaku.Service.ReserveService
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 
-@ExtendWith(SpringExtension::class)
-@SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    properties = ["application.runner.enabled=false"]
-)
 class ReserveServiceTest {
-    @MockkBean
+    @MockK
     private lateinit var reserveRepository: ReserveRepository
 
-    @Autowired
+    @InjectMockKs
     private lateinit var reserveService: ReserveService
 
     @BeforeEach

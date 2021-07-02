@@ -1,6 +1,5 @@
 package com.taurin.minpaku.Unit
 
-import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Data.Entity.Profile
 import com.taurin.minpaku.Data.Entity.User
 import com.taurin.minpaku.Enum.Permission
@@ -10,25 +9,18 @@ import com.taurin.minpaku.Data.Repository.ProfileRepository
 import com.taurin.minpaku.Service.ProfileService
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 
-@ExtendWith(SpringExtension::class)
-@SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    properties = ["application.runner.enabled=false"]
-)
 class ProfileServiceTest {
-    @MockkBean
+    @MockK
     private lateinit var profileRepository: ProfileRepository
 
-    @Autowired
+    @InjectMockKs
     private lateinit var profileService: ProfileService
 
     @BeforeEach
@@ -36,7 +28,6 @@ class ProfileServiceTest {
 
     @Test
     fun testRegister() {
-
         every {
             profileRepository.saveWithUserName(
             "testtaro",
