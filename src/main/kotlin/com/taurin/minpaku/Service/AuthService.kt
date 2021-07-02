@@ -14,9 +14,10 @@ import org.springframework.security.core.userdetails.User as AuthUser
 
 @Service
 class AuthService(
-    @Autowired val userRepository: UserRepository,
-    @Autowired val passwordEncoder: PasswordEncoder
+    @Autowired val userRepository: UserRepository
 ) : UserDetailsService {
+    @Autowired
+    lateinit var passwordEncoder: PasswordEncoder
 
     private val logger = LoggerFactory.getLogger(AuthService::class.java)
 
