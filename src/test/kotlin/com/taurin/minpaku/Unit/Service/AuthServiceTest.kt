@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit
+package com.taurin.minpaku.Unit.Service
 
 import com.taurin.minpaku.Data.Entity.User
 import com.taurin.minpaku.Enum.Permission
