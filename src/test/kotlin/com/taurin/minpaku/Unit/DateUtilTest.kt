@@ -3,17 +3,9 @@ package com.taurin.minpaku.Unit
 import com.taurin.minpaku.Util.DateUtil
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.text.SimpleDateFormat
 import java.util.*
 
-@ExtendWith(SpringExtension::class)
-@SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    properties = ["application.runner.enabled=false"]
-)
 class DateUtilTest {
     @Test
     fun testGetValidMonth() {
