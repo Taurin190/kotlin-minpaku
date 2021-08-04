@@ -54,4 +54,14 @@ jobs:
         with:
           directory: ./build/reports/jacoco/test/
           token: ${{ secrets.CODECOV_TOKEN }}
+      # Slack Notification with Library
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2.2.0
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "Test Result: ${{ job.status }}"
+          SLACK_TITLE: Test Result
+          SLACK_USERNAME: AutoTest Bot
 
