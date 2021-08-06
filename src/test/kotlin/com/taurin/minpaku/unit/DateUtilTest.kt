@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit
+package com.taurin.minpaku.unit
 
 import com.taurin.minpaku.Util.DateUtil
 import org.assertj.core.api.Assertions.assertThat

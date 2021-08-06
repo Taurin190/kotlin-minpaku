@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Integration
+package com.taurin.minpaku.integration
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

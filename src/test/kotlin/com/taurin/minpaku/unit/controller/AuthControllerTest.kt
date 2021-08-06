@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit
+package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.Presentation.Controller.AuthController

@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Unit.Service
+package com.taurin.minpaku.unit.service
 
 import com.taurin.minpaku.Data.Entity.Reservation
 import com.taurin.minpaku.Exception.DBException

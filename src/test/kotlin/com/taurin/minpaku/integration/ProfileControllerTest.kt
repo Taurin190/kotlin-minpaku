@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Integration
+package com.taurin.minpaku.integration
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

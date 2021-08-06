@@ -1,4 +1,4 @@
-package com.taurin.minpaku.Integration
+package com.taurin.minpaku.integration
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
