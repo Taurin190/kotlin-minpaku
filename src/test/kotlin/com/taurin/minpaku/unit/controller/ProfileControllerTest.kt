@@ -1,9 +1,9 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.data.Entity.Profile
-import com.taurin.minpaku.exception.ProfileNotFound
-import com.taurin.minpaku.presentation.controller.ProfileController
+import com.taurin.minpaku.infrastructure.Entity.Profile
+import com.taurin.minpaku.presentation.user.ProfileNotFound
+import com.taurin.minpaku.presentation.user.ProfileController
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
 import io.mockk.every

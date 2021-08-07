@@ -1,7 +1,7 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.presentation.controller.AuthController
+import com.taurin.minpaku.presentation.user.AuthController
 import com.taurin.minpaku.service.AuthService
 import io.mockk.MockKAnnotations
 import io.mockk.every

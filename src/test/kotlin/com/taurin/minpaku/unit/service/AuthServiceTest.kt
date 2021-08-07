@@ -1,9 +1,9 @@
 package com.taurin.minpaku.unit.service
 
-import com.taurin.minpaku.data.Entity.User
+import com.taurin.minpaku.infrastructure.Entity.User
 import com.taurin.minpaku.enum.Permission
-import com.taurin.minpaku.exception.DBException
-import com.taurin.minpaku.data.Repository.UserRepository
+import com.taurin.minpaku.infrastructure.exception.DBException
+import com.taurin.minpaku.infrastructure.Repository.UserRepository
 import com.taurin.minpaku.service.AuthService
 import io.mockk.MockKAnnotations
 import io.mockk.every

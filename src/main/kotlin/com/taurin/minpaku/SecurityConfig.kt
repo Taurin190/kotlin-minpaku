@@ -1,7 +1,6 @@
 package com.taurin.minpaku
 
-import com.taurin.minpaku.exception.AuthenticationFailureHandler
-import com.taurin.minpaku.presentation.request.CsrfRequestMatcher
+import com.taurin.minpaku.presentation.CsrfRequestMatcher
 import com.taurin.minpaku.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean

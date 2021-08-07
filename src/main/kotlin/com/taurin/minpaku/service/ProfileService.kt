@@ -1,9 +1,9 @@
 package com.taurin.minpaku.service
 
-import com.taurin.minpaku.data.Entity.Profile
-import com.taurin.minpaku.exception.DBException
-import com.taurin.minpaku.exception.ProfileNotFound
-import com.taurin.minpaku.data.Repository.ProfileRepository
+import com.taurin.minpaku.infrastructure.Entity.Profile
+import com.taurin.minpaku.infrastructure.exception.DBException
+import com.taurin.minpaku.presentation.user.ProfileNotFound
+import com.taurin.minpaku.infrastructure.Repository.ProfileRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
