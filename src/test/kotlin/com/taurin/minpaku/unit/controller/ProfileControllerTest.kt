@@ -1,11 +1,11 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.Data.Entity.Profile
-import com.taurin.minpaku.Exception.ProfileNotFound
-import com.taurin.minpaku.Presentation.Controller.ProfileController
-import com.taurin.minpaku.Service.AuthService
-import com.taurin.minpaku.Service.ProfileService
+import com.taurin.minpaku.data.Entity.Profile
+import com.taurin.minpaku.exception.ProfileNotFound
+import com.taurin.minpaku.presentation.controller.ProfileController
+import com.taurin.minpaku.service.AuthService
+import com.taurin.minpaku.service.ProfileService
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

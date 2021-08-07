@@ -1,6 +1,6 @@
 package com.taurin.minpaku.unit
 
-import com.taurin.minpaku.Util.DateUtil
+import com.taurin.minpaku.util.DateUtil
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat

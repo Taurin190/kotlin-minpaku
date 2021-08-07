@@ -1,7 +1,7 @@
 package com.taurin.minpaku.unit
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener
-import com.taurin.minpaku.Data.Repository.UserRepository
+import com.taurin.minpaku.data.Repository.UserRepository
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

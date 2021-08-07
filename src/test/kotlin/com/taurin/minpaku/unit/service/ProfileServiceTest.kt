@@ -1,12 +1,12 @@
 package com.taurin.minpaku.unit.service
 
-import com.taurin.minpaku.Data.Entity.Profile
-import com.taurin.minpaku.Data.Entity.User
-import com.taurin.minpaku.Enum.Permission
-import com.taurin.minpaku.Exception.DBException
-import com.taurin.minpaku.Exception.ProfileNotFound
-import com.taurin.minpaku.Data.Repository.ProfileRepository
-import com.taurin.minpaku.Service.ProfileService
+import com.taurin.minpaku.data.Entity.Profile
+import com.taurin.minpaku.data.Entity.User
+import com.taurin.minpaku.enum.Permission
+import com.taurin.minpaku.exception.DBException
+import com.taurin.minpaku.exception.ProfileNotFound
+import com.taurin.minpaku.data.Repository.ProfileRepository
+import com.taurin.minpaku.service.ProfileService
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
