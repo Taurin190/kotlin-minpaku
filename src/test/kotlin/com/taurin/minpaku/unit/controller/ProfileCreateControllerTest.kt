@@ -3,6 +3,7 @@ package com.taurin.minpaku.unit.controller
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.infrastructure.Entity.Profile
 import com.taurin.minpaku.presentation.user.ProfileCreateController
+import com.taurin.minpaku.presentation.user.ProfileForm
 import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
@@ -13,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(ProfileCreateController::class)
@@ -40,11 +41,11 @@ class ProfileCreateControllerTest {
     @Test
     fun testShowFormWithoutAuthentication() {
         mockMvc.perform(
-            MockMvcRequestBuilders.get("/profile/form")
+            get("/profile/form")
         )
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
-            .andExpect(MockMvcResultMatchers.redirectedUrl("http://localhost/login"))
+            .andExpect(status().is3xxRedirection)
+            .andExpect(redirectedUrl("http://localhost/login"))
     }
 
     @Test
@@ -64,8 +65,8 @@ class ProfileCreateControllerTest {
                 .with(user("test"))
         )
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
-            .andExpect(MockMvcResultMatchers.model()
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(model()
                 .attributeExists("profileForm")
             )
     }
@@ -96,7 +97,42 @@ class ProfileCreateControllerTest {
             .with(user("test"))
         )
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/profile"))
+            .andExpect(status().is3xxRedirection)
+            .andExpect(redirectedUrl("/profile"))
+    }
+
+    @Test
+    fun testPostWithoutAuthentication() {
+        mockMvc.perform(post("/profile/confirm")
+            .with(csrf())
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().is3xxRedirection)
+            .andExpect(redirectedUrl("http://localhost/login"))
+    }
+
+    @Test
+    fun testPostWithValidProfile() {
+        val profileForm = ProfileForm()
+        profileForm.name = "test"
+        profileForm.address = "address"
+        profileForm.email = "test@mail.com"
+        profileForm.phone = "12345"
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        mockMvc.perform(post("/profile/confirm")
+            .flashAttr("profileForm", profileForm)
+            .with(user("test"))
+            .with(csrf())
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(view().name("profile/confirm"))
     }
 }
