@@ -8,6 +8,7 @@ import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
 import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -134,5 +135,38 @@ class ProfileCreateControllerTest {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().is2xxSuccessful)
             .andExpect(view().name("profile/confirm"))
+    }
+
+    @Test
+    fun testPostCompleteWithValidProfile() {
+        val profileForm = ProfileForm()
+        profileForm.name = "test"
+        profileForm.address = "address"
+        profileForm.email = "test@mail.com"
+        profileForm.phone = "12345"
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        every {
+            profileService.register(any(), any(), any(), any(), any())
+        } returns Unit
+
+        mockMvc.perform(post("/profile/complete")
+            .flashAttr("profileForm", profileForm)
+            .with(user("test"))
+            .with(csrf())
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(view().name("profile/complete"))
+
+        verify(exactly = 1) {
+            profileService.register(any(), any(), any(), any(), any())
+        }
     }
 }
