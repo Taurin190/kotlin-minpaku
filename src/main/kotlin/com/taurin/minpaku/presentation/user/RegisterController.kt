@@ -16,7 +16,7 @@ import javax.validation.Valid
 
 @Controller
 @RequestMapping("/")
-class AuthController(@Autowired private val authService: AuthService) {
+class RegisterController(@Autowired private val authService: AuthService) {
     @Autowired
     private lateinit var session: HttpSession
 

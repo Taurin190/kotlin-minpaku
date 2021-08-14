@@ -1,7 +1,7 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.presentation.user.AuthController
+import com.taurin.minpaku.presentation.user.LoginController
 import com.taurin.minpaku.service.AuthService
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -21,8 +21,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(AuthController::class)
-class AuthControllerTest {
+@WebMvcTest(LoginController::class)
+class LoginControllerTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 

@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirec
     properties = ["application.runner.enabled=true"]
 )
 @AutoConfigureMockMvc
-class AuthControllerTest {
+class RegisterControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
