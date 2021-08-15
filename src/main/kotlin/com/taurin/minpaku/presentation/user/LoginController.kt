@@ -1,22 +1,15 @@
 package com.taurin.minpaku.presentation.user
 
-import com.taurin.minpaku.infrastructure.exception.DBException
-import com.taurin.minpaku.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.validation.BindingResult
-import org.springframework.validation.FieldError
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 import javax.servlet.http.HttpSession
-import javax.validation.Valid
 
 @Controller
 @RequestMapping("/")
-class LoginController(@Autowired private val authService: AuthService) {
+class LoginController() {
     @Autowired
     private lateinit var session: HttpSession
 
