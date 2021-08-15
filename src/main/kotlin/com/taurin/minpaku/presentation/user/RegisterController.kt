@@ -3,6 +3,7 @@ package com.taurin.minpaku.presentation.user
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
 import org.springframework.validation.FieldError
@@ -38,6 +39,7 @@ class RegisterController(@Autowired private val authService: AuthService) {
             bindingResult.addError(fieldError)
         }
         if (bindingResult.hasErrors()) {
+            mav.status = HttpStatus.BAD_REQUEST
             return mav
         }
         try {
