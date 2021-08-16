@@ -13,12 +13,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders
-import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers
+import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(LoginController::class)
@@ -40,7 +40,7 @@ class LoginControllerTest {
         mockMvc.perform(
             get("/login"))
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
+            .andExpect(status().is2xxSuccessful)
     }
 
     @Test
@@ -58,9 +58,9 @@ class LoginControllerTest {
                 .user("test")
                 .password("test"))
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/"))
-            .andExpect(SecurityMockMvcResultMatchers.authenticated().withUsername("test"))
+            .andExpect(status().is3xxRedirection)
+            .andExpect(redirectedUrl("/"))
+            .andExpect(authenticated().withUsername("test"))
     }
 
     @Test
@@ -78,8 +78,16 @@ class LoginControllerTest {
                 .user("test")
                 .password("invalid"))
             .andDo(MockMvcResultHandlers.print())
-            .andExpect(MockMvcResultMatchers.status().is3xxRedirection)
-            .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
-            .andExpect(MockMvcResultMatchers.request().sessionAttribute("error", "ユーザ名またはパスワードが正しくありません"))
+            .andExpect(status().is3xxRedirection)
+            .andExpect(redirectedUrl("/login"))
+            .andExpect(request().sessionAttribute("error", "ユーザ名またはパスワードが正しくありません"))
+    }
+
+    @Test
+    fun testPasswordReset() {
+        mockMvc.perform(
+            get("/password/reset"))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().is2xxSuccessful)
     }
 }

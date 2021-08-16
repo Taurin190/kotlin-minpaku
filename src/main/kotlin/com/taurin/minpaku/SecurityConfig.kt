@@ -34,7 +34,13 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http.csrf().requireCsrfProtectionMatcher(CsrfRequestMatcher())
 
         http.authorizeRequests()
-            .antMatchers("/", "/login", "/register", "/api/reservation/list").permitAll()
+            .antMatchers(
+                "/",
+                "/login",
+                "/register",
+                "/api/reservation/list",
+                "/password/reset"
+            ).permitAll()
             .antMatchers(HttpMethod.POST, "/api/reservation/add").permitAll()
             .anyRequest().authenticated()
 
