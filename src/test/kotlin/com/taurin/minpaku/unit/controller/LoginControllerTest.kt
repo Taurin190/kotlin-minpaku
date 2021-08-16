@@ -44,6 +44,17 @@ class LoginControllerTest {
     }
 
     @Test
+    fun testLoginFormWithError() {
+        mockMvc.perform(
+            get("/login")
+                .sessionAttr("error", "ユーザ名またはパスワードが正しくありません")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(model().attributeExists("error"))
+    }
+
+    @Test
     fun testPostAuthLogin() {
         every {
             authService.loadUserByUsername(any())
