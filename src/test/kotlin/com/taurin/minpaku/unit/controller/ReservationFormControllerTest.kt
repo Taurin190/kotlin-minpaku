@@ -2,7 +2,10 @@ package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.infrastructure.Entity.Profile
+import com.taurin.minpaku.infrastructure.Entity.User as UserEntity
+import com.taurin.minpaku.presentation.reservation.ReservationForm
 import com.taurin.minpaku.presentation.reservation.ReservationFormController
+import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.ReserveService
@@ -16,9 +19,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
@@ -66,7 +71,7 @@ class ReservationFormControllerTest {
         } returns profile
 
         mockMvc.perform(
-            MockMvcRequestBuilders.get("/reservation/form")
+            get("/reservation/form")
             .with(user("test"))
         )
             .andDo(print())
@@ -83,13 +88,101 @@ class ReservationFormControllerTest {
             .roles("ADMIN")
             .build()
 
+        every {
+            profileService.findByUsername(any())
+        } throws ProfileNotFound("プロフィールが見つかりませんでした。")
+
         mockMvc.perform(
-            MockMvcRequestBuilders.get("/reservation/form")
+            get("/reservation/form")
                 .with(user("test"))
         )
             .andDo(print())
             .andExpect(status().is2xxSuccessful)
             .andExpect(view().name("not_found"))
             .andExpect(model().attributeExists("error"))
+    }
+
+    @Test
+    fun testShowReservationFormWithException() {
+        every {
+            authService.loadUserByUsername(any())
+        } returns User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        every {
+            profileService.findByUsername(any())
+        } throws Exception("Other exception")
+
+        mockMvc.perform(
+            get("/reservation/form")
+                .with(user("test"))
+        )
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(view().name("not_found"))
+            .andExpect(model().attributeExists("error"))
+    }
+
+    @Test
+    fun testPostReservationConfirm() {
+        val form = ReservationForm()
+        form.checkInDate = "2021-01-01"
+        form.checkOutDate = "2021-01-03"
+        form.guestNum = 1
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        mockMvc.perform(
+            post("/reservation/confirm")
+                .with(user("test"))
+                .flashAttr("reservationForm", form)
+                .sessionAttr("name", "test")
+                .with(csrf())
+        )
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(view().name("reservation/confirm"))
+            .andExpect(model().attributeExists("reservation"))
+    }
+
+    @Test
+    fun testPostReservationComplete() {
+        val form = ReservationForm()
+        form.checkInDate = "2021-01-01"
+        form.checkOutDate = "2021-01-03"
+        form.guestNum = 1
+
+        val user = User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        val userEntity = UserEntity()
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns user
+
+        every {
+            reserveService.reserve(any())
+        } returns Unit
+
+        mockMvc.perform(
+            post("/reservation/complete")
+                .with(user("test"))
+                .flashAttr("reservationForm", form)
+                .sessionAttr("user", userEntity)
+                .with(csrf())
+        )
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful)
+            .andExpect(view().name("reservation/complete"))
     }
 }
