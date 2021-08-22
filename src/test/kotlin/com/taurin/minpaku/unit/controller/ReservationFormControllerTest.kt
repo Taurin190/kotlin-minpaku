@@ -2,6 +2,7 @@ package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.infrastructure.Entity.Profile
+import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.infrastructure.Entity.User as UserEntity
 import com.taurin.minpaku.presentation.reservation.ReservationForm
 import com.taurin.minpaku.presentation.reservation.ReservationFormController
@@ -184,5 +185,73 @@ class ReservationFormControllerTest {
             .andDo(print())
             .andExpect(status().is2xxSuccessful)
             .andExpect(view().name("reservation/complete"))
+    }
+
+    @Test
+    fun testPostReservationCompleteWithDBException() {
+        val form = ReservationForm()
+        form.checkInDate = "2021-01-01"
+        form.checkOutDate = "2021-01-03"
+        form.guestNum = 1
+
+        val user = User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        val userEntity = UserEntity()
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns user
+
+        every {
+            reserveService.reserve(any())
+        } throws DBException("登録に失敗しました。")
+
+        mockMvc.perform(
+            post("/reservation/complete")
+                .with(user("test"))
+                .flashAttr("reservationForm", form)
+                .sessionAttr("user", userEntity)
+                .with(csrf())
+        )
+            .andDo(print())
+            .andExpect(status().isConflict)
+            .andExpect(view().name("reservation/error"))
+    }
+
+    @Test
+    fun testPostReservationCompleteWithException() {
+        val form = ReservationForm()
+        form.checkInDate = "2021-01-01"
+        form.checkOutDate = "2021-01-03"
+        form.guestNum = 1
+
+        val user = User.withUsername("test")
+            .password(passwordEncoder.encode("test"))
+            .roles("ADMIN")
+            .build()
+
+        val userEntity = UserEntity()
+
+        every {
+            authService.loadUserByUsername(any())
+        } returns user
+
+        every {
+            reserveService.reserve(any())
+        } throws Exception("例外が発生しました。")
+
+        mockMvc.perform(
+            post("/reservation/complete")
+                .with(user("test"))
+                .flashAttr("reservationForm", form)
+                .sessionAttr("user", userEntity)
+                .with(csrf())
+        )
+            .andDo(print())
+            .andExpect(status().isConflict)
+            .andExpect(view().name("reservation/error"))
     }
 }
