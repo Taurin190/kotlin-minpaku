@@ -1,8 +1,6 @@
 import { Calendar, Component, createElement, DayHeaderContentArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
 import './calendar.css';
 import * as dayjs from "dayjs";
 import 'dayjs/locale/ja';
@@ -18,18 +16,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const this_month = dayjs(new Date()).locale('ja').format('YYYY-MM');
 
     let calendar = new Calendar(calendarEl, {
-        plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
+        plugins: [ dayGridPlugin, interactionPlugin ],
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            right: ''
         },
         initialDate: this_month + '-01',
-        navLinks: true, // can click day/week names to navigate views
-        editable: true,
+        navLinks: false,
+        editable: false,
         dayMaxEvents: true, // allow "more" link when too many events
         dayHeaderContent(arg: DayHeaderContentArg) {
             return createElement(CustomDayHeader, { text: arg.text })
+        },
+        dateClick: function(info) {
+            console.log(info);
+            alert("Date was clicked" + info.dateStr)
+            window.location.href = "/reservation/form?date=" + info.dateStr;
         },
         events: [
             {
