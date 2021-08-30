@@ -47,8 +47,10 @@ dependencies {
 	implementation("mysql:mysql-connector-java")
     implementation("junit:junit:4.13.1")
 
-	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.6")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6")
+	implementation("com.fasterxml.jackson.core:jackson-core:2.11.2")
+	implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
+	implementation("com.fasterxml.jackson.core:jackson-annotations:2.11.2")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
