@@ -1,25 +1,37 @@
 package com.taurin.minpaku.domain.reservation
 
-import com.fasterxml.jackson.databind.ObjectMapper
-
 class Reservation(
     var title: Title,
-    var start: Start,
-    var end: End?,
+    var checkInDateTime: CheckInDateTime,
+    var checkOutDateTime: CheckOutDateTime?,
     var url: Url?
-    ) {
+) {
 
     override fun toString(): String {
         val sb = StringBuilder()
         sb.append("Reservation [title=$title")
-        sb.append(", start=$start")
-        if (end != null) { sb.append(", end=$end") }
-        if (url != null) { sb.append(", url=$url") }
+        sb.append(", start=$checkInDateTime")
+        if (checkOutDateTime != null) {
+            sb.append(", end=$checkOutDateTime")
+        }
+        if (url != null) {
+            sb.append(", url=$url")
+        }
         sb.append("]")
         return sb.toString()
     }
 
     fun toJson(): String {
-        return ObjectMapper().writeValueAsString(this)
+        val sb = StringBuilder()
+        sb.append("{\"title\": \"$title\"")
+        sb.append(",\"start\": \"$checkInDateTime\"")
+        if (checkOutDateTime != null) {
+            sb.append(",\"end\": \"$checkOutDateTime\"")
+        }
+        if (url != null) {
+            sb.append(",\"url\": \"$url\"")
+        }
+        sb.append("}")
+        return sb.toString()
     }
 }

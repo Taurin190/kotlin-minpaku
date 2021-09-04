@@ -1,12 +1,10 @@
 package com.taurin.minpaku.domain.reservation
 
 import javax.validation.constraints.NotBlank
-import javax.validation.constraints.Size
 
 class Url(
     @NotBlank(message = "URLを入力してください。")
     val value: String
-    )
-{
+) : java.io.Serializable {
     override fun toString() = value
 }
