@@ -1,8 +1,12 @@
 package com.taurin.minpaku.domain.reservation
 
-class Reservations(
-    val reservationList: List<Reservation>)
-{
+class Reservations {
+    val reservationList = mutableListOf<Reservation>()
+
+    fun append(reservation: Reservation) {
+        reservationList.add(reservation)
+    }
+
     override fun toString(): String {
         val sb = StringBuilder()
         sb.append("Reservations" + toJson())
@@ -12,10 +16,11 @@ class Reservations(
     fun toJson(): String {
         val sb = StringBuilder()
         sb.append("[")
-        reservationList.forEach{
+        reservationList.forEach {
             sb.append(it.toJson())
             sb.append(",")
         }
+        sb.setLength(sb.length - 1)
         sb.append("]")
         return sb.toString()
     }
