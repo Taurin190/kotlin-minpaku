@@ -8,11 +8,11 @@ open class ReservationDateTime(
 ) {
     override fun toString(): String = value.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
-    fun validateDate(): Boolean {
+    open fun validateDate(): Boolean {
         // 2000 ~ 2040年までを正常な値とする
-        if (value.year in 2000..2040) {
-            return true
+        if (value.year !in 2000..2040) {
+            return false
         }
-        return false
+        return true
     }
 }

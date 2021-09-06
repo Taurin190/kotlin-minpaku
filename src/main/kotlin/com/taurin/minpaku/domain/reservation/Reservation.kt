@@ -8,20 +8,20 @@ class Reservation(
     var _checkOutDateTime: CheckOutDateTime?,
     var _url: Url?
 ) {
-    val title: Title
-    val checkInDateTime: CheckInDateTime
-    val checkOutDateTime: CheckOutDateTime?
-    val url: Url?
+    private val title: Title
+    private val checkInDateTime: CheckInDateTime
+    private val checkOutDateTime: CheckOutDateTime?
+    private val url: Url?
 
     init {
         title = _title
         checkInDateTime = _checkInDateTime
         checkOutDateTime = _checkOutDateTime
-        checkInOutDate(checkInDateTime, checkOutDateTime)
+        verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)
         url = _url
     }
 
-    fun checkInOutDate(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime?) {
+    private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime?) {
         if (!checkInDateTime.validateDate()) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
         }
@@ -33,6 +33,10 @@ class Reservation(
         }
 
         if (!checkInDateTime.isEarlierThan(checkOutDateTime)) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+
+        if (checkInDateTime.getDaysOfStay(checkOutDateTime) > 3) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
         }
     }

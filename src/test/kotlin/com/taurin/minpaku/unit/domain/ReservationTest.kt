@@ -40,7 +40,8 @@ class ReservationTest {
     }
 
     @Test
-    fun testCheckInDateTimeWithOlderThanValid() {
+    fun testCheckInDateTimeWithInValidRange() {
+        // 2000年より古い予約
         try {
             Reservation(
                 Title("Test Reservation"),
@@ -52,10 +53,8 @@ class ReservationTest {
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
         }
-    }
 
-    @Test
-    fun testCheckOutDateTimeWithNewerThanValid() {
+        // 2040年より先の予約
         try {
             Reservation(
                 Title("Test Reservation"),
@@ -76,6 +75,77 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T15:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2021-09-30T10:00:00")),
+                Url("http://localhost/test")
+            )
+            fail(AssertionError("想定される例外が発生しませんでした。"))
+        } catch (e: Exception) {
+            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+        }
+    }
+
+    @Test
+    fun testInvalidCheckInTime() {
+        try {
+            Reservation(
+                Title("Test Reservation"),
+                CheckInDateTime(LocalDateTime.parse("2021-10-01T14:59:59")),
+                CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
+                Url("http://localhost/test")
+            )
+            fail(AssertionError("想定される例外が発生しませんでした。"))
+        } catch (e: Exception) {
+            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+        }
+
+        try {
+            Reservation(
+                Title("Test Reservation"),
+                CheckInDateTime(LocalDateTime.parse("2021-10-02T00:00:00")),
+                CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
+                Url("http://localhost/test")
+            )
+            fail(AssertionError("想定される例外が発生しませんでした。"))
+        } catch (e: Exception) {
+            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+        }
+    }
+
+    @Test
+    fun testInvalidCheckOutTime() {
+        // 6時より早いチェックアウト
+        try {
+            Reservation(
+                Title("Test Reservation"),
+                CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
+                CheckOutDateTime(LocalDateTime.parse("2021-09-30T05:59:59")),
+                Url("http://localhost/test")
+            )
+            fail(AssertionError("想定される例外が発生しませんでした。"))
+        } catch (e: Exception) {
+            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+        }
+
+        // 12時以降のチェックアウト
+        try {
+            Reservation(
+                Title("Test Reservation"),
+                CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
+                CheckOutDateTime(LocalDateTime.parse("2021-09-30T12:00:00")),
+                Url("http://localhost/test")
+            )
+            fail(AssertionError("想定される例外が発生しませんでした。"))
+        } catch (e: Exception) {
+            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+        }
+    }
+
+    @Test
+    fun testInvalidDaysOfStay() {
+        try {
+            Reservation(
+                Title("Test Reservation"),
+                CheckInDateTime(LocalDateTime.parse("2021-10-01T23:59:59")),
+                CheckOutDateTime(LocalDateTime.parse("2021-10-05T06:00:00")),
                 Url("http://localhost/test")
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
