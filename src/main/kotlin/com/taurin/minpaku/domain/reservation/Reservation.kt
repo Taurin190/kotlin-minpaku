@@ -1,11 +1,41 @@
 package com.taurin.minpaku.domain.reservation
 
+import java.lang.IllegalStateException
+
 class Reservation(
-    var title: Title,
-    var checkInDateTime: CheckInDateTime,
-    var checkOutDateTime: CheckOutDateTime?,
-    var url: Url?
+    var _title: Title,
+    var _checkInDateTime: CheckInDateTime,
+    var _checkOutDateTime: CheckOutDateTime?,
+    var _url: Url?
 ) {
+    val title: Title
+    val checkInDateTime: CheckInDateTime
+    val checkOutDateTime: CheckOutDateTime?
+    val url: Url?
+
+    init {
+        title = _title
+        checkInDateTime = _checkInDateTime
+        checkOutDateTime = _checkOutDateTime
+        checkInOutDate(checkInDateTime, checkOutDateTime)
+        url = _url
+    }
+
+    fun checkInOutDate(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime?) {
+        if (!checkInDateTime.validateDate()) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+        if (checkOutDateTime == null) {
+            return
+        }
+        if (!checkOutDateTime.validateDate()) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+
+        if (!checkInDateTime.isEarlierThan(checkOutDateTime)) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+    }
 
     override fun toString(): String {
         val sb = StringBuilder()
