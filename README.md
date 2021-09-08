@@ -32,3 +32,12 @@ $ ./gradlew bootRun
 - Springboot 2.5.0-SNAPSHOT
 - MySQL 8.0
 - Redis
+
+## メモ
+### Book entityのDateをutilでなくsql.dateにした理由
+この要件では、宿泊日の重複は起こらないため、Uniqueの制約を入れて、
+Databaseで重複を防ぐ仕組みにしたかった。
+
+utilのDateはcreated_datetimeなどでも使っているが、 時間まで入るため使わなかった。
+また、Stringなどで管理するとIndexでBetweenが効かないという問題もあるため、
+datetimeを使いつつ日付のみを管理する事にした。
