@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.sql.Date
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(ReservationAPIController::class)
@@ -39,7 +40,7 @@ class ReservationAPIControllerTest {
     fun testShowList() {
         val list = mutableListOf<Reservation>()
         val bookList = mutableListOf<Book>()
-        val book = Book(1, null, 1, null)
+        val book = Book(1, null, 1, Date.valueOf("2021-01-01"))
         bookList.add(book)
         val reservation = Reservation()
         reservation.books = bookList
@@ -56,7 +57,7 @@ class ReservationAPIControllerTest {
             .andDo(print())
             .andExpect(status().is2xxSuccessful)
             .andExpect(content().json(
-                "[{\"reservationId\":null,\"userId\":null,\"userName\":null,\"bookList\":[{\"bookId\":1,\"guestNum\":1,\"stayDate\":null}]}]"
+                "[{\"reservationId\":null,\"userId\":null,\"userName\":null,\"bookList\":[{\"bookId\":1,\"guestNum\":1,\"stayDate\":\"2021-01-01\"}]}]"
             ))
     }
 }

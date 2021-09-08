@@ -1,6 +1,6 @@
 package com.taurin.minpaku.infrastructure.Entity
 
-import java.util.*
+import java.util.Date
 import javax.persistence.*
 
 @Entity
@@ -15,5 +15,5 @@ class Book (
     @Column(columnDefinition = "int default 1")
     var guestNum: Int = 1,
     @Column(nullable = false, unique = true)
-    var stayDate: Date? = null
+    var stayDate: Date = Date()
 ) : Base()
