@@ -24,4 +24,9 @@ class Reservations {
         sb.append("]")
         return sb.toString()
     }
+
+    fun count() = reservationList.count()
+    fun append(reservation: Unit) {
+
+    }
 }

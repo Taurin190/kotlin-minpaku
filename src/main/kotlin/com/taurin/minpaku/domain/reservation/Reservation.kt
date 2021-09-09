@@ -1,6 +1,6 @@
 package com.taurin.minpaku.domain.reservation
 
-import java.lang.IllegalStateException
+import com.taurin.minpaku.infrastructure.Entity.Reservation as ReservationEntity
 
 class Reservation(
     var _title: Title,
@@ -19,6 +19,34 @@ class Reservation(
         checkOutDateTime = _checkOutDateTime
         verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)
         url = _url
+    }
+
+    fun toJson(): String {
+        val sb = StringBuilder()
+        sb.append("{\"title\": \"$title\"")
+        sb.append(",\"start\": \"$checkInDateTime\"")
+        if (checkOutDateTime != null) {
+            sb.append(",\"end\": \"$checkOutDateTime\"")
+        }
+        if (url != null) {
+            sb.append(",\"url\": \"$url\"")
+        }
+        sb.append("}")
+        return sb.toString()
+    }
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        sb.append("Reservation [title=$title")
+        sb.append(", start=$checkInDateTime")
+        if (checkOutDateTime != null) {
+            sb.append(", end=$checkOutDateTime")
+        }
+        if (url != null) {
+            sb.append(", url=$url")
+        }
+        sb.append("]")
+        return sb.toString()
     }
 
     private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime?) {
@@ -41,31 +69,17 @@ class Reservation(
         }
     }
 
-    override fun toString(): String {
-        val sb = StringBuilder()
-        sb.append("Reservation [title=$title")
-        sb.append(", start=$checkInDateTime")
-        if (checkOutDateTime != null) {
-            sb.append(", end=$checkOutDateTime")
-        }
-        if (url != null) {
-            sb.append(", url=$url")
-        }
-        sb.append("]")
-        return sb.toString()
-    }
-
-    fun toJson(): String {
-        val sb = StringBuilder()
-        sb.append("{\"title\": \"$title\"")
-        sb.append(",\"start\": \"$checkInDateTime\"")
-        if (checkOutDateTime != null) {
-            sb.append(",\"end\": \"$checkOutDateTime\"")
-        }
-        if (url != null) {
-            sb.append(",\"url\": \"$url\"")
-        }
-        sb.append("}")
-        return sb.toString()
+    companion object {
+        fun fromEntity(reservation: ReservationEntity) =
+            Reservation(
+                Title(reservation.user?.userName ?: "Guest"),
+                CheckInDateTime(
+                    reservation.checkInDateTime
+                ),
+                CheckOutDateTime(
+                    reservation.checkOutDateTime
+                ),
+                null
+            )
     }
 }
