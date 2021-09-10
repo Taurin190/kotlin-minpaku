@@ -22,7 +22,7 @@ class ReservationForm {
         regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]",
         message = "時間はHH:mmの形式で指定可能です。"
     )
-    var checkInTime: String = ""
+    var checkInTime: String = "17:00"
 
     @NotBlank
     @Size(min = 10, max = 10)
@@ -38,7 +38,7 @@ class ReservationForm {
         regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]",
         message = "時間はHH:mmの形式で指定可能です。"
     )
-    var checkOutTime: String = ""
+    var checkOutTime: String = "09:00"
 
     @Range(
         min = 1,
