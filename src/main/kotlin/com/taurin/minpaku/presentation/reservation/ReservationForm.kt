@@ -11,18 +11,34 @@ class ReservationForm {
     @NotBlank
     @Size(min = 10, max = 10)
     @Pattern(
-        regexp = "^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])",
+        regexp = "^20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])",
         message = "日付はYYYY-MM-DDの形式で2000年以降2100年までの日付が指定可能です。"
     )
     var checkInDate: String = ""
 
     @NotBlank
+    @Size(min = 3, max = 5)
+    @Pattern(
+        regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]",
+        message = "時間はHH:mmの形式で指定可能です。"
+    )
+    var checkInTime: String = ""
+
+    @NotBlank
     @Size(min = 10, max = 10)
     @Pattern(
-        regexp = "^20[1-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])",
+        regexp = "^20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])",
         message = "日付はYYYY-MM-DDの形式で2000年以降2100年までの日付が指定可能です。"
     )
     var checkOutDate: String = ""
+
+    @NotBlank
+    @Size(min = 3, max = 5)
+    @Pattern(
+        regexp = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]",
+        message = "時間はHH:mmの形式で指定可能です。"
+    )
+    var checkOutTime: String = ""
 
     @Range(
         min = 1,

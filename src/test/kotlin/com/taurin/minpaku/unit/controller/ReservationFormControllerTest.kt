@@ -131,6 +131,8 @@ class ReservationFormControllerTest {
         val form = ReservationForm()
         form.checkInDate = "2021-01-01"
         form.checkOutDate = "2021-01-03"
+        form.checkInTime = "15:00"
+        form.checkOutTime = "10:00"
         form.guestNum = 1
 
         every {

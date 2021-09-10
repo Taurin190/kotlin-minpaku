@@ -22,9 +22,19 @@
               <td th:if="${#fields.hasErrors('checkInDate')}" th:errors="*{checkInDate}">checkInDate Error</td>
             </div>
             <div class="form-group py-2">
+              <label>チェックイン時間</label>
+              <input type="text"  class="form-control" th:field="*{checkInTime}" />
+              <td th:if="${#fields.hasErrors('checkInTime')}" th:errors="*{checkInTime}">checkInDate Error</td>
+            </div>
+            <div class="form-group py-2">
               <lable>チェックアウト日</lable>
               <input type="text" class="form-control" th:field="*{checkOutDate}" />
               <td th:if="${#fields.hasErrors('checkOutDate')}" th:errors="*{checkOutDate}">checkOutDate Error</td>
+            </div>
+            <div class="form-group py-2">
+              <label>チェックアウト時間</label>
+              <input type="text"  class="form-control" th:field="*{checkOutTime}" />
+              <td th:if="${#fields.hasErrors('checkOutTime')}" th:errors="*{checkOutTime}">checkInDate Error</td>
             </div>
             <div class="form-group py-2">
               <lable>宿泊人数</lable>
