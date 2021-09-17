@@ -17,12 +17,18 @@
               <p class="font-weight-bold" th:text="${name}" ></p>
             </div>
             <div class="form-group py-2">
-              <label>チェックイン日</label>
-              <p class="font-weight-bold" th:text="${reservation.checkInDate}" ></p>
+              <label>チェックイン日時</label>
+              <div>
+                <span class="font-weight-bold" th:text="${reservation.checkInDate}" ></span>
+                <span class="font-weight-bold" th:text=" ${reservation.checkInTime}" ></span>
+              </div>
             </div>
             <div class="form-group py-2">
-              <lable>チェックアウト日</lable>
-              <p class="font-weight-bold" th:text="${reservation.checkOutDate}" ></p>
+              <lable>チェックアウト日時</lable>
+              <div>
+                <span class="font-weight-bold" th:text="${reservation.checkOutDate}" ></span>
+                <span class="font-weight-bold" th:text=" ${reservation.checkOutTime}" ></span>
+              </div>
             </div>
             <div class="form-group py-2">
               <lable>宿泊人数</lable>
