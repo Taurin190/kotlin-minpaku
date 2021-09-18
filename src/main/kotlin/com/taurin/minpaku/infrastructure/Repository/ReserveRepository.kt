@@ -12,7 +12,10 @@ import java.util.*
 interface ReserveRepository : JpaRepository<Reservation, Long> {
     @Modifying
     @Query(
-        value = "SELECT r.reservation_id, b.book_id, b.guest_num, b.stay_date, r.created_datetime, r.updated_datetime, r.user_id " +
+        value = "SELECT " +
+                "r.reservation_id, b.book_id, b.guest_num, b.stay_date, " +
+                "r.created_datetime, r.updated_datetime, r.user_id," +
+                "r.check_in_date_time, r.check_out_date_time " +
                 "FROM reservation r " +
                 "JOIN book b ON r.reservation_id = b.reservation_id " +
                 "WHERE b.stay_date BETWEEN :start_date AND :end_date " +
