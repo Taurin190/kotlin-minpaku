@@ -15,11 +15,13 @@ class ReservationAPIController {
     fun all(
         @RequestParam(value = "year", defaultValue = "") yearStr: String,
         @RequestParam(value = "month", defaultValue = "") monthStr: String
-    ) : List<ReservationResponse> {
+    ) : String {
         val year = DateUtil.getValidYear(yearStr)
         val month = DateUtil.getValidMonth(monthStr)
         val reservationList = reserveService.getReservationsByDuration(year, month)
         var responseList = mutableListOf<ReservationResponse>()
+
+        val reservations = reserveService.getReservationsInMonth(year, month)
 
         reservationList.forEach {
             var bookList = mutableListOf<BookResponse>()
@@ -35,6 +37,6 @@ class ReservationAPIController {
                 )
             )
         }
-        return responseList
+        return reservations.toJson()
     }
 }

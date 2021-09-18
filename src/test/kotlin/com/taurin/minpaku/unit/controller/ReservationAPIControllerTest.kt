@@ -1,6 +1,8 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
+import com.taurin.minpaku.domain.reservation.Reservations
+import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
 import com.taurin.minpaku.infrastructure.Entity.Book
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.presentation.reservation.ReservationAPIController
@@ -45,11 +47,17 @@ class ReservationAPIControllerTest {
         val reservation = Reservation()
         reservation.books = bookList
         list.add(reservation)
-
+        val reservationDomain = ReservationDomain.fromEntity(reservation)
+        val reservations = Reservations()
+        reservations.append(reservationDomain)
 
         every {
             reserveService.getReservationsByDuration(any(), any())
         } returns list
+
+        every {
+            reserveService.getReservationsInMonth(any(), any())
+        } returns reservations
 
         mockMvc.perform(
             get("/api/reservation/list")
@@ -57,7 +65,7 @@ class ReservationAPIControllerTest {
             .andDo(print())
             .andExpect(status().is2xxSuccessful)
             .andExpect(content().json(
-                "[{\"reservationId\":null,\"userId\":null,\"userName\":null,\"bookList\":[{\"bookId\":1,\"guestNum\":1,\"stayDate\":\"2021-01-01\"}]}]"
+                "[{\"title\": \"Guest\",\"start\": \"2000-01-01\",\"end\": \"2000-01-02\"}]"
             ))
     }
 }
