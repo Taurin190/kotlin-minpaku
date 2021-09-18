@@ -1,15 +1,10 @@
 package com.taurin.minpaku.unit.service
 
-import com.taurin.minpaku.domain.reservation.CheckInDateTime
-import com.taurin.minpaku.domain.reservation.CheckOutDateTime
-import com.taurin.minpaku.domain.reservation.Reservations
-import com.taurin.minpaku.domain.reservation.Title
-import com.taurin.minpaku.infrastructure.Entity.Book
-import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
+import com.taurin.minpaku.domain.reservation.*
 import com.taurin.minpaku.infrastructure.Entity.Reservation
-import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import com.taurin.minpaku.infrastructure.datasource.ReserveDataSource
+import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.service.ReserveService
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -20,6 +15,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
+import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
 
 class ReserveServiceTest {
     @MockK
@@ -77,6 +73,45 @@ class ReserveServiceTest {
         } throws Exception("Test Exception")
         try {
             reserveService.reserve(reservation)
+        } catch (e: DBException) {
+            assertThat(e.message).isEqualTo("登録出来ませんでした。")
+        }
+    }
+
+    @Test
+    fun testRegister() {
+        val reservationDomain = ReservationDomain(
+            Title("Test Reservation"),
+            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
+            CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
+            Url("http://localhost/test")
+        )
+
+        every {
+            reserveRepository.save(any())
+        } returns ReservationDomain.toEntity(reservationDomain)
+
+        reserveService.register(reservationDomain)
+
+        verify {
+            reserveRepository.save(any())
+        }
+    }
+
+    @Test
+    fun testRegisterWithException() {
+        val reservationDomain = ReservationDomain(
+            Title("Test Reservation"),
+            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
+            CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
+            Url("http://localhost/test")
+        )
+
+        every {
+            reserveRepository.save(any())
+        } throws Exception("Test Exception")
+        try {
+            reserveService.register(reservationDomain)
         } catch (e: DBException) {
             assertThat(e.message).isEqualTo("登録出来ませんでした。")
         }

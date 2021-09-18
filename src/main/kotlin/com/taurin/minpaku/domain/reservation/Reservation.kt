@@ -1,5 +1,7 @@
 package com.taurin.minpaku.domain.reservation
 
+import com.taurin.minpaku.infrastructure.Entity.Book
+import java.time.LocalDateTime
 import com.taurin.minpaku.infrastructure.Entity.Reservation as ReservationEntity
 
 class Reservation(
@@ -81,5 +83,16 @@ class Reservation(
                 ),
                 null
             )
+
+        fun toEntity(reservation: Reservation): ReservationEntity {
+            // TODO checkOutDateTimeでnullableにしている部分を修正する。
+            return ReservationEntity(
+                null,
+                null,
+                mutableListOf<Book>(),
+                reservation.checkInDateTime.value,
+                reservation.checkOutDateTime?.value ?: LocalDateTime.parse("2000-01-02T10:00:00"),
+            )
+        }
     }
 }
