@@ -10,8 +10,8 @@ import java.time.LocalDate
 @Repository
 class ReserveDataSource(
     val reserveRepository: ReserveRepository
-) {
-    fun findAllByDuration(
+) : com.taurin.minpaku.domain.datasource.ReserveRepository {
+    override fun findAllByDuration(
         startDate: LocalDate,
         endDate: LocalDate
     ): Reservations {
@@ -28,5 +28,9 @@ class ReserveDataSource(
             )
         }
         return reservations
+    }
+
+    override fun register(reservation: Reservation): Reservation {
+        TODO("Not yet implemented")
     }
 }
