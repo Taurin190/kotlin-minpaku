@@ -153,4 +153,20 @@ class ReservationTest {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
         }
     }
+
+    @Test
+    fun testWithoutCheckOutDateTime() {
+        val actual = Reservation(
+            Title("Test Reservation"),
+            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
+            null,
+            Url("http://localhost/test")
+        )
+
+        assertThat(actual.toJson())
+            .isEqualTo("{\"title\": \"Test Reservation\"," +
+                    "\"start\": \"2021-01-01\"," +
+                    "\"end\": \"2021-01-02\"," +
+                    "\"url\": \"http://localhost/test\"}")
+    }
 }

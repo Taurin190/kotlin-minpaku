@@ -12,13 +12,13 @@ class Reservation(
 ) {
     private val title: Title
     private val checkInDateTime: CheckInDateTime
-    private val checkOutDateTime: CheckOutDateTime?
+    private val checkOutDateTime: CheckOutDateTime
     private val url: Url?
 
     init {
         title = _title
         checkInDateTime = _checkInDateTime
-        checkOutDateTime = _checkOutDateTime
+        checkOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
         verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)
         url = _url
     }
@@ -27,9 +27,8 @@ class Reservation(
         val sb = StringBuilder()
         sb.append("{\"title\": \"$title\"")
         sb.append(",\"start\": \"$checkInDateTime\"")
-        if (checkOutDateTime != null) {
-            sb.append(",\"end\": \"$checkOutDateTime\"")
-        }
+        sb.append(",\"end\": \"$checkOutDateTime\"")
+
         if (url != null) {
             sb.append(",\"url\": \"$url\"")
         }
@@ -41,9 +40,8 @@ class Reservation(
         val sb = StringBuilder()
         sb.append("Reservation [title=$title")
         sb.append(", start=$checkInDateTime")
-        if (checkOutDateTime != null) {
-            sb.append(", end=$checkOutDateTime")
-        }
+        sb.append(", end=$checkOutDateTime")
+
         if (url != null) {
             sb.append(", url=$url")
         }
@@ -51,12 +49,9 @@ class Reservation(
         return sb.toString()
     }
 
-    private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime?) {
+    private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime) {
         if (!checkInDateTime.validateDate()) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
-        }
-        if (checkOutDateTime == null) {
-            return
         }
         if (!checkOutDateTime.validateDate()) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
@@ -85,13 +80,12 @@ class Reservation(
             )
 
         fun toEntity(reservation: Reservation): ReservationEntity {
-            // TODO checkOutDateTimeでnullableにしている部分を修正する。
             return ReservationEntity(
                 null,
                 null,
                 mutableListOf<Book>(),
                 reservation.checkInDateTime.value,
-                reservation.checkOutDateTime?.value ?: LocalDateTime.parse("2000-01-02T10:00:00"),
+                reservation.checkOutDateTime.value,
             )
         }
     }

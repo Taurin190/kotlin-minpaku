@@ -21,6 +21,18 @@ class CheckInDateTime(
         return ChronoUnit.DAYS.between(checkInDate, checkOutDate)
     }
 
+    fun getDefaultCheckOutDateTime(): CheckOutDateTime {
+        val nextDate = value.plusDays(1)
+        return CheckOutDateTime(
+            nextDate
+                .withHour(10)
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0)
+        )
+
+    }
+
     override fun validateDate(): Boolean {
         // 2000 ~ 2040年までを正常な値とする
         if (value.year !in 2000..2040) {
