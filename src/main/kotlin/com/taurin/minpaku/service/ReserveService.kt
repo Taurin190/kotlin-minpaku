@@ -23,23 +23,9 @@ class ReserveService {
 
     private val logger = LoggerFactory.getLogger(ReserveService::class.java)
 
-    fun getReservationsByDuration(year: Int, month: Int): List<Reservation> {
-        val cal = Calendar.getInstance()
-        cal.set(year, month + 1, 1)
-        cal.add(Calendar.DATE, -1)
-        val lastDayOfMonth = cal.get(Calendar.DATE)
-        val padMonth = "$month".padStart(2, '0')
-        logger.info("Get Data of $year-$padMonth")
-        return reserveRepository
-            .findAllByDuration(
-                Date.valueOf("$year-$padMonth-1"),
-                Date.valueOf("$year-$padMonth-$lastDayOfMonth")
-            )
-    }
-
     fun getReservationsInMonth(year: Int, month: Int): Reservations {
         val cal = Calendar.getInstance()
-        cal.set(year, month + 1, 1)
+        cal.set(year, month, 1)
         cal.add(Calendar.DATE, -1)
         val lastDayOfMonth = cal.get(Calendar.DATE)
         val padMonth = "$month".padStart(2, '0')

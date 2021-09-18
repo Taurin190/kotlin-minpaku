@@ -35,19 +35,6 @@ class ReserveServiceTest {
     fun setUp() = MockKAnnotations.init(this)
 
     @Test
-    fun testGetReservationsByDuration() {
-        val reservation = Reservation(10)
-        every {
-            reserveRepository.findAllByDuration(
-                any(),
-                any()
-            )
-        } returns listOf(reservation)
-        val actual = reserveService.getReservationsByDuration(2021,  5)
-        assertThat(actual.count()).isEqualTo(1)
-    }
-
-    @Test
     fun testGetReservationsInMonth() {
         val reservations = Reservations()
         val reservation = ReservationDomain(
