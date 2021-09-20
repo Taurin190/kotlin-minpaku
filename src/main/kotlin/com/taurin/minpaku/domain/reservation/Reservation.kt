@@ -67,6 +67,7 @@ class Reservation(
     }
 
     companion object {
+        // TODO: 2021/09/21 Entityに依存するので、Entity側に変換を持たせる
         fun fromEntity(reservation: ReservationEntity) =
             Reservation(
                 Title(reservation.user?.userName ?: "Guest"),
@@ -79,6 +80,7 @@ class Reservation(
                 null
             )
 
+        // TODO: 2021/09/21 Entityに依存するので、Entity側に変換を持たせる
         fun toEntity(reservation: Reservation): ReservationEntity {
             return ReservationEntity(
                 null,
