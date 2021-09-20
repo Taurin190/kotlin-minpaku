@@ -24,7 +24,7 @@ class ReserveDataSource(
 
         reservationList.forEach {
             reservations.append(
-                reservations.append(Reservation.fromEntity(it))
+                reservations.append(it.toDomain())
             )
         }
         return reservations
