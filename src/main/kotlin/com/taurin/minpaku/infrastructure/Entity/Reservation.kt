@@ -1,8 +1,13 @@
 package com.taurin.minpaku.infrastructure.Entity
 
+import com.taurin.minpaku.domain.reservation.CheckInDateTime
+import com.taurin.minpaku.domain.reservation.CheckOutDateTime
+import com.taurin.minpaku.domain.reservation.Title
+import com.taurin.minpaku.domain.reservation.Url
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
+import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
 
 @Entity
 @Table(name = "reservation")
@@ -26,5 +31,14 @@ class Reservation (
             bookList.add(Book(null, this, guestNum, it))
         }
         this.books = bookList
+    }
+
+    fun toDomain() : ReservationDomain {
+        return ReservationDomain(
+            Title(user?.userName ?: "Guest"),
+            CheckInDateTime(checkInDateTime),
+            CheckOutDateTime(checkOutDateTime),
+            null
+        )
     }
 }
