@@ -1,9 +1,6 @@
 package com.taurin.minpaku.domain.reservation
 
-import com.taurin.minpaku.infrastructure.Entity.Book
-import java.time.LocalDateTime
-import com.taurin.minpaku.infrastructure.Entity.Reservation as ReservationEntity
-
+//TODO APIのレスポンスの出し方に引きずられているため分離する
 class Reservation(
     var _title: Title,
     var _checkInDateTime: CheckInDateTime,
