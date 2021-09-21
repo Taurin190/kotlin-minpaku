@@ -11,8 +11,8 @@ class Reservation(
     var _url: Url?
 ) {
     private val title: Title
-    private val checkInDateTime: CheckInDateTime
-    private val checkOutDateTime: CheckOutDateTime
+    val checkInDateTime: CheckInDateTime
+    val checkOutDateTime: CheckOutDateTime
     private val url: Url?
 
     init {
@@ -63,19 +63,6 @@ class Reservation(
 
         if (checkInDateTime.getDaysOfStay(checkOutDateTime) > 3) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
-        }
-    }
-
-    companion object {
-        // TODO: 2021/09/21 Entityに依存するので、Entity側に変換を持たせる
-        fun toEntity(reservation: Reservation): ReservationEntity {
-            return ReservationEntity(
-                null,
-                null,
-                mutableListOf<Book>(),
-                reservation.checkInDateTime.value,
-                reservation.checkOutDateTime.value,
-            )
         }
     }
 }

@@ -41,4 +41,16 @@ class Reservation (
             null
         )
     }
+
+    companion object {
+        fun fromDomain(reservationDomain: ReservationDomain) : Reservation {
+            return Reservation(
+                null,
+                null,
+                mutableListOf<Book>(),
+                reservationDomain.checkInDateTime.value,
+                reservationDomain.checkOutDateTime.value
+            )
+        }
+    }
 }

@@ -89,7 +89,7 @@ class ReserveServiceTest {
 
         every {
             reserveRepository.save(any())
-        } returns ReservationDomain.toEntity(reservationDomain)
+        } returns Reservation.fromDomain(reservationDomain)
 
         reserveService.register(reservationDomain)
 

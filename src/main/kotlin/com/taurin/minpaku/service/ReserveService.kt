@@ -49,7 +49,7 @@ class ReserveService {
     fun register(reservation: ReservationDomain) {
         try {
             reserveRepository.save(
-                ReservationDomain.toEntity(reservation)
+                Reservation.fromDomain(reservation)
             )
         } catch (e: Exception) {
             logger.warn("Reserve fail with Exception: ${e.message}")
