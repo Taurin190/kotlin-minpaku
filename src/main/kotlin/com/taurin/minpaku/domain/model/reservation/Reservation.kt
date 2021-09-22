@@ -7,15 +7,12 @@ class Reservation(
     var _checkOutDateTime: CheckOutDateTime?,
     var _url: Url?
 ) {
-    private val title: Title
-    val checkInDateTime: CheckInDateTime
-    val checkOutDateTime: CheckOutDateTime
+    private val title: Title = _title
+    val checkInDateTime: CheckInDateTime = _checkInDateTime
+    val checkOutDateTime: CheckOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
     private val url: Url?
 
     init {
-        title = _title
-        checkInDateTime = _checkInDateTime
-        checkOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
         verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)
         url = _url
     }
@@ -47,14 +44,6 @@ class Reservation(
     }
 
     private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime) {
-        //TODO Reserveで見なくても、インスタンス作成時に既に保証されている状態にする
-        if (!checkInDateTime.validateDate()) {
-            throw IllegalStateException("指定された日付正しい範囲にありません。")
-        }
-        if (!checkOutDateTime.validateDate()) {
-            throw IllegalStateException("指定された日付正しい範囲にありません。")
-        }
-
         if (!checkInDateTime.isEarlierThan(checkOutDateTime)) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
         }

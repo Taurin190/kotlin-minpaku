@@ -9,6 +9,12 @@ import java.time.temporal.ChronoUnit
 class CheckInDateTime(
     override val value: LocalDateTime
 ) : ReservationDateTime(value) {
+    init {
+        if (!validateDate()) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+    }
+
     fun isEarlierThan(checkOutDateTime: CheckOutDateTime) = value < checkOutDateTime.value
 
     /**

@@ -8,6 +8,12 @@ import java.time.LocalDateTime
 class CheckOutDateTime(
     override val value: LocalDateTime
 ) : ReservationDateTime(value) {
+    init {
+        if (!validateDate()) {
+            throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+    }
+
     override fun validateDate(): Boolean {
         // 2000 ~ 2040年までを正常な値とする
         if (value.year !in 2000..2040) {
