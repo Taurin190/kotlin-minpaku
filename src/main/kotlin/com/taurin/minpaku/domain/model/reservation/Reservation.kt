@@ -47,6 +47,7 @@ class Reservation(
     }
 
     private fun verifyCheckInOutDateTime(checkInDateTime: CheckInDateTime, checkOutDateTime: CheckOutDateTime) {
+        //TODO Reserveで見なくても、インスタンス作成時に既に保証されている状態にする
         if (!checkInDateTime.validateDate()) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
         }
