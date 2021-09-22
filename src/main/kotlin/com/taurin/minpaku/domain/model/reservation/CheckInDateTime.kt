@@ -1,4 +1,4 @@
-package com.taurin.minpaku.domain.reservation
+package com.taurin.minpaku.domain.model.reservation
 
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit

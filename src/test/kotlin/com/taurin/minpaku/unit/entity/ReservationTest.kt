@@ -1,8 +1,8 @@
 package com.taurin.minpaku.unit.entity
 
-import com.taurin.minpaku.domain.reservation.CheckInDateTime
-import com.taurin.minpaku.domain.reservation.CheckOutDateTime
-import com.taurin.minpaku.domain.reservation.Title
+import com.taurin.minpaku.domain.model.reservation.CheckInDateTime
+import com.taurin.minpaku.domain.model.reservation.CheckOutDateTime
+import com.taurin.minpaku.domain.model.reservation.Title
 import com.taurin.minpaku.infrastructure.Entity.Book
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +27,7 @@ class ReservationTest {
 
     @Test
     fun testFromDomain() {
-        val reservation = com.taurin.minpaku.domain.reservation.Reservation(
+        val reservation = com.taurin.minpaku.domain.model.reservation.Reservation(
             Title("Test Taro"),
             CheckInDateTime(
                 LocalDateTime.parse("2021-07-01T15:00:00"),

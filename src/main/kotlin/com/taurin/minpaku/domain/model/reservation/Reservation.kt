@@ -1,4 +1,4 @@
-package com.taurin.minpaku.domain.reservation
+package com.taurin.minpaku.domain.model.reservation
 
 //TODO APIのレスポンスの出し方に引きずられているため分離する
 class Reservation(

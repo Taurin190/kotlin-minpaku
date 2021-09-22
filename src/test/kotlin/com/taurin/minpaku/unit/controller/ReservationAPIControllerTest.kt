@@ -1,13 +1,11 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.domain.reservation.CheckInDateTime
-import com.taurin.minpaku.domain.reservation.CheckOutDateTime
-import com.taurin.minpaku.domain.reservation.Reservations
-import com.taurin.minpaku.domain.reservation.Title
-import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
-import com.taurin.minpaku.infrastructure.Entity.Book
-import com.taurin.minpaku.infrastructure.Entity.Reservation
+import com.taurin.minpaku.domain.model.reservation.CheckInDateTime
+import com.taurin.minpaku.domain.model.reservation.CheckOutDateTime
+import com.taurin.minpaku.domain.model.reservation.Reservations
+import com.taurin.minpaku.domain.model.reservation.Title
+import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 import com.taurin.minpaku.presentation.reservation.ReservationAPIController
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ReserveService
@@ -24,7 +22,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.sql.Date
 import java.time.LocalDateTime
 
 @ExtendWith(SpringExtension::class)

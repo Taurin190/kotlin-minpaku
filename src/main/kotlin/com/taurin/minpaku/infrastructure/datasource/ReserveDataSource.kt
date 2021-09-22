@@ -1,7 +1,7 @@
 package com.taurin.minpaku.infrastructure.datasource
 
-import com.taurin.minpaku.domain.reservation.Reservation
-import com.taurin.minpaku.domain.reservation.Reservations
+import com.taurin.minpaku.domain.model.reservation.Reservation
+import com.taurin.minpaku.domain.model.reservation.Reservations
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import org.springframework.stereotype.Repository
 import java.sql.Date

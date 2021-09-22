@@ -1,13 +1,12 @@
 package com.taurin.minpaku.infrastructure.Entity
 
-import com.taurin.minpaku.domain.reservation.CheckInDateTime
-import com.taurin.minpaku.domain.reservation.CheckOutDateTime
-import com.taurin.minpaku.domain.reservation.Title
-import com.taurin.minpaku.domain.reservation.Url
+import com.taurin.minpaku.domain.model.reservation.CheckInDateTime
+import com.taurin.minpaku.domain.model.reservation.CheckOutDateTime
+import com.taurin.minpaku.domain.model.reservation.Title
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
-import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
+import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 
 @Entity
 @Table(name = "reservation")

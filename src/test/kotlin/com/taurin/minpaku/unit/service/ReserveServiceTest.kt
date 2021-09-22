@@ -1,6 +1,6 @@
 package com.taurin.minpaku.unit.service
 
-import com.taurin.minpaku.domain.reservation.*
+import com.taurin.minpaku.domain.model.reservation.*
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import com.taurin.minpaku.infrastructure.datasource.ReserveDataSource
@@ -15,7 +15,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
-import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
+import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 
 class ReserveServiceTest {
     @MockK

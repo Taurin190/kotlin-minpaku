@@ -1,6 +1,6 @@
 package com.taurin.minpaku.unit.domain
 
-import com.taurin.minpaku.domain.reservation.*
+import com.taurin.minpaku.domain.model.reservation.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail

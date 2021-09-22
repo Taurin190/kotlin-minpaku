@@ -1,4 +1,4 @@
-package com.taurin.minpaku.domain.reservation
+package com.taurin.minpaku.domain.model.reservation
 
 import javax.validation.constraints.NotBlank
 

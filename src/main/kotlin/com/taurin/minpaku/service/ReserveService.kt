@@ -1,7 +1,7 @@
 package com.taurin.minpaku.service
 
-import com.taurin.minpaku.domain.reservation.Reservations
-import com.taurin.minpaku.domain.reservation.Reservation as ReservationDomain
+import com.taurin.minpaku.domain.model.reservation.Reservations
+import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import com.taurin.minpaku.infrastructure.datasource.ReserveDataSource

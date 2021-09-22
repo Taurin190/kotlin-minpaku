@@ -1,7 +1,7 @@
 package com.taurin.minpaku.domain.datasource
 
-import com.taurin.minpaku.domain.reservation.Reservation
-import com.taurin.minpaku.domain.reservation.Reservations
+import com.taurin.minpaku.domain.model.reservation.Reservation
+import com.taurin.minpaku.domain.model.reservation.Reservations
 import java.time.LocalDate
 
 interface ReserveRepository {
