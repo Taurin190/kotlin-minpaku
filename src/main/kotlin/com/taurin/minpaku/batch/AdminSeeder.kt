@@ -1,7 +1,7 @@
 package com.taurin.minpaku.batch
 
 import com.taurin.minpaku.infrastructure.Entity.User
-import com.taurin.minpaku.enum.Permission
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.service.AuthService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

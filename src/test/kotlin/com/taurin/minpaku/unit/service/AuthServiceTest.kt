@@ -1,7 +1,7 @@
 package com.taurin.minpaku.unit.service
 
 import com.taurin.minpaku.infrastructure.Entity.User
-import com.taurin.minpaku.enum.Permission
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.infrastructure.Repository.UserRepository
 import com.taurin.minpaku.service.AuthService

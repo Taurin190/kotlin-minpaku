@@ -2,7 +2,7 @@ package com.taurin.minpaku.unit.service
 
 import com.taurin.minpaku.infrastructure.Entity.Profile
 import com.taurin.minpaku.infrastructure.Entity.User
-import com.taurin.minpaku.enum.Permission
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.infrastructure.Repository.ProfileRepository
