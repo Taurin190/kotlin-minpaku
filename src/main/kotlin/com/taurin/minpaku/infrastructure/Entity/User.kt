@@ -1,7 +1,7 @@
 package com.taurin.minpaku.infrastructure.Entity
 
 import javax.persistence.*
-import com.taurin.minpaku.enum.Permission
+import com.taurin.minpaku.domain.type.Permission
 
 @Entity
 @Table(name = "user", indexes = arrayOf(Index(name = "username_index", columnList = "username", unique = true)))
