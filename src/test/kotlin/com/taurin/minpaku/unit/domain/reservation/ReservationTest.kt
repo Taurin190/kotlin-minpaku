@@ -1,4 +1,4 @@
-package com.taurin.minpaku.unit.domain
+package com.taurin.minpaku.unit.domain.reservation
 
 import com.taurin.minpaku.domain.model.reservation.*
 import org.assertj.core.api.Assertions.assertThat

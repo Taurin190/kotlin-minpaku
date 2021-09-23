@@ -7,4 +7,7 @@ class User(
     var profile: Profile?,
     val permission: Permission
 ) {
+    fun hasProfile() = profile != null
+
+    fun isAdmin() = permission == Permission.ADMIN
 }
