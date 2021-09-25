@@ -15,7 +15,7 @@ class NameTest {
     @Test
     fun testNameWithInvalidShortName() {
         try {
-            val actual = Name("")
+            Name("")
             fail("不正な値に例外が発生しませんでした。")
         } catch (e: IllegalStateException) {
             assertThat(e.message).isEqualTo("名前は1文字以上、20文字以内で指定して下さい。")
@@ -25,7 +25,7 @@ class NameTest {
     @Test
     fun testNameWithInvalidLongName() {
         try {
-            val actual = Name("aiueo kakikukeko sashisuseso")
+            Name("aiueo kakikukeko sashisuseso")
             fail("不正な値に例外が発生しませんでした。")
         } catch (e: IllegalStateException) {
             assertThat(e.message).isEqualTo("名前は1文字以上、20文字以内で指定して下さい。")
