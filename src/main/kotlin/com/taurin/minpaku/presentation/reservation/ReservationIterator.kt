@@ -7,11 +7,11 @@ class ReservationIterator(val reservations: Reservations): Iterator<Reservation>
     private var index = 0
 
     override fun hasNext(): Boolean {
-        return reservations.has(index + 1)
+        return reservations.has(index)
     }
 
     override fun next(): Reservation {
         index += 1
-        return reservations.get(index)
+        return reservations.get(index - 1)
     }
 }

@@ -30,6 +30,10 @@ class Reservation(
         return sb.toString()
     }
 
+    fun getTitle() = title
+
+    fun getUrl() = url
+
     override fun toString(): String {
         val sb = StringBuilder()
         sb.append("Reservation [title=$title")
