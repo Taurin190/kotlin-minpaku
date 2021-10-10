@@ -21,11 +21,10 @@ class ReservationAPIController {
     ) : String {
         val headers = HttpHeaders()
         headers.contentType = MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8)
-        return reserveService
+        return ReservationsResponse(reserveService
             .getReservationsInMonth(
                 DateUtil.getValidYear(yearStr),
                 DateUtil.getValidMonth(monthStr)
-            )
-            .toJson()
+            )).json
     }
 }

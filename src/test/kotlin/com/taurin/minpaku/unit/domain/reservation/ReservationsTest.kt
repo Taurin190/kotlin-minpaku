@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 class ReservationsTest {
     @Test
-    fun testReservationsJson() {
+    fun testReservationsString() {
         val reservations = Reservations()
         reservations.append(Reservation(
             Title("Test Reservation"),
@@ -22,8 +22,8 @@ class ReservationsTest {
             Url("http://localhost/test2")
         ))
 
-        val actual = reservations.toJson()
-        assertThat(actual).isEqualTo("[" +
+        val actual = reservations.toString()
+        assertThat(actual).isEqualTo("Reservations[" +
                 "{\"title\": \"Test Reservation\"," +
                 "\"start\": \"2021-01-01\"," +
                 "\"end\": \"2021-01-03\"," +

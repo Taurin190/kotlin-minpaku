@@ -21,7 +21,7 @@ class Reservations: Iterable<Reservation> {
 
     fun get(index: Int) = reservationList[index]
 
-    fun toJson(): String {
+    private fun toJson(): String {
         val sb = StringBuilder()
         sb.append("[")
         reservationList.forEach {
