@@ -8,8 +8,8 @@ class Reservation(
     var _url: Url?
 ) {
     private val title: Title = _title
-    val checkInDateTime: CheckInDateTime = _checkInDateTime
-    val checkOutDateTime: CheckOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
+    private val checkInDateTime: CheckInDateTime = _checkInDateTime
+    private val checkOutDateTime: CheckOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
     private val url: Url?
 
     init {
@@ -33,6 +33,10 @@ class Reservation(
     fun getTitle() = title
 
     fun getUrl() = url
+
+    fun getCheckInDateTime() = checkInDateTime
+
+    fun getCheckOutDateTime() = checkOutDateTime
 
     override fun toString(): String {
         val sb = StringBuilder()

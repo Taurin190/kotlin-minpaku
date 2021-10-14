@@ -47,8 +47,8 @@ class Reservation (
                 null,
                 null,
                 mutableListOf<Book>(),
-                reservationDomain.checkInDateTime.value,
-                reservationDomain.checkOutDateTime.value
+                reservationDomain.getCheckInDateTime().value,
+                reservationDomain.getCheckOutDateTime().value
             )
         }
     }
