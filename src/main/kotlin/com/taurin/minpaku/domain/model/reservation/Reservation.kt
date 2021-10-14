@@ -1,16 +1,20 @@
 package com.taurin.minpaku.domain.model.reservation
 
+import com.taurin.minpaku.domain.model.user.User
+
 //TODO APIのレスポンスの出し方に引きずられているため分離する
 class Reservation(
     var _title: Title,
     var _checkInDateTime: CheckInDateTime,
     var _checkOutDateTime: CheckOutDateTime?,
-    var _url: Url?
+    var _url: Url?,
+    _user: User? = null,
 ) {
     private val title: Title = _title
-    private val checkInDateTime: CheckInDateTime = _checkInDateTime
-    private val checkOutDateTime: CheckOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
+    private val checkInDateTime = _checkInDateTime
+    private val checkOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
     private val url: Url?
+    private val user = _user
 
     init {
         verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)

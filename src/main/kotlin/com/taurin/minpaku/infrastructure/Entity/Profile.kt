@@ -1,5 +1,10 @@
 package com.taurin.minpaku.infrastructure.Entity
 
+import com.taurin.minpaku.domain.model.user.EmailAddress
+import com.taurin.minpaku.domain.model.user.Name
+import com.taurin.minpaku.domain.model.user.PhoneNumber
+import com.taurin.minpaku.domain.model.user.UserName
+import com.taurin.minpaku.domain.model.user.Profile as ProfileDomain
 import javax.persistence.*
 
 @Entity
@@ -20,3 +25,12 @@ data class Profile(
     @Column(name = "phone_number", nullable = false)
     var phoneNumber: String = ""
 ) : Base()
+{
+    fun toDomain(): ProfileDomain {
+        return ProfileDomain(
+            Name(name),
+            EmailAddress(email),
+            PhoneNumber(phoneNumber)
+        )
+    }
+}
