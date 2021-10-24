@@ -22,7 +22,7 @@ class ReservationTest {
 
         val actual = entity.toDomain()
         assertThat(actual.toString())
-            .isEqualTo("Reservation [title=Guest, start=2021-03-01, end=2021-03-03]")
+            .isEqualTo("Reservation [user=Guest, start=2021-03-01, end=2021-03-03]")
     }
 
     @Test

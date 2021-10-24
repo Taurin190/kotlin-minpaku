@@ -5,6 +5,8 @@ import com.taurin.minpaku.domain.model.reservation.CheckInDateTime
 import com.taurin.minpaku.domain.model.reservation.CheckOutDateTime
 import com.taurin.minpaku.domain.model.reservation.Reservations
 import com.taurin.minpaku.domain.model.reservation.Title
+import com.taurin.minpaku.domain.model.user.*
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 import com.taurin.minpaku.presentation.reservation.ReservationAPIController
 import com.taurin.minpaku.service.AuthService
@@ -49,7 +51,16 @@ class ReservationAPIControllerTest {
             CheckOutDateTime(
                 LocalDateTime.parse("2021-05-03T10:00:00"),
             ),
-            null
+            null,
+            User(
+                UserName("testtaro"),
+                Profile(
+                    Name("Test Taro"),
+                    EmailAddress("test@mail.com"),
+                    PhoneNumber("090-1234-5678")
+                ),
+                Permission.USER
+            )
         )
         val reservations = Reservations()
         reservations.append(reservationDomain)

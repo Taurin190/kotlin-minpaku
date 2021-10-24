@@ -30,9 +30,4 @@ data class User (
             permission
         )
     }
-    companion object {
-        fun fromDomain(userDomain: UserDomain) {
-
-        }
-    }
 }

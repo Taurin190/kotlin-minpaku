@@ -1,6 +1,8 @@
 package com.taurin.minpaku.domain.model.reservation
 
 import com.taurin.minpaku.domain.model.user.User
+import com.taurin.minpaku.domain.model.user.UserName
+import com.taurin.minpaku.domain.type.Permission
 
 //TODO APIのレスポンスの出し方に引きずられているため分離する
 class Reservation(
@@ -14,16 +16,18 @@ class Reservation(
     private val checkInDateTime = _checkInDateTime
     private val checkOutDateTime = _checkOutDateTime ?: checkInDateTime.getDefaultCheckOutDateTime()
     private val url: Url?
-    private val user = _user
+    private val user: User
 
     init {
         verifyCheckInOutDateTime(checkInDateTime, checkOutDateTime)
         url = _url
+        //TODO 既存のインタフェース上Guestに設定するが、コンストラクタのインタフェースを見直す
+        user = _user ?: User(UserName("Guest"), null, Permission.USER)
     }
 
     fun toJson(): String {
         val sb = StringBuilder()
-        sb.append("{\"title\": \"$title\"")
+        sb.append("{\"user\": \"$user\"")
         sb.append(",\"start\": \"$checkInDateTime\"")
         sb.append(",\"end\": \"$checkOutDateTime\"")
 
@@ -44,7 +48,7 @@ class Reservation(
 
     override fun toString(): String {
         val sb = StringBuilder()
-        sb.append("Reservation [title=$title")
+        sb.append("Reservation [user=$user")
         sb.append(", start=$checkInDateTime")
         sb.append(", end=$checkOutDateTime")
 

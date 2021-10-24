@@ -1,6 +1,8 @@
 package com.taurin.minpaku.unit.domain.reservation
 
 import com.taurin.minpaku.domain.model.reservation.*
+import com.taurin.minpaku.domain.model.user.*
+import com.taurin.minpaku.domain.type.Permission
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
@@ -13,11 +15,20 @@ class ReservationTest {
             Title("Test Reservation"),
             CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
             CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
-            Url("http://localhost/test")
+            Url("http://localhost/test"),
+            User(
+                UserName("testtaro"),
+                Profile(
+                    Name("Test Taro"),
+                    EmailAddress("test@mail.com"),
+                    PhoneNumber("090-1234-5678")
+                ),
+                Permission.USER
+            )
         )
 
         assertThat(actual.toJson())
-            .isEqualTo("{\"title\": \"Test Reservation\"," +
+            .isEqualTo("{\"user\": \"Test Taro\"," +
                     "\"start\": \"2021-01-01\"," +
                     "\"end\": \"2021-01-03\"," +
                     "\"url\": \"http://localhost/test\"}")
@@ -29,11 +40,20 @@ class ReservationTest {
             Title("Test Reservation"),
             CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
             CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
-            Url("http://localhost/test")
+            Url("http://localhost/test"),
+            User(
+                UserName("testtaro"),
+                Profile(
+                    Name("Test Taro"),
+                    EmailAddress("test@mail.com"),
+                    PhoneNumber("090-1234-5678")
+                ),
+                Permission.USER
+            )
         )
 
         assertThat(actual.toString())
-            .isEqualTo("Reservation [title=Test Reservation, " +
+            .isEqualTo("Reservation [user=Test Taro, " +
                     "start=2021-01-01, " +
                     "end=2021-01-03, " +
                     "url=http://localhost/test]")
@@ -47,7 +67,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("1999-12-31T15:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2000-01-01T10:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -60,7 +89,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2040-12-31T15:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2041-01-01T10:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -75,7 +113,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T15:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2021-09-30T10:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -90,7 +137,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T14:59:59")),
                 CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -102,7 +158,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-02T00:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -118,7 +183,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2021-09-30T05:59:59")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -131,7 +205,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
                 CheckOutDateTime(LocalDateTime.parse("2021-09-30T12:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -146,7 +229,16 @@ class ReservationTest {
                 Title("Test Reservation"),
                 CheckInDateTime(LocalDateTime.parse("2021-10-01T23:59:59")),
                 CheckOutDateTime(LocalDateTime.parse("2021-10-05T06:00:00")),
-                Url("http://localhost/test")
+                Url("http://localhost/test"),
+                User(
+                    UserName("testtaro"),
+                    Profile(
+                        Name("Test Taro"),
+                        EmailAddress("test@mail.com"),
+                        PhoneNumber("090-1234-5678")
+                    ),
+                    Permission.USER
+                )
             )
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
@@ -160,11 +252,20 @@ class ReservationTest {
             Title("Test Reservation"),
             CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
             null,
-            Url("http://localhost/test")
+            Url("http://localhost/test"),
+            User(
+                UserName("testtaro"),
+                Profile(
+                    Name("Test Taro"),
+                    EmailAddress("test@mail.com"),
+                    PhoneNumber("090-1234-5678")
+                ),
+                Permission.USER
+            )
         )
 
         assertThat(actual.toJson())
-            .isEqualTo("{\"title\": \"Test Reservation\"," +
+            .isEqualTo("{\"user\": \"Test Taro\"," +
                     "\"start\": \"2021-01-01\"," +
                     "\"end\": \"2021-01-02\"," +
                     "\"url\": \"http://localhost/test\"}")
