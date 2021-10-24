@@ -38,7 +38,7 @@ class Reservation(
         return sb.toString()
     }
 
-    fun getTitle() = title
+    fun getUserProfileName() = user.profile?.name ?: "Guest"
 
     fun getUrl() = url
 

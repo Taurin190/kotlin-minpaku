@@ -49,8 +49,8 @@ class ReservationsResponseTest {
 
         val actual = ReservationsResponse(reservations)
         assertThat(actual.json).isEqualTo(
-            "[{\"title\": \"Test Reservation\",\"start\": \"2021-01-01\",\"end\": \"2021-01-03\",\"url\": \"http://localhost/test\"}" +
-                    ",{\"title\": \"Test Reservation2\",\"start\": \"2021-01-04\",\"end\": \"2021-01-07\",\"url\": \"http://localhost/test2\"}]"
+            "[{\"title\": \"Test Taro\",\"start\": \"2021-01-01\",\"end\": \"2021-01-03\",\"url\": \"http://localhost/test\"}" +
+                    ",{\"title\": \"Test Taro2\",\"start\": \"2021-01-04\",\"end\": \"2021-01-07\",\"url\": \"http://localhost/test2\"}]"
         )
     }
 }

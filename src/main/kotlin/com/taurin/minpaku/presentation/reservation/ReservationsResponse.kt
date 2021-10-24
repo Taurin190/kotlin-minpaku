@@ -26,7 +26,7 @@ class ReservationsResponse(val reservations: Reservations) {
 
     private fun convertReservationToJson(reservation: Reservation): String {
         val sb = StringBuilder()
-        sb.append("{\"title\": \"${reservation.getTitle()}\"")
+        sb.append("{\"title\": \"${reservation.getUserProfileName()}\"")
         sb.append(",\"start\": \"${reservation.getCheckInDateTime()}\"")
         sb.append(",\"end\": \"${reservation.getCheckOutDateTime()}\"")
 
