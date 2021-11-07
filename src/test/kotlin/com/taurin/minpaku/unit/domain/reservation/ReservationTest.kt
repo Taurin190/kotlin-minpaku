@@ -1,8 +1,12 @@
 package com.taurin.minpaku.unit.domain.reservation
 
 import com.taurin.minpaku.domain.model.reservation.*
+import com.taurin.minpaku.domain.model.user.Profile
+import com.taurin.minpaku.domain.model.user.User
 import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ProfileFactory
 import com.taurin.minpaku.helper.ReservationFactory
+import com.taurin.minpaku.helper.UserFactory
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,19 +16,25 @@ class ReservationTest {
     @BeforeEach
     fun setUp() {
         Factory.define("Reservation", ReservationFactory.make())
+        Factory.define("Profile", ProfileFactory.make())
+        Factory.define("User", UserFactory.make())
     }
 
     @Test
     fun testReservationJson() {
+        val profile = Factory.make("Profile", mapOf(
+            "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+            "profile" to profile
+        )) as User
         val actual = Factory.make("Reservation",
             mapOf(
                 "title" to "Test Reservation",
                 "check_in_datetime" to "2021-01-01T15:00:00",
                 "check_out_datetime" to "2021-01-03T10:00:00",
                 "url" to "http://localhost/test",
-                "user_name" to "testtaro",
-                "profile_name" to "Test Taro",
-                "email_address" to "test@mail.com"
+                "user" to user
             )
         ) as Reservation
 
@@ -37,15 +47,19 @@ class ReservationTest {
 
     @Test
     fun testReservationString() {
+        val profile = Factory.make("Profile", mapOf(
+            "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+            "profile" to profile
+        )) as User
         val actual = Factory.make("Reservation",
             mapOf(
                 "title" to "Test Reservation",
                 "check_in_datetime" to "2021-01-01T15:00:00",
                 "check_out_datetime" to "2021-01-03T10:00:00",
                 "url" to "http://localhost/test",
-                "user_name" to "testtaro",
-                "profile_name" to "Test Taro",
-                "email_address" to "test@mail.com"
+                "user" to user
             )
         ) as Reservation
 
@@ -173,14 +187,18 @@ class ReservationTest {
 
     @Test
     fun testWithoutCheckOutDateTime() {
+        val profile = Factory.make("Profile", mapOf(
+            "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+            "profile" to profile
+        )) as User
         val actual = Factory.make("Reservation",
             mapOf(
                 "title" to "Test Reservation",
                 "check_in_datetime" to "2021-01-01T15:00:00",
                 "url" to "http://localhost/test",
-                "user_name" to "testtaro",
-                "profile_name" to "Test Taro",
-                "email_address" to "test@mail.com"
+                "user" to user
             )
         ) as Reservation
 

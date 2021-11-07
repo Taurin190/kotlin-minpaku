@@ -18,18 +18,9 @@ class ReservationFactory {
                         CheckOutDateTime(LocalDateTime.parse(parameters["check_out_datetime"] as String))
                     } else null,
                     Url(parameters?.get("url") as String? ?: "http://localhost/test"),
-                    User(
-                        UserName(parameters?.get("user_name") as String? ?:"testtaro"),
-                        Profile(
-                            Name(parameters?.get("profile_name") as String? ?: "Test Taro"),
-                            EmailAddress(parameters?.get("email_address") as String? ?: "test@mail.com"),
-                            PhoneNumber(parameters?.get("phone_number") as String? ?: "090-1234-5678")
-                        ),
-                        Permission.USER
-                    )
+                    if (parameters?.get("user") != null) parameters["user"] as User else null
                 )
             }
         }
-
     }
 }
