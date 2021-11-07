@@ -1,17 +1,15 @@
 package com.taurin.minpaku.helper
 
-import org.apache.poi.ss.formula.functions.T
-
 class Factory {
     companion object {
-        private val factoryMap = mutableMapOf<T, (Map<String, Any>?) -> T>()
+        private val factoryMap = mutableMapOf<String, (Map<String, Any>?) -> Any>()
 
-        fun define(staticClass: T, fn: (Map<String, Any>?) -> T) {
-            factoryMap[staticClass] = fn
+        fun define(staticName: String, fn: (Map<String, Any>?) -> Any) {
+            factoryMap[staticName] = fn
         }
 
-        fun make(staticClass: T, parameters: Map<String, Any>?): T? {
-            return factoryMap[staticClass]?.invoke(parameters)
+        fun make(staticName: String, parameters: Map<String, Any>?): Any {
+            return factoryMap[staticName]!!.invoke(parameters)
         }
     }
 }
