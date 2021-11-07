@@ -14,7 +14,9 @@ class ReservationFactory {
                 return Reservation(
                     Title(parameters?.get("title") as String? ?: "Test Reservation"),
                     CheckInDateTime(LocalDateTime.parse(parameters?.get("check_in_datetime") as String? ?: "2021-01-01T15:00:00")),
-                    CheckOutDateTime(LocalDateTime.parse(parameters?.get("check_out_datetime") as String? ?: "2021-01-03T10:00:00")),
+                    if (parameters?.get("check_out_datetime") != null) {
+                        CheckOutDateTime(LocalDateTime.parse(parameters["check_out_datetime"] as String))
+                    } else null,
                     Url(parameters?.get("url") as String? ?: "http://localhost/test"),
                     User(
                         UserName(parameters?.get("user_name") as String? ?:"testtaro"),

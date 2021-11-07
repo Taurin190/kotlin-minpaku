@@ -1,31 +1,32 @@
 package com.taurin.minpaku.unit.domain.reservation
 
 import com.taurin.minpaku.domain.model.reservation.*
-import com.taurin.minpaku.domain.model.user.*
-import com.taurin.minpaku.domain.type.Permission
+import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ReservationFactory
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
-import java.time.LocalDateTime
 
 class ReservationTest {
+    @BeforeEach
+    fun setUp() {
+        Factory.define("Reservation", ReservationFactory.make())
+    }
+
     @Test
     fun testReservationJson() {
-        val actual = Reservation(
-            Title("Test Reservation"),
-            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
-            CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
-            Url("http://localhost/test"),
-            User(
-                UserName("testtaro"),
-                Profile(
-                    Name("Test Taro"),
-                    EmailAddress("test@mail.com"),
-                    PhoneNumber("090-1234-5678")
-                ),
-                Permission.USER
+        val actual = Factory.make("Reservation",
+            mapOf(
+                "title" to "Test Reservation",
+                "check_in_datetime" to "2021-01-01T15:00:00",
+                "check_out_datetime" to "2021-01-03T10:00:00",
+                "url" to "http://localhost/test",
+                "user_name" to "testtaro",
+                "profile_name" to "Test Taro",
+                "email_address" to "test@mail.com"
             )
-        )
+        ) as Reservation
 
         assertThat(actual.toJson())
             .isEqualTo("{\"user\": \"Test Taro\"," +
@@ -36,21 +37,17 @@ class ReservationTest {
 
     @Test
     fun testReservationString() {
-        val actual = Reservation(
-            Title("Test Reservation"),
-            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
-            CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
-            Url("http://localhost/test"),
-            User(
-                UserName("testtaro"),
-                Profile(
-                    Name("Test Taro"),
-                    EmailAddress("test@mail.com"),
-                    PhoneNumber("090-1234-5678")
-                ),
-                Permission.USER
+        val actual = Factory.make("Reservation",
+            mapOf(
+                "title" to "Test Reservation",
+                "check_in_datetime" to "2021-01-01T15:00:00",
+                "check_out_datetime" to "2021-01-03T10:00:00",
+                "url" to "http://localhost/test",
+                "user_name" to "testtaro",
+                "profile_name" to "Test Taro",
+                "email_address" to "test@mail.com"
             )
-        )
+        ) as Reservation
 
         assertThat(actual.toString())
             .isEqualTo("Reservation [user=Test Taro, " +
@@ -63,21 +60,12 @@ class ReservationTest {
     fun testCheckInDateTimeWithInValidRange() {
         // 2000年より古い予約
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("1999-12-31T15:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2000-01-01T10:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "1999-12-31T15:00:00",
+                    "check_out_datetime" to "2000-01-01T10:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -85,21 +73,12 @@ class ReservationTest {
 
         // 2040年より先の予約
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2040-12-31T15:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2041-01-01T10:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2040-12-31T15:00:00",
+                    "check_out_datetime" to "2041-01-01T10:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -109,21 +88,12 @@ class ReservationTest {
     @Test
     fun testEarlierCheckOutDateThanCheckIn() {
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-01T15:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2021-09-30T10:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-01T15:00:00",
+                    "check_out_datetime" to "2021-09-30T10:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -133,42 +103,24 @@ class ReservationTest {
     @Test
     fun testInvalidCheckInTime() {
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-01T14:59:59")),
-                CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-01T14:59:59",
+                    "check_out_datetime" to "2021-10-03T10:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
         }
 
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-02T00:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2021-10-03T10:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-02T00:00:00",
+                    "check_out_datetime" to "2021-10-03T10:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -179,21 +131,12 @@ class ReservationTest {
     fun testInvalidCheckOutTime() {
         // 6時より早いチェックアウト
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2021-09-30T05:59:59")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-01T17:00:00",
+                    "check_out_datetime" to "2021-09-30T05:59:59"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -201,21 +144,12 @@ class ReservationTest {
 
         // 12時以降のチェックアウト
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-01T17:00:00")),
-                CheckOutDateTime(LocalDateTime.parse("2021-09-30T12:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-01T17:00:00",
+                    "check_out_datetime" to "2021-09-30T12:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -225,21 +159,12 @@ class ReservationTest {
     @Test
     fun testInvalidDaysOfStay() {
         try {
-            Reservation(
-                Title("Test Reservation"),
-                CheckInDateTime(LocalDateTime.parse("2021-10-01T23:59:59")),
-                CheckOutDateTime(LocalDateTime.parse("2021-10-05T06:00:00")),
-                Url("http://localhost/test"),
-                User(
-                    UserName("testtaro"),
-                    Profile(
-                        Name("Test Taro"),
-                        EmailAddress("test@mail.com"),
-                        PhoneNumber("090-1234-5678")
-                    ),
-                    Permission.USER
+            Factory.make("Reservation",
+                mapOf(
+                    "check_in_datetime" to "2021-10-01T23:59:59",
+                    "check_out_datetime" to "2021-10-05T06:00:00"
                 )
-            )
+            ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
             assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
@@ -248,21 +173,16 @@ class ReservationTest {
 
     @Test
     fun testWithoutCheckOutDateTime() {
-        val actual = Reservation(
-            Title("Test Reservation"),
-            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
-            null,
-            Url("http://localhost/test"),
-            User(
-                UserName("testtaro"),
-                Profile(
-                    Name("Test Taro"),
-                    EmailAddress("test@mail.com"),
-                    PhoneNumber("090-1234-5678")
-                ),
-                Permission.USER
+        val actual = Factory.make("Reservation",
+            mapOf(
+                "title" to "Test Reservation",
+                "check_in_datetime" to "2021-01-01T15:00:00",
+                "url" to "http://localhost/test",
+                "user_name" to "testtaro",
+                "profile_name" to "Test Taro",
+                "email_address" to "test@mail.com"
             )
-        )
+        ) as Reservation
 
         assertThat(actual.toJson())
             .isEqualTo("{\"user\": \"Test Taro\"," +
