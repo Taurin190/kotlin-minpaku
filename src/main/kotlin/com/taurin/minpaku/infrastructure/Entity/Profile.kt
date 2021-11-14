@@ -33,4 +33,16 @@ data class Profile(
             PhoneNumber(phoneNumber)
         )
     }
+    companion object {
+        fun fromDomain(profileDomain: ProfileDomain): Profile {
+            return Profile(
+                    null,
+                    null,
+                    profileDomain.name.toString(),
+                    profileDomain.emailAddress.toString(),
+                    "",
+                    profileDomain.phoneNumber.toString()
+            )
+        }
+    }
 }

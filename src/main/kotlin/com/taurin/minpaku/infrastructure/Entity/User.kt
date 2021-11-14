@@ -30,4 +30,16 @@ data class User (
             permission
         )
     }
+    companion object {
+        fun fromDomain(userDomain: UserDomain): User {
+            return User(
+                    null,
+                    userDomain.userName.toString(),
+                    "",
+                    userDomain.permission,
+                    if (userDomain.profile != null) Profile.fromDomain(userDomain.profile) else null,
+                    null
+            )
+        }
+    }
 }
