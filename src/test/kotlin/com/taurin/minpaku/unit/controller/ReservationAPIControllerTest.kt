@@ -7,6 +7,10 @@ import com.taurin.minpaku.domain.model.reservation.Reservations
 import com.taurin.minpaku.domain.model.reservation.Title
 import com.taurin.minpaku.domain.model.user.*
 import com.taurin.minpaku.domain.type.Permission
+import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ProfileFactory
+import com.taurin.minpaku.helper.ReservationFactory
+import com.taurin.minpaku.helper.UserFactory
 import com.taurin.minpaku.domain.model.reservation.Reservation as ReservationDomain
 import com.taurin.minpaku.presentation.reservation.ReservationAPIController
 import com.taurin.minpaku.service.AuthService
@@ -39,29 +43,31 @@ class ReservationAPIControllerTest {
     private lateinit var authService: AuthService
 
     @BeforeEach
-    fun setUp() = MockKAnnotations.init(this)
+    fun setUp() {
+        MockKAnnotations.init(this)
+        Factory.define("Reservation", ReservationFactory.make())
+        Factory.define("Profile", ProfileFactory.make())
+        Factory.define("User", UserFactory.make())
+    }
 
     @Test
     fun testShowList() {
-        val reservationDomain = ReservationDomain(
-            Title("Test Taro"),
-            CheckInDateTime(
-                LocalDateTime.parse("2021-05-01T15:00:00"),
-            ),
-            CheckOutDateTime(
-                LocalDateTime.parse("2021-05-03T10:00:00"),
-            ),
-            null,
-            User(
-                UserName("testtaro"),
-                Profile(
-                    Name("Test Taro"),
-                    EmailAddress("test@mail.com"),
-                    PhoneNumber("090-1234-5678")
-                ),
-                Permission.USER
-            )
-        )
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+                "user_name" to "testtaro",
+                "profile" to profile
+        )) as User
+        val reservationDomain = Factory.make("Reservation",
+                mapOf(
+                        "title" to "Test Reservation",
+                        "check_in_datetime" to "2021-05-01T15:00:00",
+                        "check_out_datetime" to "2021-05-03T10:00:00",
+                        "user" to user
+                )
+        ) as ReservationDomain
+
         val reservations = Reservations()
         reservations.append(reservationDomain)
 
