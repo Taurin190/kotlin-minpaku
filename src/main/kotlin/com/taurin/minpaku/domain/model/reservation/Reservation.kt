@@ -42,6 +42,8 @@ class Reservation(
 
     fun getUrl() = url
 
+    fun getUser() = user
+
     fun getCheckInDateTime() = checkInDateTime
 
     fun getCheckOutDateTime() = checkOutDateTime

@@ -45,7 +45,7 @@ class Reservation (
         fun fromDomain(reservationDomain: ReservationDomain) : Reservation {
             return Reservation(
                 null,
-                null,
+                User.fromDomain(reservationDomain.getUser()),
                 mutableListOf<Book>(),
                 reservationDomain.getCheckInDateTime().value,
                 reservationDomain.getCheckOutDateTime().value
