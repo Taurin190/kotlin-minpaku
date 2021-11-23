@@ -2,6 +2,7 @@ package com.taurin.minpaku.infrastructure.datasource
 
 import com.taurin.minpaku.domain.model.reservation.Reservation
 import com.taurin.minpaku.domain.model.reservation.Reservations
+import com.taurin.minpaku.infrastructure.Entity.Reservation as ReservationEntity
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import org.springframework.stereotype.Repository
 import java.sql.Date
@@ -30,7 +31,7 @@ class ReserveDataSource(
         return reservations
     }
 
-    override fun register(reservation: Reservation): Reservation {
-        TODO("Not yet implemented")
+    override fun register(reservation: Reservation) {
+        reserveRepository.save(ReservationEntity.fromDomain(reservation))
     }
 }

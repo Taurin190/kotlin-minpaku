@@ -10,5 +10,5 @@ interface ReserveRepository {
         endDate: LocalDate
     ): Reservations
 
-    fun register(reservation: Reservation): Reservation
+    fun register(reservation: Reservation)
 }
