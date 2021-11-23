@@ -26,6 +26,7 @@ class Reservation(
         user = _user ?: User(UserName("Guest"), null, Permission.USER)
     }
 
+    //TODO JSONは出力の形式でプレゼンテーション層で持つべき知識なので委譲する
     fun toJson(): String {
         val sb = StringBuilder()
         sb.append("{\"user\": \"$user\"")
