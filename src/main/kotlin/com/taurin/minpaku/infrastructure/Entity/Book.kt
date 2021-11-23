@@ -3,6 +3,10 @@ package com.taurin.minpaku.infrastructure.Entity
 import java.util.Date
 import javax.persistence.*
 
+/**
+ * 予約テーブル
+ * 宿泊日はDate型で持ち同一宿泊日に予約重複しないことをデータベースで担保する。
+ */
 @Entity
 @Table(name = "book")
 class Book (

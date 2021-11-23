@@ -1,7 +1,11 @@
 package com.taurin.minpaku.domain.model.reservation
 
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+
 
 open class ReservationDateTime(
     open val value: LocalDateTime
@@ -14,5 +18,12 @@ open class ReservationDateTime(
             return false
         }
         return true
+    }
+
+    fun getDate(): Date {
+        val zone = ZoneId.systemDefault()
+        val zonedDateTime = ZonedDateTime.of(value, zone)
+        val instant = zonedDateTime.toInstant();
+        return Date.from(instant)
     }
 }

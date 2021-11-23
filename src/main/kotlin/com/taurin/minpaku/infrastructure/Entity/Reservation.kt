@@ -51,5 +51,11 @@ class Reservation (
                 reservationDomain.getCheckOutDateTime().value
             )
         }
+
+        fun getBookListFromReservation(reservationDomain: ReservationDomain) : List<Book> {
+            val bookList = mutableListOf<Book>()
+
+            return bookList
+        }
     }
 }

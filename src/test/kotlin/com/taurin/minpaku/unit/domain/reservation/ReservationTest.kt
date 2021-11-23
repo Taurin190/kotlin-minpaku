@@ -208,4 +208,27 @@ class ReservationTest {
                     "\"end\": \"2021-01-02\"," +
                     "\"url\": \"http://localhost/test\"}")
     }
+
+    @Test
+    fun testGetDates() {
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+                "profile" to profile
+        )) as User
+        val reservation = Factory.make("Reservation",
+                mapOf(
+                        "title" to "Test Reservation",
+                        "check_in_datetime" to "2021-01-01T15:00:00",
+                        "check_out_datetime" to "2021-01-03T10:00:00",
+                        "url" to "http://localhost/test",
+                        "user" to user
+                )
+        ) as Reservation
+
+        val actual = reservation.getStayDates()
+        // 1月3日はチェックアウト日なのでカウントしない
+        assertThat(actual.size).isEqualTo(2)
+    }
 }

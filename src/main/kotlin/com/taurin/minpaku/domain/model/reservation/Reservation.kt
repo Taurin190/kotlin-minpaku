@@ -3,6 +3,7 @@ package com.taurin.minpaku.domain.model.reservation
 import com.taurin.minpaku.domain.model.user.User
 import com.taurin.minpaku.domain.model.user.UserName
 import com.taurin.minpaku.domain.type.Permission
+import java.util.*
 
 //TODO APIのレスポンスの出し方に引きずられているため分離する
 class Reservation(
@@ -47,6 +48,21 @@ class Reservation(
     fun getCheckInDateTime() = checkInDateTime
 
     fun getCheckOutDateTime() = checkOutDateTime
+
+    // チェックイン・チェックアウトから宿泊日を取得する
+    fun getStayDates() : List<Date> {
+        val dates = mutableListOf<Date>()
+        val checkInDate = checkInDateTime.getDate()
+        val checkOutDate = checkOutDateTime.getDate()
+        val cal = Calendar.getInstance()
+        cal.time = checkInDate
+        while(cal.time.before(checkOutDate)) {
+            dates.add(cal.time)
+            cal.add(Calendar.DATE, 1)
+        }
+
+        return dates
+    }
 
     override fun toString(): String {
         val sb = StringBuilder()
