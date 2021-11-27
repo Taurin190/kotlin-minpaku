@@ -1,8 +1,10 @@
 package com.taurin.minpaku.domain.model.reservation
 
+import com.taurin.minpaku.domain.model.InvalidParameterException
 import com.taurin.minpaku.domain.model.user.User
 import com.taurin.minpaku.domain.model.user.UserName
 import com.taurin.minpaku.domain.type.Permission
+import java.time.LocalDateTime
 import java.util.*
 
 //TODO APIのレスポンスの出し方に引きずられているため分離する
@@ -85,6 +87,33 @@ class Reservation(
 
         if (checkInDateTime.getDaysOfStay(checkOutDateTime) > 3) {
             throw IllegalStateException("指定された日付正しい範囲にありません。")
+        }
+    }
+
+    companion object {
+        fun create(parameters: Map<String, Any>): Reservation {
+            val necessaryKeys = listOf(
+                    "check_in_datetime",
+                    "user"
+            )
+            necessaryKeys.forEach {
+                if (it !in parameters.keys) throw InvalidParameterException("${it}: パラメータが足りません。")
+            }
+            val user = parameters["user"] as User
+            val name = user.profile?.name ?: user.userName
+            val checkInDateTime = CheckInDateTime(
+                    LocalDateTime.parse(parameters["check_in_datetime"] as String)
+            )
+            val checkOutDateTime = if (parameters["check_out_datetime"] != null) {
+                CheckOutDateTime(LocalDateTime.parse(parameters["check_in_datetime"] as String))
+            } else null
+            return Reservation(
+                    Title("${name}様ご宿泊"),
+                    checkInDateTime,
+                    checkOutDateTime,
+                    null,
+                    user
+            )
         }
     }
 }

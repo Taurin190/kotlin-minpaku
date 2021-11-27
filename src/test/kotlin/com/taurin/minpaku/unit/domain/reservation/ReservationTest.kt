@@ -1,5 +1,6 @@
 package com.taurin.minpaku.unit.domain.reservation
 
+import com.taurin.minpaku.domain.model.InvalidParameterException
 import com.taurin.minpaku.domain.model.reservation.*
 import com.taurin.minpaku.domain.model.user.Profile
 import com.taurin.minpaku.domain.model.user.User
@@ -230,5 +231,42 @@ class ReservationTest {
         val actual = reservation.getStayDates()
         // 1月3日はチェックアウト日なのでカウントしない
         assertThat(actual.size).isEqualTo(2)
+    }
+
+    @Test
+    fun testCreateFactory() {
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+                "profile" to profile
+        )) as User
+        val actual = Reservation.create(
+                mapOf(
+                        "user" to user,
+                        "check_in_datetime" to "2021-01-01T15:00:00"
+                )
+        )
+        assertThat(actual.getUserProfileName().toString()).isEqualTo("Test Taro")
+    }
+
+    @Test
+    fun testCreateFactoryWithoutNecessaryParameters() {
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+                "profile" to profile
+        )) as User
+        try {
+            Reservation.create(
+                    mapOf(
+                            "user" to user,
+                    )
+            )
+            fail("パラメータが足りない場合でもExceptionが出ませんでした。")
+        } catch (e: InvalidParameterException) {
+            assertThat(e.message).isEqualTo("check_in_datetime: パラメータが足りません。")
+        }
     }
 }
