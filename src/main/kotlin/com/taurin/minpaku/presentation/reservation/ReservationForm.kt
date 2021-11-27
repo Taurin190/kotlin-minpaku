@@ -1,7 +1,13 @@
 package com.taurin.minpaku.presentation.reservation
 
+import com.taurin.minpaku.domain.model.reservation.CheckInDateTime
+import com.taurin.minpaku.domain.model.reservation.CheckOutDateTime
+import com.taurin.minpaku.domain.model.reservation.Reservation
+import com.taurin.minpaku.domain.model.reservation.Title
+import com.taurin.minpaku.domain.model.user.User
 import lombok.Data
 import org.hibernate.validator.constraints.Range
+import java.time.LocalDateTime
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
@@ -46,4 +52,13 @@ class ReservationForm {
         message = "宿泊人数は１人もしくは２人までの指定が可能です。"
     )
     var guestNum: Int = 1
+
+    fun getReservationWithUser(user: User): Reservation {
+        return Reservation(
+                Title("${user.userName}予約"),
+                CheckInDateTime(LocalDateTime.parse("${checkInDate}T${checkInTime}")),
+                CheckOutDateTime(LocalDateTime.parse("${checkOutDate}T${checkOutTime}")),
+                null
+        )
+    }
 }

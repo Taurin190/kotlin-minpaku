@@ -1,6 +1,7 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.infrastructure.Entity.Profile
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.infrastructure.Entity.User as UserEntity
@@ -162,12 +163,16 @@ class ReservationFormControllerTest {
         form.checkOutDate = "2021-01-03"
         form.guestNum = 1
 
-        val user = User.withUsername("test")
+        val user = User.withUsername("test12")
             .password(passwordEncoder.encode("test"))
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity()
+        val userEntity = UserEntity(
+                null,
+                "test12",
+                passwordEncoder.encode("test")
+        )
 
         every {
             authService.loadUserByUsername(any())
@@ -179,7 +184,7 @@ class ReservationFormControllerTest {
 
         mockMvc.perform(
             post("/reservation/complete")
-                .with(user("test"))
+                .with(user("test12"))
                 .flashAttr("reservationForm", form)
                 .sessionAttr("user", userEntity)
                 .with(csrf())
@@ -196,12 +201,17 @@ class ReservationFormControllerTest {
         form.checkOutDate = "2021-01-03"
         form.guestNum = 1
 
-        val user = User.withUsername("test")
+        val user = User.withUsername("test111")
             .password(passwordEncoder.encode("test"))
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity()
+        val userEntity = UserEntity(
+                null,
+                "test111",
+                passwordEncoder.encode("test"),
+                Permission.ADMIN
+        )
 
         every {
             authService.loadUserByUsername(any())
@@ -213,7 +223,7 @@ class ReservationFormControllerTest {
 
         mockMvc.perform(
             post("/reservation/complete")
-                .with(user("test"))
+                .with(user("test111"))
                 .flashAttr("reservationForm", form)
                 .sessionAttr("user", userEntity)
                 .with(csrf())
@@ -230,12 +240,16 @@ class ReservationFormControllerTest {
         form.checkOutDate = "2021-01-03"
         form.guestNum = 1
 
-        val user = User.withUsername("test")
+        val user = User.withUsername("test123")
             .password(passwordEncoder.encode("test"))
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity()
+        val userEntity = UserEntity(
+                null,
+                "test123",
+                passwordEncoder.encode("test")
+        )
 
         every {
             authService.loadUserByUsername(any())
@@ -247,7 +261,7 @@ class ReservationFormControllerTest {
 
         mockMvc.perform(
             post("/reservation/complete")
-                .with(user("test"))
+                .with(user("test123"))
                 .flashAttr("reservationForm", form)
                 .sessionAttr("user", userEntity)
                 .with(csrf())

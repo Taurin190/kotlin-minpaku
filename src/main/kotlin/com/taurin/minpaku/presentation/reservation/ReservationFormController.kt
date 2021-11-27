@@ -92,9 +92,11 @@ class ReservationFormController {
         @ModelAttribute form: ReservationForm,
         @ModelAttribute mav: ModelAndView
     ): ModelAndView {
+        val user = session.getAttribute("user") as User
+        val reservationDomain = form.getReservationWithUser(user.toDomain())
         val reservation = Reservation(
             null,
-            session.getAttribute("user") as User
+                user
         )
         val dateList = DateUtil.getDateListFromDuration(form.checkInDate, form.checkOutDate)
         reservation.addBookFromCheckInOut(dateList, form.guestNum)
