@@ -105,7 +105,7 @@ class Reservation(
                     LocalDateTime.parse(parameters["check_in_datetime"] as String)
             )
             val checkOutDateTime = if (parameters["check_out_datetime"] != null) {
-                CheckOutDateTime(LocalDateTime.parse(parameters["check_in_datetime"] as String))
+                CheckOutDateTime(LocalDateTime.parse(parameters["check_out_datetime"] as String))
             } else null
             return Reservation(
                     Title("${name}様ご宿泊"),

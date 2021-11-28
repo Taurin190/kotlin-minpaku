@@ -83,7 +83,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
 
         // 2040年より先の予約
@@ -96,7 +96,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
     }
 
@@ -126,7 +126,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
 
         try {
@@ -138,7 +138,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
     }
 
@@ -154,7 +154,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
 
         // 12時以降のチェックアウト
@@ -167,7 +167,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
     }
 
@@ -182,7 +182,7 @@ class ReservationTest {
             ) as Reservation
             fail(AssertionError("想定される例外が発生しませんでした。"))
         } catch (e: Exception) {
-            assertThat(e.message).isIn("指定された日付正しい範囲にありません。")
+            assertThat(e.message).contains("指定された日付正しい範囲にありません。")
         }
     }
 

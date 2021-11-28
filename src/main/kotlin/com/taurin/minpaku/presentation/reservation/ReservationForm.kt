@@ -54,11 +54,13 @@ class ReservationForm {
     var guestNum: Int = 1
 
     fun getReservationWithUser(user: User): Reservation {
-        return Reservation(
-                Title("${user.userName}予約"),
-                CheckInDateTime(LocalDateTime.parse("${checkInDate}T${checkInTime}")),
-                CheckOutDateTime(LocalDateTime.parse("${checkOutDate}T${checkOutTime}")),
-                null
+        val parameters = mutableMapOf(
+                "check_in_datetime" to "${checkInDate}T${checkInTime}",
+                "user" to user
         )
+        if (checkOutDate != "") {
+            parameters["check_out_datetime"] = "${checkOutDate}T${checkOutTime}"
+        }
+        return Reservation.create(parameters)
     }
 }

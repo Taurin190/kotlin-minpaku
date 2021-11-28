@@ -11,7 +11,7 @@ class CheckInDateTime(
 ) : ReservationDateTime(value) {
     init {
         if (!validateDate()) {
-            throw IllegalStateException("指定された日付正しい範囲にありません。")
+            throw IllegalStateException("指定された日付正しい範囲にありません。: $value")
         }
     }
 
