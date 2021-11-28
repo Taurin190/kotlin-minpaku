@@ -48,12 +48,10 @@ class ReserveService {
     @Transactional
     fun register(reservation: ReservationDomain) {
         try {
-            reserveRepository.save(
-                Reservation.fromDomain(reservation)
-            )
+            reserveDataSource.register(reservation)
         } catch (e: Exception) {
             logger.warn("Reserve fail with Exception: ${e.message}")
-            throw DBException("登録出来ませんでした。")
+            throw DBException("登録出来ませんでした。: ${e.message}")
         }
     }
 }

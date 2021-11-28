@@ -179,7 +179,7 @@ class ReservationFormControllerTest {
         } returns user
 
         every {
-            reserveService.reserve(any())
+            reserveService.register(any())
         } returns Unit
 
         mockMvc.perform(

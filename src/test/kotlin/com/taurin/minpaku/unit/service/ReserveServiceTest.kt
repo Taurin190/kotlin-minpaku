@@ -1,6 +1,12 @@
 package com.taurin.minpaku.unit.service
 
 import com.taurin.minpaku.domain.model.reservation.*
+import com.taurin.minpaku.domain.model.user.Profile
+import com.taurin.minpaku.domain.model.user.User
+import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ProfileFactory
+import com.taurin.minpaku.helper.ReservationFactory
+import com.taurin.minpaku.helper.UserFactory
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
 import com.taurin.minpaku.infrastructure.datasource.ReserveDataSource
@@ -28,7 +34,12 @@ class ReserveServiceTest {
     private lateinit var reserveService: ReserveService
 
     @BeforeEach
-    fun setUp() = MockKAnnotations.init(this)
+    fun setUp() {
+        MockKAnnotations.init(this)
+        Factory.define("Reservation", ReservationFactory.make())
+        Factory.define("Profile", ProfileFactory.make())
+        Factory.define("User", UserFactory.make())
+    }
 
     @Test
     fun testGetReservationsInMonth() {
@@ -80,21 +91,30 @@ class ReserveServiceTest {
 
     @Test
     fun testRegister() {
-        val reservationDomain = ReservationDomain(
-            Title("Test Reservation"),
-            CheckInDateTime(LocalDateTime.parse("2021-01-01T15:00:00")),
-            CheckOutDateTime(LocalDateTime.parse("2021-01-03T10:00:00")),
-            Url("http://localhost/test")
-        )
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as Profile
+        val user = Factory.make("User", mapOf(
+                "profile" to profile
+        )) as User
+        val reservationDomain = Factory.make("Reservation",
+                mapOf(
+                        "title" to "Test Reservation",
+                        "check_in_datetime" to "2021-01-01T15:00:00",
+                        "check_out_datetime" to "2021-01-03T10:00:00",
+                        "url" to "http://localhost/test",
+                        "user" to user
+                )
+        ) as ReservationDomain
 
         every {
-            reserveRepository.save(any())
-        } returns Reservation.fromDomain(reservationDomain)
+            reserveDataSource.register(any())
+        } returns Unit
 
         reserveService.register(reservationDomain)
 
         verify {
-            reserveRepository.save(any())
+            reserveDataSource.register(any())
         }
     }
 
@@ -108,12 +128,12 @@ class ReserveServiceTest {
         )
 
         every {
-            reserveRepository.save(any())
+            reserveDataSource.register(any())
         } throws Exception("Test Exception")
         try {
             reserveService.register(reservationDomain)
         } catch (e: DBException) {
-            assertThat(e.message).isEqualTo("登録出来ませんでした。")
+            assertThat(e.message).contains("登録出来ませんでした。")
         }
     }
 }

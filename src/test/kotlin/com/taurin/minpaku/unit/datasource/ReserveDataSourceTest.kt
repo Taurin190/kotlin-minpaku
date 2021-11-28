@@ -3,6 +3,7 @@ package com.taurin.minpaku.unit.datasource
 import com.taurin.minpaku.infrastructure.Entity.Book
 import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.infrastructure.Repository.ReserveRepository
+import com.taurin.minpaku.infrastructure.Repository.UserRepository
 import com.taurin.minpaku.infrastructure.datasource.ReserveDataSource
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -18,6 +19,9 @@ import java.time.LocalDateTime
 class ReserveDataSourceTest {
     @MockK
     private lateinit var reserveRepository: ReserveRepository
+
+    @MockK
+    private lateinit var userRepository: UserRepository
 
     @InjectMockKs
     private lateinit var reserveDataSource: ReserveDataSource

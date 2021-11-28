@@ -41,29 +41,31 @@ class Reservation(
         )
     }
 
+    override fun toString(): String {
+        return "Reservation: [" +
+                "reservation_id=$reservationId, " +
+                "user_id=${user?.userId}, " +
+                "check_in_datetime=$checkInDateTime, " +
+                "check_out_datetime=$checkOutDateTime" +
+                "]"
+    }
+
     companion object {
-        fun fromDomain(reservationDomain: ReservationDomain): Reservation {
-            return Reservation(
+        fun fromDomain(
+                reservationDomain: ReservationDomain,
+                user: User?
+        ): Reservation {
+            val reservation = Reservation(
                     null,
-                    User.fromDomain(reservationDomain.getUser()),
-                    getBookListFromReservation(reservationDomain),
+                    user ?: User.fromDomain(reservationDomain.getUser()),
+                    mutableListOf<Book>(),
                     reservationDomain.getCheckInDateTime().value,
                     reservationDomain.getCheckOutDateTime().value
             )
-        }
-
-        private fun getBookListFromReservation(reservationDomain: ReservationDomain): List<Book> {
-            val bookList = mutableListOf<Book>()
-            reservationDomain.getStayDates().forEach {
-                bookList.add(Book(
-                        null,
-                        null,
-                        //TODO 固定値でなくReservationから宿泊人数取れるように変更
-                        1,
-                        it
-                ))
-            }
-            return bookList
+            reservation.addBookFromCheckInOut(
+                    reservationDomain.getStayDates()
+            )
+            return reservation
         }
     }
 }

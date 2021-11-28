@@ -37,7 +37,7 @@ class ReservationTest {
             ),
             null
         )
-        val actual = Reservation.fromDomain(reservation)
+        val actual = Reservation.fromDomain(reservation, null)
         assertThat(actual.checkInDateTime.year).isEqualTo(2021)
         assertThat(actual.checkInDateTime.month.value).isEqualTo(7)
         assertThat(actual.checkInDateTime.dayOfMonth).isEqualTo(1)

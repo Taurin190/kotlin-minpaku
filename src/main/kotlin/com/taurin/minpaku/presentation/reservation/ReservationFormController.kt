@@ -102,7 +102,7 @@ class ReservationFormController {
         reservation.addBookFromCheckInOut(dateList, form.guestNum)
 
         try {
-            reserveService.reserve(reservation)
+            reserveService.register(reservationDomain)
             mav.viewName = "reservation/complete"
         } catch (e: DBException) {
             logger.warn(e.message)
