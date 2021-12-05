@@ -1,7 +1,6 @@
 package com.taurin.minpaku.presentation.reservation
 
 import com.taurin.minpaku.infrastructure.Entity.Profile
-import com.taurin.minpaku.infrastructure.Entity.Reservation
 import com.taurin.minpaku.infrastructure.Entity.User
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.presentation.user.ProfileNotFound
@@ -94,12 +93,6 @@ class ReservationFormController {
     ): ModelAndView {
         val user = session.getAttribute("user") as User
         val reservationDomain = form.getReservationWithUser(user.toDomain())
-        val reservation = Reservation(
-            null,
-                user
-        )
-        val dateList = DateUtil.getDateListFromDuration(form.checkInDate, form.checkOutDate)
-        reservation.addBookFromCheckInOut(dateList, form.guestNum)
 
         try {
             reserveService.register(reservationDomain)
