@@ -7,6 +7,7 @@ import com.taurin.minpaku.presentation.user.ProfileForm
 import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
+import com.taurin.minpaku.service.UserService
 import io.mockk.every
 import io.mockk.verify
 import org.junit.jupiter.api.Test
@@ -39,6 +40,9 @@ class ProfileCreateControllerTest {
     @MockkBean
     private lateinit var profileService: ProfileService
 
+    @MockkBean
+    private lateinit var userService: UserService
+
     @Test
     fun testShowFormWithoutAuthentication() {
         mockMvc.perform(
@@ -53,17 +57,17 @@ class ProfileCreateControllerTest {
     fun testShowForm() {
         every {
             authService.loadUserByUsername(any())
-        } returns User.withUsername("test")
+        } returns User.withUsername("test123")
             .password(passwordEncoder.encode("test"))
             .roles("ADMIN")
             .build()
 
         every {
-            profileService.findByUsername("test")
-        } throws ProfileNotFound("")
+            userService.confirmProfileByUserName("test123")
+        } returns false
 
         mockMvc.perform(get("/profile/form")
-                .with(user("test"))
+                .with(user("test123"))
         )
             .andDo(MockMvcResultHandlers.print())
             .andExpect(status().is2xxSuccessful)
@@ -91,8 +95,8 @@ class ProfileCreateControllerTest {
             .build()
 
         every {
-            profileService.findByUsername("test")
-        } returns profile
+            userService.confirmProfileByUserName("test")
+        } returns true
 
         mockMvc.perform(get("/profile/form")
             .with(user("test"))

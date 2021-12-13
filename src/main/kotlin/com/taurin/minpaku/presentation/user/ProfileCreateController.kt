@@ -2,6 +2,7 @@ package com.taurin.minpaku.presentation.user
 
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.service.ProfileService
+import com.taurin.minpaku.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -19,6 +20,9 @@ class ProfileCreateController {
     @Autowired
     private lateinit var profileService: ProfileService
 
+    @Autowired
+    private lateinit var userService: UserService
+
     private val logger = LoggerFactory.getLogger(ProfileCreateController::class.java)
 
     @GetMapping("/form")
@@ -26,12 +30,9 @@ class ProfileCreateController {
         mav: ModelAndView,
         @AuthenticationPrincipal userDetail: UserDetails
     ): ModelAndView {
-        try {
-            profileService.findByUsername(userDetail.username)
+        if (userService.confirmProfileByUserName(userDetail.username)) {
             mav.viewName = "redirect:/profile"
             return mav
-        } catch (e: ProfileNotFound) {
-            logger.info("Profile Not Found: ${e.message}")
         }
         mav.viewName = "profile/form"
         mav.addObject("profileForm", ProfileForm())
