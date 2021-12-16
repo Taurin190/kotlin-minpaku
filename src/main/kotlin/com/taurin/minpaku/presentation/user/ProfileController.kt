@@ -27,7 +27,7 @@ class ProfileController {
         mav.viewName = "profile"
         try {
             val profile = profileService.findByUsername(userDetail.username)
-            mav.addObject("profile", profile)
+            mav.addObject("profile", profile.toDomain())
         } catch(e: ProfileNotFound) {
             logger.warn("User: ${userDetail.username} access profile without register")
             mav.viewName = "not_found"

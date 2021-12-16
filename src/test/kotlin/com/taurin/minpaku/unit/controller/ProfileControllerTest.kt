@@ -6,6 +6,7 @@ import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.presentation.user.ProfileController
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
+import com.taurin.minpaku.service.UserService
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,6 +37,9 @@ class ProfileControllerTest {
 
     @MockkBean
     private lateinit var profileService: ProfileService
+
+    @MockkBean
+    private lateinit var userService: UserService
 
     @Test
     fun testShowProfile() {
