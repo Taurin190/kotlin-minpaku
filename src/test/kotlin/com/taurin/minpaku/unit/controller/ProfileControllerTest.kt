@@ -46,10 +46,10 @@ class ProfileControllerTest {
         val profile = Profile(
             null,
             null,
-            "test",
+            "test123",
             "test@gmail.com",
             "address",
-            "1234567890"
+            "090-1234-5678"
         )
 
         every {
@@ -69,7 +69,7 @@ class ProfileControllerTest {
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful)
             .andExpect(MockMvcResultMatchers.model()
-                .attribute("profile", profile)
+                .attributeExists("profile")
             )
     }
 
