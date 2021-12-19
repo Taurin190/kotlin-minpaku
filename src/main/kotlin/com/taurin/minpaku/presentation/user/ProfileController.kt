@@ -1,6 +1,7 @@
 package com.taurin.minpaku.presentation.user
 
 import com.taurin.minpaku.service.ProfileService
+import com.taurin.minpaku.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -17,6 +18,9 @@ class ProfileController {
     @Autowired
     private lateinit var profileService: ProfileService
 
+    @Autowired
+    private lateinit var userService: UserService
+
     private val logger = LoggerFactory.getLogger(ProfileCreateController::class.java)
 
     @GetMapping("")
@@ -25,17 +29,18 @@ class ProfileController {
         @AuthenticationPrincipal userDetail: UserDetails
     ): ModelAndView {
         mav.viewName = "profile"
-        try {
-            val profile = profileService.findByUsername(userDetail.username)
-            mav.addObject("profile", profile.toDomain())
-        } catch(e: ProfileNotFound) {
-            logger.warn("User: ${userDetail.username} access profile without register")
-            mav.viewName = "not_found"
-            mav.addObject("error", e.message)
-            mav.status = HttpStatus.NOT_FOUND
-        } catch(e: Exception) {
-            logger.error("Unexpected Exception: ${e.message}")
+        val user = userService.getByUserName(userDetail.username)
+        if (user.hasProfile()) {
+            val profile =  user.profile
+            mav.addObject("profile", profile)
+            return mav
         }
+
+        logger.warn("User: ${userDetail.username} access profile without register")
+        mav.viewName = "not_found"
+        mav.addObject("error", "ユーザ情報が設定されていません。")
+        mav.status = HttpStatus.NOT_FOUND
+
         return mav
     }
 }

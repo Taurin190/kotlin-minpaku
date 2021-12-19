@@ -1,13 +1,16 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.infrastructure.Entity.Profile
-import com.taurin.minpaku.presentation.user.ProfileNotFound
+import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ProfileFactory
+import com.taurin.minpaku.helper.ReservationFactory
+import com.taurin.minpaku.helper.UserFactory
 import com.taurin.minpaku.presentation.user.ProfileController
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.UserService
 import io.mockk.every
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -41,16 +44,22 @@ class ProfileControllerTest {
     @MockkBean
     private lateinit var userService: UserService
 
+    @BeforeEach
+    fun setUp() {
+        Factory.define("Reservation", ReservationFactory.make())
+        Factory.define("Profile", ProfileFactory.make())
+        Factory.define("User", UserFactory.make())
+    }
+
     @Test
     fun testShowProfile() {
-        val profile = Profile(
-            null,
-            null,
-            "test123",
-            "test@gmail.com",
-            "address",
-            "090-1234-5678"
-        )
+
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as com.taurin.minpaku.domain.model.user.Profile
+        val user = Factory.make("User", mapOf(
+                "profile" to profile
+        )) as com.taurin.minpaku.domain.model.user.User
 
         every {
             authService.loadUserByUsername(any())
@@ -60,8 +69,8 @@ class ProfileControllerTest {
             .build()
 
         every {
-            profileService.findByUsername(any())
-        } returns profile
+            userService.getByUserName(any())
+        } returns user
 
         mockMvc.perform(
             get("/profile")
@@ -82,9 +91,12 @@ class ProfileControllerTest {
             .roles("ADMIN")
             .build()
 
+        val user = Factory.make("User", mapOf())
+                as com.taurin.minpaku.domain.model.user.User
+
         every {
-            profileService.findByUsername(any())
-        } throws ProfileNotFound("ユーザ情報が設定されていません。")
+            userService.getByUserName(any())
+        } returns user
 
         mockMvc.perform(
             get("/profile")
