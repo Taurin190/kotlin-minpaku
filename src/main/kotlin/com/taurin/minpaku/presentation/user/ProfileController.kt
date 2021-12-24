@@ -1,6 +1,5 @@
 package com.taurin.minpaku.presentation.user
 
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,9 +14,6 @@ import org.springframework.web.servlet.ModelAndView
 @Controller
 @RequestMapping("/profile")
 class ProfileController {
-    @Autowired
-    private lateinit var profileService: ProfileService
-
     @Autowired
     private lateinit var userService: UserService
 

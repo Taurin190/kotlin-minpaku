@@ -7,7 +7,6 @@ import com.taurin.minpaku.helper.ReservationFactory
 import com.taurin.minpaku.helper.UserFactory
 import com.taurin.minpaku.presentation.user.ProfileController
 import com.taurin.minpaku.service.AuthService
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.UserService
 import io.mockk.every
 import org.junit.jupiter.api.BeforeEach
@@ -37,9 +36,6 @@ class ProfileControllerTest {
 
     @MockkBean
     private lateinit var authService: AuthService
-
-    @MockkBean
-    private lateinit var profileService: ProfileService
 
     @MockkBean
     private lateinit var userService: UserService
