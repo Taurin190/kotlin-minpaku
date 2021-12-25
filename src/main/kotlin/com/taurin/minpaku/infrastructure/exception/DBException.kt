@@ -1,4 +1,8 @@
 package com.taurin.minpaku.infrastructure.exception
 
 
-class DBException(override val message: String?): Exception()
+class DBException: Exception {
+    constructor(message: String?) : super(message)
+
+    constructor(message: String, exception: Throwable) : super(message, exception)
+}
