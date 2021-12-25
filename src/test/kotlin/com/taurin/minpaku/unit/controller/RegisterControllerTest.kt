@@ -58,7 +58,7 @@ class RegisterControllerTest {
         )
             .andDo(print())
             .andExpect(status().is2xxSuccessful)
-            .andExpect(view().name("register/complete"))
+            .andExpect(view().name("user/complete"))
     }
 
     @Test
@@ -79,6 +79,6 @@ class RegisterControllerTest {
         )
             .andDo(print())
             .andExpect(status().is4xxClientError)
-            .andExpect(view().name("register"))
+            .andExpect(view().name("user/register"))
     }
 }
