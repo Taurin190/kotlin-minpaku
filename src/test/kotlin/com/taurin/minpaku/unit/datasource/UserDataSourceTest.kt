@@ -42,26 +42,4 @@ class UserDataSourceTest {
         assertThat(actual.hasProfile()).isFalse
         assertThat(actual.isAdmin()).isFalse
     }
-
-    @Test
-    fun testUserDataSource() {
-        val userEntity = UserEntity(
-                1,
-                "test123",
-                "password123",
-                Permission.USER
-        )
-
-        val user = userEntity.toDomain()
-
-        every {
-            userRepository.save(any())
-        } returns userEntity
-
-        userDataSource.register(user)
-
-        verify {
-            userRepository.save(any())
-        }
-    }
 }
