@@ -8,6 +8,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -40,5 +41,27 @@ class UserDataSourceTest {
         assertThat(actual.userName.toString()).isEqualTo("test123")
         assertThat(actual.hasProfile()).isFalse
         assertThat(actual.isAdmin()).isFalse
+    }
+
+    @Test
+    fun testUserDataSource() {
+        val userEntity = UserEntity(
+                1,
+                "test123",
+                "password123",
+                Permission.USER
+        )
+
+        val user = userEntity.toDomain()
+
+        every {
+            userRepository.save(any())
+        } returns userEntity
+
+        userDataSource.register(user)
+
+        verify {
+            userRepository.save(any())
+        }
     }
 }

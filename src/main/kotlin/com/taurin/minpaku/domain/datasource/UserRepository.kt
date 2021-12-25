@@ -4,4 +4,6 @@ import com.taurin.minpaku.domain.model.user.User
 
 interface UserRepository {
     fun findByUserName(userName: String): User
+
+    fun register(user: User)
 }
