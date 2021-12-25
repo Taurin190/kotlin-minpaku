@@ -19,7 +19,7 @@ import javax.validation.Valid
 class RegisterController(@Autowired private val authService: AuthService) {
     @GetMapping("/register")
     fun registerForm(mav: ModelAndView): ModelAndView {
-        mav.viewName = "register"
+        mav.viewName = "user/register"
         mav.addObject("registerForm", RegisterForm())
         return mav
     }
@@ -29,7 +29,7 @@ class RegisterController(@Autowired private val authService: AuthService) {
         @Valid form: RegisterForm,
         bindingResult: BindingResult,
         @ModelAttribute mav: ModelAndView): ModelAndView {
-        mav.viewName = "register"
+        mav.viewName = "user/register"
         if (!form.password.equals(form.passwordMatch)) {
             val fieldError = FieldError(
                 bindingResult.objectName,
@@ -46,8 +46,10 @@ class RegisterController(@Autowired private val authService: AuthService) {
             authService.register(form.username, form.password)
         } catch (e: DBException) {
             mav.addObject("error", e.message)
+            mav.viewName = "user/error"
+            return mav
         }
-        mav.viewName = "register/complete"
+        mav.viewName = "user/complete"
         return mav
     }
 }
