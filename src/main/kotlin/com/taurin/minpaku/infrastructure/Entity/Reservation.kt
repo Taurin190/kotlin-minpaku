@@ -37,7 +37,8 @@ class Reservation(
                 Title(user?.userName ?: "Guest"),
                 CheckInDateTime(checkInDateTime),
                 CheckOutDateTime(checkOutDateTime),
-                null
+                null,
+                user?.toDomain()
         )
     }
 
