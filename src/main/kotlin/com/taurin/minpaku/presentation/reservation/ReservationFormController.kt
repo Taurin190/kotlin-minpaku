@@ -1,11 +1,10 @@
 package com.taurin.minpaku.presentation.reservation
 
-import com.taurin.minpaku.infrastructure.Entity.Profile
-import com.taurin.minpaku.infrastructure.Entity.User
 import com.taurin.minpaku.infrastructure.exception.DBException
-import com.taurin.minpaku.presentation.user.ProfileNotFound
+import com.taurin.minpaku.domain.model.user.User as UserDomain
 import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.ReserveService
+import com.taurin.minpaku.service.UserService
 import com.taurin.minpaku.util.DateUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,6 +30,9 @@ class ReservationFormController {
     private lateinit var profileService: ProfileService
 
     @Autowired
+    private lateinit var userService: UserService
+
+    @Autowired
     private lateinit var session: HttpSession
 
     private val logger = LoggerFactory.getLogger(ReservationFormController::class.java)
@@ -41,21 +43,15 @@ class ReservationFormController {
         mav: ModelAndView,
         @AuthenticationPrincipal userDetail: UserDetails
     ): ModelAndView {
-        lateinit var profile: Profile
-        try {
-            profile = profileService.findByUsername(userDetail.username)
-            session.setAttribute("name", profile.name)
-            session.setAttribute("user", profile.user)
-        } catch(e: ProfileNotFound) {
+        val user = userService.getByUserName(userDetail.username)
+        if (user.profile == null) {
             mav.viewName = "not_found"
-            mav.addObject("error", e.message)
-            return mav
-        } catch(e: Exception) {
-            logger.error("Unexpected Exception: ${e.message}")
-            mav.viewName = "not_found"
-            mav.addObject("error", e.message)
+            mav.addObject("error", "予約に必要な個人情報が登録されていません。")
             return mav
         }
+
+        session.setAttribute("name", user.profile.name)
+        session.setAttribute("user", user)
 
         val form = ReservationForm()
         val checkInDate = DateUtil.getDateFromStr(date)
@@ -65,7 +61,7 @@ class ReservationFormController {
         form.checkOutDate = DateUtil.getDateStr(checkOutDate)
 
         mav.viewName = "reservation/form"
-        mav.addObject("name", profile.name)
+        mav.addObject("name", user.profile.name)
         mav.addObject("reservationForm", form)
         return mav
     }
@@ -91,8 +87,8 @@ class ReservationFormController {
         @ModelAttribute form: ReservationForm,
         @ModelAttribute mav: ModelAndView
     ): ModelAndView {
-        val user = session.getAttribute("user") as User
-        val reservationDomain = form.getReservationWithUser(user.toDomain())
+        val user = session.getAttribute("user") as UserDomain
+        val reservationDomain = form.getReservationWithUser(user)
 
         try {
             reserveService.register(reservationDomain)

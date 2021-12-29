@@ -1,17 +1,18 @@
 package com.taurin.minpaku.unit.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import com.taurin.minpaku.domain.type.Permission
-import com.taurin.minpaku.infrastructure.Entity.Profile
+import com.taurin.minpaku.helper.Factory
+import com.taurin.minpaku.helper.ProfileFactory
+import com.taurin.minpaku.helper.UserFactory
+import com.taurin.minpaku.domain.model.user.User as UserDomain
+import com.taurin.minpaku.domain.model.user.Profile as ProfileDomain
 import com.taurin.minpaku.infrastructure.exception.DBException
-import com.taurin.minpaku.infrastructure.Entity.User as UserEntity
 import com.taurin.minpaku.presentation.reservation.ReservationForm
 import com.taurin.minpaku.presentation.reservation.ReservationFormController
-import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
 import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.ReserveService
-import io.mockk.MockKAnnotations
+import com.taurin.minpaku.service.UserService
 import io.mockk.every
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -47,19 +48,24 @@ class ReservationFormControllerTest {
     @MockkBean
     private lateinit var profileService: ProfileService
 
+    @MockkBean
+    private lateinit var userService: UserService
+
     @BeforeEach
-    fun setUp() = MockKAnnotations.init(this)
+    fun setUp() {
+        Factory.define("Profile", ProfileFactory.make())
+        Factory.define("User", UserFactory.make())
+    }
 
     @Test
     fun testShowReservationForm() {
-        val profile = Profile(
-            null,
-            null,
-            "test",
-            "test@gmail.com",
-            "address",
-            "1234567890"
-        )
+        val profile = Factory.make("Profile", mapOf(
+                "name" to "Test Taro"
+        )) as ProfileDomain
+        val user = Factory.make("User", mapOf(
+                "user_name" to "testtaro",
+                "profile" to profile
+        )) as UserDomain
 
         every {
             authService.loadUserByUsername(any())
@@ -69,8 +75,8 @@ class ReservationFormControllerTest {
             .build()
 
         every {
-            profileService.findByUsername(any())
-        } returns profile
+            userService.getByUserName(any())
+        } returns user
 
         mockMvc.perform(
             get("/reservation/form")
@@ -83,6 +89,10 @@ class ReservationFormControllerTest {
 
     @Test
     fun testShowReservationFormWithoutProfile() {
+        val user = Factory.make("User", mapOf(
+                "user_name" to "testtaro",
+        )) as UserDomain
+
         every {
             authService.loadUserByUsername(any())
         } returns User.withUsername("test")
@@ -91,31 +101,8 @@ class ReservationFormControllerTest {
             .build()
 
         every {
-            profileService.findByUsername(any())
-        } throws ProfileNotFound("プロフィールが見つかりませんでした。")
-
-        mockMvc.perform(
-            get("/reservation/form")
-                .with(user("test"))
-        )
-            .andDo(print())
-            .andExpect(status().is2xxSuccessful)
-            .andExpect(view().name("not_found"))
-            .andExpect(model().attributeExists("error"))
-    }
-
-    @Test
-    fun testShowReservationFormWithException() {
-        every {
-            authService.loadUserByUsername(any())
-        } returns User.withUsername("test")
-            .password(passwordEncoder.encode("test"))
-            .roles("ADMIN")
-            .build()
-
-        every {
-            profileService.findByUsername(any())
-        } throws Exception("Other exception")
+            userService.getByUserName(any())
+        } returns user
 
         mockMvc.perform(
             get("/reservation/form")
@@ -168,11 +155,9 @@ class ReservationFormControllerTest {
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity(
-                null,
-                "test12",
-                passwordEncoder.encode("test")
-        )
+        val userDomain = Factory.make("User", mapOf(
+                "user_name" to "test12",
+        )) as UserDomain
 
         every {
             authService.loadUserByUsername(any())
@@ -186,7 +171,7 @@ class ReservationFormControllerTest {
             post("/reservation/complete")
                 .with(user("test12"))
                 .flashAttr("reservationForm", form)
-                .sessionAttr("user", userEntity)
+                .sessionAttr("user", userDomain)
                 .with(csrf())
         )
             .andDo(print())
@@ -206,12 +191,9 @@ class ReservationFormControllerTest {
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity(
-                null,
-                "test111",
-                passwordEncoder.encode("test"),
-                Permission.ADMIN
-        )
+        val userDomain = Factory.make("User", mapOf(
+                "user_name" to "test111",
+        )) as UserDomain
 
         every {
             authService.loadUserByUsername(any())
@@ -225,7 +207,7 @@ class ReservationFormControllerTest {
             post("/reservation/complete")
                 .with(user("test111"))
                 .flashAttr("reservationForm", form)
-                .sessionAttr("user", userEntity)
+                .sessionAttr("user", userDomain)
                 .with(csrf())
         )
             .andDo(print())
@@ -245,11 +227,9 @@ class ReservationFormControllerTest {
             .roles("ADMIN")
             .build()
 
-        val userEntity = UserEntity(
-                null,
-                "test123",
-                passwordEncoder.encode("test")
-        )
+        val userDomain = Factory.make("User", mapOf(
+                "user_name" to "test123",
+        )) as UserDomain
 
         every {
             authService.loadUserByUsername(any())
@@ -263,7 +243,7 @@ class ReservationFormControllerTest {
             post("/reservation/complete")
                 .with(user("test123"))
                 .flashAttr("reservationForm", form)
-                .sessionAttr("user", userEntity)
+                .sessionAttr("user", userDomain)
                 .with(csrf())
         )
             .andDo(print())
