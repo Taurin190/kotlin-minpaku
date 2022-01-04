@@ -10,7 +10,6 @@ import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.presentation.reservation.ReservationForm
 import com.taurin.minpaku.presentation.reservation.ReservationFormController
 import com.taurin.minpaku.service.AuthService
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.ReserveService
 import com.taurin.minpaku.service.UserService
 import io.mockk.every
@@ -44,9 +43,6 @@ class ReservationFormControllerTest {
 
     @MockkBean
     private lateinit var reserveService: ReserveService
-
-    @MockkBean
-    private lateinit var profileService: ProfileService
 
     @MockkBean
     private lateinit var userService: UserService

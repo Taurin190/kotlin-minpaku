@@ -2,7 +2,6 @@ package com.taurin.minpaku.presentation.reservation
 
 import com.taurin.minpaku.infrastructure.exception.DBException
 import com.taurin.minpaku.domain.model.user.User as UserDomain
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.ReserveService
 import com.taurin.minpaku.service.UserService
 import com.taurin.minpaku.util.DateUtil
@@ -25,9 +24,6 @@ import javax.servlet.http.HttpSession
 class ReservationFormController {
     @Autowired
     private lateinit var reserveService: ReserveService
-
-    @Autowired
-    private lateinit var profileService: ProfileService
 
     @Autowired
     private lateinit var userService: UserService
