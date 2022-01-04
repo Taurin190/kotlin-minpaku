@@ -13,6 +13,11 @@ class UserService {
 
     @Transactional
     fun register(user: User) {
+        userDataSource.registerProfile(user)
+    }
+
+    @Transactional
+    fun registerProfile(user: User) {
 
     }
 

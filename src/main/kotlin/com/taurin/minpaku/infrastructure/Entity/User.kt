@@ -31,11 +31,11 @@ data class User (
         )
     }
     companion object {
-        fun fromDomain(userDomain: UserDomain): User {
+        fun fromDomain(userDomain: UserDomain, userEntity: User? = null): User {
             return User(
-                    null,
+                    userEntity?.userId,
                     userDomain.userName.toString(),
-                    "",
+                    userEntity?.password ?: "",
                     userDomain.permission,
                     if (userDomain.profile != null) Profile.fromDomain(userDomain.profile) else null,
                     null
