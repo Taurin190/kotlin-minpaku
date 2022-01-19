@@ -147,7 +147,7 @@ class ProfileCreateControllerTest {
         profileForm.name = "test"
         profileForm.address = "address"
         profileForm.email = "test@mail.com"
-        profileForm.phone = "12345"
+        profileForm.phone = "080-1234-5678"
 
         every {
             authService.loadUserByUsername(any())
@@ -157,7 +157,7 @@ class ProfileCreateControllerTest {
             .build()
 
         every {
-            profileService.register(any(), any(), any(), any(), any())
+            userService.registerProfile(any(), any())
         } returns Unit
 
         mockMvc.perform(post("/profile/complete")
@@ -170,7 +170,7 @@ class ProfileCreateControllerTest {
             .andExpect(view().name("profile/complete"))
 
         verify(exactly = 1) {
-            profileService.register(any(), any(), any(), any(), any())
+            userService.registerProfile(any(), any())
         }
     }
 }

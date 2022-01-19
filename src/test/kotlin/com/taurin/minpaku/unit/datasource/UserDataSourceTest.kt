@@ -14,7 +14,6 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
-import org.apache.poi.util.Units
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -78,7 +77,7 @@ class UserDataSourceTest {
             userRepository.save(any())
         } returns userEntity
 
-        userDataSource.registerProfile(user)
+        userDataSource.registerProfile("test123", profile)
 
         verify {
             userRepository.findByUserName("test123")

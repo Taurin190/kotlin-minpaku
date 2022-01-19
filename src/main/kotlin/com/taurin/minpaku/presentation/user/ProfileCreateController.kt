@@ -63,13 +63,8 @@ class ProfileCreateController {
     ): ModelAndView {
         try {
             logger.info("User: ${userDetail.username} register profile")
-            profileService.register(
-                userDetail.username,
-                form.name,
-                form.email,
-                form.address,
-                form.phone
-            )
+            val profile = form.getProfileDomain()
+            userService.registerProfile(userDetail.username, profile)
             mav.viewName = "profile/complete"
         } catch (e: DBException) {
             mav.viewName = "profile/error"

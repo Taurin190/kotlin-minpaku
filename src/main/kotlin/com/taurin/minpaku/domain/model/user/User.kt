@@ -12,9 +12,16 @@ class User(
     fun isAdmin() = permission == Permission.ADMIN
 
     override fun toString(): String {
-        if (profile != null) {
-            return profile.name.toString()
+        return (profile?.name ?: "Guest").toString()
+    }
+
+    companion object {
+        fun create(parameters: Map<String, Any>): User {
+            return User(
+                    UserName(parameters["user_name"] as String),
+                    parameters["profile"] as Profile,
+                    parameters["permission"] as Permission
+            )
         }
-        return "Guest"
     }
 }

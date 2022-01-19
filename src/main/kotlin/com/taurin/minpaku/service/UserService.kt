@@ -1,5 +1,6 @@
 package com.taurin.minpaku.service
 
+import com.taurin.minpaku.domain.model.user.Profile
 import com.taurin.minpaku.domain.model.user.User
 import com.taurin.minpaku.infrastructure.datasource.UserDataSource
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,13 +13,8 @@ class UserService {
     private lateinit var userDataSource: UserDataSource
 
     @Transactional
-    fun register(user: User) {
-        userDataSource.registerProfile(user)
-    }
-
-    @Transactional
-    fun registerProfile(user: User) {
-
+    fun registerProfile(username: String, profile: Profile) {
+        userDataSource.registerProfile(username, profile)
     }
 
     fun getByUserName(userName: String): User {
