@@ -4,9 +4,7 @@ import com.ninjasquad.springmockk.MockkBean
 import com.taurin.minpaku.infrastructure.Entity.Profile
 import com.taurin.minpaku.presentation.user.ProfileCreateController
 import com.taurin.minpaku.presentation.user.ProfileForm
-import com.taurin.minpaku.presentation.user.ProfileNotFound
 import com.taurin.minpaku.service.AuthService
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.UserService
 import io.mockk.every
 import io.mockk.verify
@@ -36,9 +34,6 @@ class ProfileCreateControllerTest {
 
     @MockkBean
     private lateinit var authService: AuthService
-
-    @MockkBean
-    private lateinit var profileService: ProfileService
 
     @MockkBean
     private lateinit var userService: UserService

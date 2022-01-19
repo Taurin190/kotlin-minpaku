@@ -1,7 +1,6 @@
 package com.taurin.minpaku.presentation.user
 
 import com.taurin.minpaku.infrastructure.exception.DBException
-import com.taurin.minpaku.service.ProfileService
 import com.taurin.minpaku.service.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,9 +16,6 @@ import javax.validation.Valid
 @RequestMapping("/profile")
 @SessionAttributes(types = [ProfileForm::class])
 class ProfileCreateController {
-    @Autowired
-    private lateinit var profileService: ProfileService
-
     @Autowired
     private lateinit var userService: UserService
 
