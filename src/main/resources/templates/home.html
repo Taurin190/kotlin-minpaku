@@ -5,11 +5,24 @@
 <body>
 <header th:replace="common/nav::header"></header>
 <main class="contents container">
-  <h1>
-    Home
-  </h1>
-  <strong sec:authorize="isAuthenticated()">認証済み</strong>
-  <strong sec:authorize="!isAuthenticated()">未認証</strong>
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <img th:src="@{/image/minpaku.jpg}" class="img-fluid" />
+      <h1 class="my-3">
+        森の中に建てられたバンガロー
+      </h1>
+      <p>
+        1部屋に2人まで宿泊可能（ベット数2）、最大4泊5日まで利用していただけます。支払いは利用当日に前払い（1部屋1泊2000円）
+      </p>
+    </div>
+    <div class="col-10 mx-auto my-5">
+      <h2>予約状況</h2>
+      <p>今月予約は入っていません。</p>
+      <a class="btn btn-primary btn-block" th:href="@{reservation/form}">
+        宿泊を予約する
+      </a>
+    </div>
+  </div>
 </main>
 <div th:replace="common/scripts::scripts"></div>
 </body>

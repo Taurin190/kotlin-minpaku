@@ -33,6 +33,11 @@ $ ./gradlew bootRun
 - MySQL 8.0
 - Redis
 
+## 素材
+写真素材利用元
+
+フリー素材ぱくたそ（www.pakutaso.com）
+
 ## メモ
 ### Book entityのDateをutilでなくsql.dateにした理由
 この要件では、宿泊日の重複は起こらないため、Uniqueの制約を入れて、
