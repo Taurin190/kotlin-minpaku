@@ -66,6 +66,11 @@ class ProfileCreateController {
             mav.viewName = "profile/error"
             mav.addObject("error", e.message)
         }
+        catch (e: Exception) {
+            mav.viewName = "profile/form"
+            mav.addObject("error", e.message)
+            logger.warn( e.message)
+        }
         return mav
     }
 }

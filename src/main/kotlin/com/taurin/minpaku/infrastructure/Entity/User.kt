@@ -38,7 +38,7 @@ data class User (
                     userEntity?.password ?: "",
                     userDomain.permission,
                     if (userDomain.profile != null) Profile.fromDomain(userDomain.profile) else null,
-                    null
+                    userEntity?.reservations
             )
         }
     }

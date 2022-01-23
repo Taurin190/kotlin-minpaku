@@ -3,7 +3,7 @@ package com.taurin.minpaku.infrastructure.datasource
 import com.taurin.minpaku.domain.exception.InvalidParameterException
 import com.taurin.minpaku.domain.model.user.Profile
 import com.taurin.minpaku.domain.model.user.User
-import com.taurin.minpaku.infrastructure.Entity.User as UserEntity
+import com.taurin.minpaku.infrastructure.Entity.Profile as ProfileEntity
 import com.taurin.minpaku.infrastructure.Repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Repository
@@ -19,19 +19,14 @@ class UserDataSource(
     }
 
     override fun registerProfile(username: String, profile: Profile) {
-        val currentUserEntity = userRepository.findByUserName(username)
-        val currentDomain = currentUserEntity.toDomain()
+        val userEntity = userRepository.findByUserName(username)
+        val currentDomain = userEntity.toDomain()
         if (currentDomain.hasProfile()) {
             throw InvalidParameterException("既にプロフィールが設定されています。")
         }
-        val userWithProfile = User.create(
-                mapOf(
-                        "user_name" to currentDomain.userName.toString(),
-                        "profile" to profile,
-                        "permission" to currentDomain.permission
-                )
-        )
-        val updatedUserEntity = UserEntity.fromDomain(userWithProfile, currentUserEntity)
-        userRepository.save(updatedUserEntity)
+        val profileEntity = ProfileEntity.fromDomain(profile)
+        profileEntity.user = userEntity
+        userEntity.profile = profileEntity
+        userRepository.save(userEntity)
     }
 }

@@ -38,7 +38,7 @@ data class Profile(
                     null,
                     profileDomain.name.toString(),
                     profileDomain.emailAddress.toString(),
-                    "",
+                    profileDomain.address.toString(),
                     profileDomain.phoneNumber.toString()
             )
         }
