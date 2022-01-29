@@ -23,7 +23,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
             "/**/favicon.ico",
-            "/images/**",
+            "/image/**",
             "/css/**",
             "/js/**"
         )
