@@ -27,7 +27,7 @@ class LoginController() {
 
     @GetMapping("/password/reset")
     fun passwordReset(mav: ModelAndView): ModelAndView {
-        mav.viewName = "home"
+        mav.viewName = "password/reset"
         return mav
     }
 }

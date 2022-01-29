@@ -17,10 +17,22 @@
     </div>
     <div class="col-10 mx-auto my-5">
       <h2>予約状況</h2>
-      <p>今月予約は入っていません。</p>
-      <a class="btn btn-primary btn-block" th:href="@{reservation/form}">
-        宿泊を予約する
-      </a>
+      <th:block th:if="${reservations.count() == 0}" >
+        <p>今月予約は入っていません。</p>
+      </th:block>
+      <th:block th:if="${reservations.count() > 0}" >
+        <h3>予約一覧</h3>
+        <tr th:each="reservation : ${reservations}">
+          <td th:text="${reservation.user.userName}"></td>
+          <td th:text="${reservation.checkInDateTime}"></td>
+          <td th:text="${reservation.checkOutDateTime}"></td>
+        </tr>
+      </th:block>
+      <div class="my-3">
+        <a class="btn btn-primary btn-block" th:href="@{reservation/form}">
+          宿泊を予約する
+        </a>
+      </div>
     </div>
   </div>
 </main>
