@@ -22,13 +22,29 @@
       </th:block>
       <th:block th:if="${reservations.count() > 0}" >
         <h3>予約一覧</h3>
-        <tr th:each="reservation : ${reservations}">
-          <td th:text="${reservation.user.userName}"></td>
-          <td th:text="${reservation.checkInDateTime}"></td>
-          <td th:text="${reservation.checkOutDateTime}"></td>
-        </tr>
+        <table class="table">
+          <thead class="text-left">
+          <tr class="row mx-0 d-flex d-sm-table-row  align-items-left">
+            <th class="col-6 d-block d-sm-table-cell align-middle">名前</th>
+            <th class="col-3 d-block d-sm-table-cell align-middle">チェックイン日</th>
+            <th class="col-3 d-block d-sm-table-cell align-middle">チェックアウト日</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr th:each="reservation : ${reservations}">
+              <td class="col-6 d-block d-sm-table-cell align-middle" th:text="${reservation.user.userName}"></td>
+              <td class="col-3 d-block d-sm-table-cell align-middle" th:text="${reservation.checkInDateTime}"></td>
+              <td class="col-3 d-block d-sm-table-cell align-middle" th:text="${reservation.checkOutDateTime}"></td>
+            </tr>
+          </tbody>
+        </table>
       </th:block>
-      <div class="my-3">
+      <div class="text-right">
+        <a href="#">
+          <p class="align-center">もっと見る <i class="fas fa-chevron-right"></i></p>
+        </a>
+      </div>
+      <div class="my-5">
         <a class="btn btn-primary btn-block" th:href="@{reservation/form}">
           宿泊を予約する
         </a>
