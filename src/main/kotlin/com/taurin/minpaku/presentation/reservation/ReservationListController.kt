@@ -26,6 +26,10 @@ class ReservationListController {
                 DateUtil.getValidYear(yearStr),
                 DateUtil.getValidMonth(monthStr)
         )
+        if (yearStr != "" && monthStr != "") {
+            mav.addObject("date", "${yearStr}年${monthStr}月")
+        }
+        mav.addObject("reservations", reservations)
         return mav
     }
 }

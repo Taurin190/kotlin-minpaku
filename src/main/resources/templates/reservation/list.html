@@ -2,6 +2,28 @@
 <head th:replace="common/head::common_head('予約一覧 - みん泊予約', '')"></head>
 <body>
 <header th:replace="common/nav::header"></header>
-<main class="contents container-fluid auth-page"></main>
+<main class="contents container">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1 th:text="${date}?: '今月の予約一覧'"></h1>
+            <table class="table">
+                <thead class="text-left">
+                <tr class="row mx-0 d-flex d-sm-table-row  align-items-left">
+                    <th class="col-6 d-block d-sm-table-cell align-middle">名前</th>
+                    <th class="col-3 d-block d-sm-table-cell align-middle">チェックイン日</th>
+                    <th class="col-3 d-block d-sm-table-cell align-middle">チェックアウト日</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="reservation : ${reservations}">
+                    <td class="col-6 d-block d-sm-table-cell align-middle" th:text="${reservation.user.userName}"></td>
+                    <td class="col-3 d-block d-sm-table-cell align-middle" th:text="${reservation.checkInDateTime}"></td>
+                    <td class="col-3 d-block d-sm-table-cell align-middle" th:text="${reservation.checkOutDateTime}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
 </body>
 </html>
