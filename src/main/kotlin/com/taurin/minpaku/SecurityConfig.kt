@@ -35,11 +35,12 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
         http.authorizeRequests()
             .antMatchers(
-                "/",
-                "/login",
-                "/register",
-                "/api/reservation/list",
-                "/password/reset"
+                    "/",
+                    "/login",
+                    "/register",
+                    "/api/reservation/list",
+                    "/reservation/list",
+                    "/password/reset"
             ).permitAll()
             .antMatchers(HttpMethod.POST, "/api/reservation/add").permitAll()
             .anyRequest().authenticated()
