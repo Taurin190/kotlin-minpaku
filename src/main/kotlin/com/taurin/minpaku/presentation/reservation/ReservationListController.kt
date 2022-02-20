@@ -22,13 +22,21 @@ class ReservationListController {
             mav: ModelAndView
     ): ModelAndView {
         mav.viewName = "reservation/list"
+        val year =  DateUtil.getValidYear(yearStr)
+        val month = DateUtil.getValidMonth(monthStr)
         val reservations = reserveService.getReservationsInMonth(
-                DateUtil.getValidYear(yearStr),
-                DateUtil.getValidMonth(monthStr)
+                year,
+                month
         )
         if (yearStr != "" && monthStr != "") {
             mav.addObject("date", "${yearStr}年${monthStr}月")
         }
+        val prevParam = DateUtil.getPrevMonth(year, month)
+        val nextParam = DateUtil.getNextMonth(year, month)
+        mav.addObject("prev_year", prevParam[0])
+        mav.addObject("prev_month", prevParam[1])
+        mav.addObject("next_year", nextParam[0])
+        mav.addObject("next_month", nextParam[1])
         mav.addObject("reservations", reservations)
         return mav
     }

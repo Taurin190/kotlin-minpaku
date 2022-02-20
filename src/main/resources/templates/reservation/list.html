@@ -22,6 +22,12 @@
                 </tr>
                 </tbody>
             </table>
+            <div>
+                <a th:href="@{/reservation/list(year=${prev_year}, month=${prev_month})}">前の月へ</a>
+            </div>
+            <div>
+                <a th:href="@{/reservation/list(year=${next_year}, month=${next_month})}">次の月へ</a>
+            </div>
         </div>
     </div>
 </main>

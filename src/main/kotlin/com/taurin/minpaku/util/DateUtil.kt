@@ -42,6 +42,28 @@ class DateUtil {
             return cal.get(Calendar.YEAR)
         }
 
+        fun getNextMonth(year: Int, month: Int): List<Int> {
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month - 1)
+            cal.add(Calendar.MONTH, 1)
+            val nextYear = cal.get(Calendar.YEAR)
+            val nextMonth = cal.get(Calendar.MONTH) + 1
+
+            return arrayListOf(nextYear, nextMonth)
+        }
+
+        fun getPrevMonth(year: Int, month: Int): List<Int> {
+            val cal = Calendar.getInstance()
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month - 1)
+            cal.add(Calendar.MONTH, -1)
+            val prevYear = cal.get(Calendar.YEAR)
+            val prevMonth = cal.get(Calendar.MONTH) + 1
+
+            return arrayListOf(prevYear, prevMonth)
+        }
+
         fun getDateFromStr(dateStr: String?): Date {
             if (dateStr == null) {
                 return Date()
