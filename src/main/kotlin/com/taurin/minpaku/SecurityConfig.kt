@@ -1,5 +1,6 @@
 package com.taurin.minpaku
 
+import com.taurin.minpaku.domain.type.Permission
 import com.taurin.minpaku.presentation.CsrfRequestMatcher
 import com.taurin.minpaku.service.AuthService
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,10 +23,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers(
-            "/**/favicon.ico",
-            "/image/**",
-            "/css/**",
-            "/js/**"
+                "/**/favicon.ico",
+                "/image/**",
+                "/css/**",
+                "/js/**"
         )
     }
 
@@ -34,39 +35,42 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http.csrf().requireCsrfProtectionMatcher(CsrfRequestMatcher())
 
         http.authorizeRequests()
-            .antMatchers(
-                    "/",
-                    "/login",
-                    "/register",
-                    "/api/reservation/list",
-                    "/reservation/list",
-                    "/password/reset"
-            ).permitAll()
-            .antMatchers(HttpMethod.POST, "/api/reservation/add").permitAll()
-            .anyRequest().authenticated()
+                .antMatchers(
+                        "/",
+                        "/login",
+                        "/register",
+                        "/api/reservation/list",
+                        "/reservation/list",
+                        "/password/reset"
+                ).permitAll()
+                .antMatchers(HttpMethod.POST, "/api/reservation/add").permitAll()
+                .antMatchers(
+                        "/admin**"
+                ).hasRole("ADMIN")
+                .anyRequest().authenticated()
 
         http.formLogin()
-            .loginProcessingUrl("/login")   // 認証処理のパス
-            .loginPage("/login")            // ログインフォームのパス
-            .failureHandler(AuthenticationFailureHandler())       // 認証失敗時に呼ばれるハンドラクラス
-            .defaultSuccessUrl("/")     // 認証成功時の遷移先
-            .usernameParameter("username")  // ユーザー名
-            .passwordParameter("password")  // パスワード
-            .and()
+                .loginProcessingUrl("/login")   // 認証処理のパス
+                .loginPage("/login")            // ログインフォームのパス
+                .failureHandler(AuthenticationFailureHandler())       // 認証失敗時に呼ばれるハンドラクラス
+                .defaultSuccessUrl("/")     // 認証成功時の遷移先
+                .usernameParameter("username")  // ユーザー名
+                .passwordParameter("password")  // パスワード
+                .and()
 
         // ログアウト
         http.logout()
-            .logoutRequestMatcher(AntPathRequestMatcher("/logout**"))
-            .logoutSuccessUrl("/login")
-            .invalidateHttpSession(true)
+                .logoutRequestMatcher(AntPathRequestMatcher("/logout**"))
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
     }
 
     @Configuration
-    open class AuthenticationConfiguration: GlobalAuthenticationConfigurerAdapter() {
+    open class AuthenticationConfiguration : GlobalAuthenticationConfigurerAdapter() {
         @Autowired
-        lateinit var authService : AuthService
+        lateinit var authService: AuthService
 
-        override fun init( auth : AuthenticationManagerBuilder) {
+        override fun init(auth: AuthenticationManagerBuilder) {
             // 認証するユーザーの設定
             auth.userDetailsService(authService)
         }

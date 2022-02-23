@@ -1,0 +1,18 @@
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="common/home_head::home_head"></head>
+<body>
+<header th:replace="common/nav::header"></header>
+<main class="contents container">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h1 class="my-3">
+        管理画面
+      </h1>
+    </div>
+  </div>
+</main>
+<div th:replace="common/scripts::scripts"></div>
+</body>
+</html>
