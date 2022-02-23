@@ -5,13 +5,21 @@
   <title>/error</title>
 </head>
 <body>
+<!--/*@thymesVar id="timestamp" type="java.lang.String"*/-->
 <div th:text="'timestamp: ' + ${timestamp}"></div>
+<!--/*@thymesVar id="status" type="java.lang.String"*/-->
 <div th:text="'status: ' + ${status}"></div>
+<!--/*@thymesVar id="error" type="java.lang.String"*/-->
 <div th:text="'error: ' + ${error}"></div>
+<!--/*@thymesVar id="exception" type="java.lang.String"*/-->
 <div th:text="'exception: ' + ${exception}"></div>
+<!--/*@thymesVar id="message" type="java.lang.String"*/-->
 <div th:text="'message: ' + ${message}"></div>
+<!--/*@thymesVar id="errors" type="java.lang.String"*/-->
 <div th:text="'errors: ' + ${errors}"></div>
+<!--/*@thymesVar id="trace" type="java.lang.String"*/-->
 <div th:text="'trace: ' + ${trace}"></div>
+<!--/*@thymesVar id="path" type="java.lang.String"*/-->
 <div th:text="'path: ' + ${path}"></div>
 </body>
 </html>
