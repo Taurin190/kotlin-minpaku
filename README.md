@@ -46,3 +46,8 @@ Databaseで重複を防ぐ仕組みにしたかった。
 utilのDateはcreated_datetimeなどでも使っているが、 時間まで入るため使わなかった。
 また、Stringなどで管理するとIndexでBetweenが効かないという問題もあるため、
 datetimeを使いつつ日付のみを管理する事にした。
+
+### RepositoryとDatasourceについて
+DDDでは、Domain層にRepositoryのInterfaceを設定して、データ層とドメイン層の依存関係を逆転させるが、
+JpaRepositoryを拡張させたinterfaceも同様にSpring的にRepositoryとなっていてややこしくなるため、
+DataSourceと異なる名前をつけて独自のドメインモデルを返り値を持つInterfaceを返すことを強制させる。
